@@ -5,7 +5,52 @@
 
 body {
     background-color: #f2f3f0;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
+
+.signup-page {
+    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: transparent;
+    vertical-align: baseline;
+    font-size: 100% ;
+   
+}
+
+.signup-main {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.signup-page-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: transparent;
+    height: 40px;
+}
+.signup-logo {
+    width: 135px;
+    opacity: 1;    
+}
+
 
 .signup-title {
     text-align: center !important;
@@ -18,23 +63,53 @@ body {
     font-size: 24px !important;
 }
 
+.signup-form-wrapper {
+    margin: auto;
+    width: auto;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
 .signup-form {
+    background-color: transparent;
+    width: auto;
+    padding-bottom: 0;
+    flex-direction: column;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    width: 400px;
+    margin: auto;
+    padding-bottom: 24px;
+    background-color: #f6f8fa;
+    border-radius: 2px;
+}
+
+.signup-form-section {
     padding-left: 24px !important;
     padding-right: 24px !important;
     max-width: 400px;
     width: auto;
-
     margin: 0 auto;
     padding-top: 24px;
-    background-color: #ffffff;
+    background-color: #fff;
     position: relative;
     border-radius: 0;
+    display: flex;
+    flex-flow: row wrap;
+    /* background-color: #edf0f3; */
+    padding: 0 24px 0 24px;
 }
+
+
 .signup-inputs {
     width: 100%;
     display: flex;
     flex-direction: column;
+    
 }
+
 .signup-inputs > label {
     margin-top: 0;
     color: rgba(0, 0, 0, 0.75) !important;
@@ -42,7 +117,7 @@ body {
     font-size: 14px;
     font-weight: 600;
 }
-.signup-inputs > input {
+/* .signup-inputs > input {
     height: 32px !important;
     background-color: rgba(0, 0, 0, 0) !important;
     border-color: rgba(0, 0, 0, 0.75) !important;
@@ -58,4 +133,31 @@ body {
     padding-bottom: 14px;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
     font-size: 16px;
+} */
+
+.email {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding:0px;
+}
+
+footer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    vertical-align: baseline;
+}
+
+@media (max-width: 769px) {
+    .UserSignUpPage {
+        display: block;
+    }
+}
+
+@media (max-width: 992px) {
+    .signup-title{
+        font-weight: 400 !important;
+        font-size: 32px !important;
+    }
 }
