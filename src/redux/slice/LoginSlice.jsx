@@ -2,16 +2,17 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
 
 
-export const registerUsers = createAsyncThunk('users/registerUsers', async (inputs) => {
-    const response = await axios.post('http://localhost:8080/signup', inputs)
+export const loginUsers = createAsyncThunk('users/loginUsers', async (inputs) => {
+    const response = await axios.post('http://localhost:8080/login', inputs)
     // console.log(response)
     const data = response.data
+    localStorage.setItem('token', data.token)
     // console.log(data)
     return data
 })
 
-export const userSlice = createSlice({
-    name: 'users',
+export const loginSlice = createSlice({
+    name: 'login',
     initialState: {
         isLoading: false,
         error: null,
@@ -19,17 +20,18 @@ export const userSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(registerUsers.pending, (state) => {
+        builder.addCase(loginUsers.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(registerUsers.fulfilled, (state, action) => {
+        builder.addCase(loginUsers.fulfilled, (state, action) => {
             state.isLoading = false
+            state.content = action.payload
         })
-        builder.addCase(registerUsers.rejected, (state, action) => {
+        builder.addCase(loginUsers.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })
     }
 })
 
-export default userSlice.reducer
+export default loginSlice.reducer

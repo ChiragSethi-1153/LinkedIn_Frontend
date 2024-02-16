@@ -4,13 +4,13 @@ import './UserSignup.css'
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import Footer from '../Footer/Footer'
-import { registerUsers } from '../../redux/slice/userSlice'
+import { registerUsers } from '../../redux/slice/UserSlice'
 import {ReactComponent as GoogleIcon} from '../../assets/icons-google.svg'
 import { useNavigate } from 'react-router-dom'
-import { hover } from '@testing-library/user-event/dist/hover'
+
 const UserSignup = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate(0)
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -19,24 +19,31 @@ const UserSignup = () => {
     event.preventDefault();
   };
 
+
   
   const [inputs, setInputs] = useState({ email: '', password: '' })
 
-  useEffect(() => {
+const handleEmail = (e) => {
+  setInputs({...inputs, email: e.target.value})
+}
+const handlePassword = (e) => {
+  setInputs({...inputs, password: e.target.value})
+}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(inputs)
     dispatch(registerUsers(inputs))
-  }, [dispatch])
-
-  const users = useSelector((state) => state.user.content)
-  const loading = useSelector((state) => state.user.isLoading)
-  const error = useSelector((state) => state.user.error)
-
-  if (loading) {
-    return "Loading..."
+    navigate('/login')
   }
-  if (error) {
-    return error
-  }
-
+  // const loading = useSelector((state) => state.user.isLoading)
+  //   const error = useSelector((state) => state.user.error)
+  
+  //   if (loading) {
+  //     return "Loading..."
+  //   }
+  //   if (error) {
+  //     return error
+  //   }
 
   return (
     <Box className='signup-Page'>
@@ -54,7 +61,7 @@ const UserSignup = () => {
 
         <Box className='signup-form-wrapper'>
 
-          <form className='signup-form'>
+          <form className='signup-form'  onSubmit={(e) => {handleSubmit(e)}}>
             <section className='signup-form-section'>
 
               <Box className='signup-inputs'>
@@ -70,6 +77,8 @@ const UserSignup = () => {
                       border: "none",
                   }
                   }}
+                  value={inputs.email}
+                  onChange={(e) => {handleEmail(e)}}
                   required />
                 <br />
                 <label htmlFor='password'>Password (6+ characters)</label>
@@ -80,6 +89,8 @@ const UserSignup = () => {
                   sx={{
                     paddingRight: '0',  
                   }}
+                  value={inputs.password}
+                  onChange={(e) => {handlePassword(e)}}
                   endAdornment={
                     <InputAdornment position="end" >
                       <Button
@@ -119,7 +130,10 @@ const UserSignup = () => {
                   fontWeight: 500,
                   fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                   backgroundColor: '#0a66c2'
-                }} >
+                }} 
+                type='submit'
+               
+                >
                 Agree & Join
               </Button>
             
