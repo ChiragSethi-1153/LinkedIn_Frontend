@@ -15,9 +15,10 @@ import React, { useState } from "react";
 import "./UserLogin.css";
 import "../UserSignup/UserSignup.css";
 import Footer from "../Footer/Footer";
-
+import AppleIcon from '@mui/icons-material/Apple';
 import Logo from "../../assets/Linkedin-logo2.png";
 import { ReactComponent as GoogleIcon } from "../../assets/icons-google.svg";
+import { ReactComponent as LinkIcon } from "../../assets/link-icon.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUsers } from "../../redux/slice/LoginSlice";
@@ -45,7 +46,7 @@ const UserLogin = () => {
     e.preventDefault();
     console.log(inputs);
     dispatch(loginUsers(inputs));
-    // navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -210,8 +211,9 @@ const UserLogin = () => {
             <span className="divider-text-content">
               <span className="divider-text">or</span>
             </span>
+            <p className='login-text'>By clicking to Continue, you agree to the LinkedIn's <span className='login-text-span'>User Agreement</span>, <span className='login-text-span'>Privacy Policy</span>, and <span className='login-text-span'>Cookie Policy</span>.</p>
           </Box>
-          <Box className="third-party-container">
+          <Box className="third-party-container-login">
             <Button
               variant="outlined"
               startIcon={
@@ -219,12 +221,50 @@ const UserLogin = () => {
                   style={{ width: "21px", height: "21px", minWidth: "18px" }}
                 />
               }
-              className="google-btn"
+              className="third-party-btns"
             >
               Continue with Google
             </Button>
           </Box>
+          <Box className="third-party-container-login">
+            <Button
+              variant="outlined"
+              startIcon={
+                <AppleIcon
+                  style={{ width: "21px", height: "21px", minWidth: "18px" }}
+                />
+              }
+              className="third-party-btns"
+            >
+              Sign in with Apple
+            </Button>
+          </Box>
+          <Box className="third-party-container-login">
+            <Button
+              variant="outlined"
+              startIcon={
+                <LinkIcon
+                  style={{ width: "21px", height: "21px", minWidth: "18px" }}
+                />
+              }
+              className="third-party-btns"
+            >
+              Sign in with a one-time link
+            </Button>
+          </Box>
+          <Box className="third-party-container-login">
+            <Button
+              variant="outlined"
+              className="third-party-btns"
+            >
+              Sign in with a passkey
+            </Button>
+          </Box>
         </Stack>
+      </Box>
+      
+      <Box>
+        <Typography paragraph={true} className="login-footer-text">New to LinkedIn? <span className="login-footer-text-btn">Join Now</span> </Typography>
       </Box>
 
       <footer style={{ width: "100%" }}>
