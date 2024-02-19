@@ -22,12 +22,34 @@ import { ReactComponent as LinkIcon } from "../../assets/link-icon.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUsers } from "../../redux/slice/LoginSlice";
+import validator from "validator";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [emailErrorMsg, setEmailErrorMsg] = useState("");
+  const [navigation, setNavigation] = useState(true)
+
+  const validate = (value) => {
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      setErrorMessage("");
+      setNavigation(true)
+    } else {
+      setErrorMessage("Is Not a valid Password");
+      setNavigation(false)
+    }
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -37,16 +59,29 @@ const UserLogin = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
 
   const handleEmail = (e) => {
-    setInputs({ ...inputs, email: e.target.value });
+    setInputs({ ...inputs, email: e.target.value })
+    let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+    if (!emailRegex.test(e.target.value)) {
+      setEmailErrorMsg("Please enter a valid email address.");
+      setNavigation(false)
+    } else {
+      setEmailErrorMsg("");
+      setNavigation(true)
+    };
   };
   const handlePassword = (e) => {
     setInputs({ ...inputs, password: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
-    dispatch(loginUsers(inputs));
-    navigate("/");
+    if(navigation === false){
+      alert('Enter Valid Credentials')
+    }
+    else{
+      console.log(inputs);
+      dispatch(loginUsers(inputs));
+      navigate("/");
+    }
   };
 
   return (
@@ -120,7 +155,7 @@ const UserLogin = () => {
             value={inputs.email}
             onChange={(e) => {handleEmail(e)}}
           />
-
+          <Typography style={{ color: "red" }}>{emailErrorMsg}</Typography>
           <FormControl sx={{ width: "100%" }} variant="standard">
             <InputLabel htmlFor="standard-adornment-password">
               Password
@@ -139,7 +174,10 @@ const UserLogin = () => {
                 paddingRight: "0",
               }}
             value={inputs.password}
-            onChange={(e) => {handlePassword(e)}}
+            onChange={(e) => {
+              handlePassword(e)
+              validate(e.target.value)
+            }}
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
@@ -162,6 +200,18 @@ const UserLogin = () => {
                 </InputAdornment>
               }
             />
+            <Typography paragraph='true'>
+              {errorMessage === "" ? null : (
+                <span
+                  style={{
+                    fontWeight: "normal",
+                    color: "red",
+                  }}
+                >
+                  {errorMessage}
+                </span>
+              )}
+            </Typography>
           </FormControl>
 
           <Typography

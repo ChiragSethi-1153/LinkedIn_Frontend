@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer'
 import { registerUsers } from '../../redux/slice/UserSlice'
 import {ReactComponent as GoogleIcon} from '../../assets/icons-google.svg'
 import { useNavigate } from 'react-router-dom'
+import validator from 'validator'
 
 const UserSignup = () => {
   const dispatch = useDispatch()
@@ -22,28 +23,55 @@ const UserSignup = () => {
 
   
   const [inputs, setInputs] = useState({ email: '', password: '' })
+  const [errorMessage, setErrorMessage] = useState("");
+  const [emailErrorMsg, setEmailErrorMsg] = useState("");
+  const [navigation, setNavigation] = useState(true)
+
+  const validate = (value) => {
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      setErrorMessage("");
+      setNavigation(true)
+    } else {
+      setErrorMessage("Is Not Strong Password");
+      setNavigation(false)
+    }
+  };
 
 const handleEmail = (e) => {
   setInputs({...inputs, email: e.target.value})
+  let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+    if (!emailRegex.test(e.target.value)) {
+      setEmailErrorMsg("Please enter a valid email address.");
+      setNavigation(false)
+    } else {
+      setEmailErrorMsg("");
+      setNavigation(true)
+    }
 }
 const handlePassword = (e) => {
   setInputs({...inputs, password: e.target.value})
 }
+
   const handleSubmit = (e) => {
     e.preventDefault()
+   if(navigation === false){
+      alert('Kindly enter Correct Credentials')
+   }
+   else{
     console.log(inputs)
     dispatch(registerUsers(inputs))
     navigate('/login')
+   }
+    
   }
-  // const loading = useSelector((state) => state.user.isLoading)
-  //   const error = useSelector((state) => state.user.error)
-  
-  //   if (loading) {
-  //     return "Loading..."
-  //   }
-  //   if (error) {
-  //     return error
-  //   }
 
   return (
     <Box className='signup-Page'>
@@ -75,11 +103,13 @@ const handlePassword = (e) => {
                     outline: 'none',
                     '&.Mui-focused fieldset': {
                       border: "none",
+                      outline: 'none',
                   }
                   }}
                   value={inputs.email}
                   onChange={(e) => {handleEmail(e)}}
                   required />
+                  <Typography style={{ color: "red" }}> {emailErrorMsg}</Typography>
                 <br />
                 <label htmlFor='password'>Password (6+ characters)</label>
                 <OutlinedInput
@@ -87,10 +117,19 @@ const handlePassword = (e) => {
                   type={showPassword ? 'text' : 'password'}
                   inputProps={{ style: { height: '3px', borderWidth: '1px', padding: '14px 16px 14px 16px' } }}
                   sx={{
-                    paddingRight: '0',  
+                    paddingRight: '0',
+                    border: '1px solid black',
+                    outline: 'none',
+                    '&.Mui-focused fieldset': {
+                      border: "none",
+                      outline: 'none',
+                  }  
                   }}
                   value={inputs.password}
-                  onChange={(e) => {handlePassword(e)}}
+                  onChange={(e) => {
+                    handlePassword(e)
+                    validate(e.target.value)
+                  }}
                   endAdornment={
                     <InputAdornment position="end" >
                       <Button
@@ -112,6 +151,18 @@ const handlePassword = (e) => {
                     </InputAdornment>
                   }
                 />
+                 <Typography paragraph='true'>
+              {errorMessage === "" ? null : (
+                <span
+                  style={{
+                    fontWeight: "normal",
+                    color: "red",
+                  }}
+                >
+                  {errorMessage}
+                </span>
+              )}
+            </Typography>
 
               </Box>
               <p className='signup-text'>By clicking Agree & Join or Continue, you agree to the LinkedIn <span className='signup-text-span'>User Agreement</span>, <span className='signup-text-span'>Privacy Policy</span>, and <span className='signup-text-span'>Cookie Policy</span>.</p>
