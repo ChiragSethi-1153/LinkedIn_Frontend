@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  styled,
   Divider,
   FormControl,
   Input,
@@ -21,7 +20,7 @@ import { ReactComponent as GoogleIcon } from "../../assets/icons-google.svg";
 import { ReactComponent as LinkIcon } from "../../assets/link-icon.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUsers } from "../../redux/slice/LoginSlice";
+import { loginUsers } from "../../redux/slice/login/action";
 import validator from "validator";
 
 const UserLogin = () => {
@@ -259,7 +258,7 @@ const UserLogin = () => {
               <span className="divider-line"></span>
             </span>
             <span className="divider-text-content">
-              <span className="divider-text">or</span>
+              {/* <span className="divider-text">or</span> */}
             </span>
             <p className='login-text'>By clicking to Continue, you agree to the LinkedIn's <span className='login-text-span'>User Agreement</span>, <span className='login-text-span'>Privacy Policy</span>, and <span className='login-text-span'>Cookie Policy</span>.</p>
           </Box>
