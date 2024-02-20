@@ -1,7 +1,7 @@
 import axios from "axios"
 
- const postService = async (inputs) => {
-        const response = await axios.get(process.env.REACT_APP_SERVER + '/posts', inputs)
+ const postService = async () => {
+        const response = await axios.get(process.env.REACT_APP_SERVER + '/posts')
         return response
 }
 

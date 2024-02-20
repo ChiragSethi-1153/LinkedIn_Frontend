@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Divider, Stack } from '@mui/material'
 import './Home.css'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPosts } from '../../redux/slice/post/postAction'
 import Navbar from '../../components/Navbar/Navbar'
@@ -9,10 +9,20 @@ import { ReactComponent as CalendarIcon } from '../../assets/calendar-icon.svg'
 import { ReactComponent as ArticleIcon } from '../../assets/article-icon.svg'
 
 import Posts from '../../components/Post/Posts'
+import CreatePost from '../../components/CreatePosts/CreatePost'
 
 const Home = () => {
 
   const dispatch = useDispatch()
+  
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(fetchPosts())
@@ -61,7 +71,7 @@ const Home = () => {
             </Stack>
 
             <Box className='side-profile'>
-              News
+              Recent
             </Box>
           </Stack>
 
@@ -88,13 +98,31 @@ const Home = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'left',
-                    paddingLeft: "20px",
+                    paddingLeft: "10px",
+                    fontSize: '',
+                    cursor: 'pointer',
+                    '&:hover': {background: 'rgb(0,0,0,0.1)'}
+                  }}
+                  
+                >
+                 <Button 
+                  sx={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'left',
                     fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                     fontWeight: "500",
-                    fontSize: ''
-                  }}
-                >
-                  Start a post
+                    background:'none',
+                    color: 'rgb(0,0,0,0.6)',
+                    textTransform: 'none',
+                    '&:hover': {background: 'none'}
+                    }}
+                    onClick={handleClickOpen}
+                    >
+                      Start a post
+                    </Button> 
+                    {open && <CreatePost hide={handleClose} />}
                 </Box>
               </Stack>
               <Stack gap={12} flexDirection={'row'} height={'100%'} alignItems={'flex-end'} justifyContent={'center'}>
@@ -142,12 +170,3 @@ const Home = () => {
 
 export default Home
 
-// {
-//   posts?.map((item) => {
-//     return (
-//       <Box>
-//         {item.title}: {item.body}
-//       </Box>
-//     )
-//   })
-// }

@@ -1,0 +1,11 @@
+.create-post-box {
+  
+    background-color: #fff;
+    width: 60vw;
+    position: fixed;
+    top: 122px;
+    z-index: 1;
+    left: 70px;
+    border-radius: 10px;
+}
+
