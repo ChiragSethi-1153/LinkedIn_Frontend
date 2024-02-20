@@ -20,7 +20,7 @@ import { ReactComponent as GoogleIcon } from "../../assets/icons-google.svg";
 import { ReactComponent as LinkIcon } from "../../assets/link-icon.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUsers } from "../../redux/slice/login/action";
+import { loginUsers } from "../../redux/slice/login/loginAction";
 import validator from "validator";
 
 const UserLogin = () => {

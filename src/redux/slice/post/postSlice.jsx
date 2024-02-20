@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { fetchPosts } from './action'
+import { fetchPosts } from './postAction'
 
 
 export const postSlice = createSlice({

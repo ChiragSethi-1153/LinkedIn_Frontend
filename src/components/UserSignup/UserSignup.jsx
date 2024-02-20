@@ -4,10 +4,11 @@ import './UserSignup.css'
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import Footer from '../Footer/Footer'
-import { registerUsers } from '../../redux/slice/signup/action'
+
 import {ReactComponent as GoogleIcon} from '../../assets/icons-google.svg'
 import { useNavigate } from 'react-router-dom'
 import validator from 'validator'
+import { registerUsers } from '../../redux/slice/signup/userAction'
 
 const UserSignup = () => {
   const dispatch = useDispatch()
