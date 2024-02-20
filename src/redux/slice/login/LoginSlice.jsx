@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { loginUsers } from './action'
+import { loginUsers } from './loginAction'
 
 export const loginSlice = createSlice({
     name: 'login',

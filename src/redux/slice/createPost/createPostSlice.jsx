@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { registerUsers } from './userAction'
+import { createPost } from './createPostAction'
 
-export const userSlice = createSlice({
-    name: 'users',
+export const createPostSlice = createSlice({
+    name: 'post',
     initialState: {
         isLoading: false,
         error: null,
@@ -10,17 +10,18 @@ export const userSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(registerUsers.pending, (state) => {
+        builder.addCase(createPost.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(registerUsers.fulfilled, (state, action) => {
+        builder.addCase(createPost.fulfilled, (state, action) => {
             state.isLoading = false
+            state.content = action.payload
         })
-        builder.addCase(registerUsers.rejected, (state, action) => {
+        builder.addCase(createPost.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })
     }
 })
 
-export default userSlice.reducer
+export default createPostSlice.reducer

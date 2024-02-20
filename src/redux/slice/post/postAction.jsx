@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import { type } from './type'
+import { type } from './postType'
 
 import postService from '../../../services/posts.service'
 
