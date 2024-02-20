@@ -6,11 +6,15 @@ import postService from '../../../services/posts.service'
 
 export const fetchPosts = createAsyncThunk(type, async (inputs) => {
 
-    const response = await postService(inputs)
+    try{const response = await postService(inputs)
     // console.log(response)
     const data = response.data
     // console.log(data)
     return data
+}catch(err){
+    console.log(err)
+    return (err)
+}
 })
 
 
