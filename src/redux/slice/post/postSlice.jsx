@@ -1,14 +1,6 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import axios from 'axios'
+import {createSlice} from '@reduxjs/toolkit'
+import { fetchPosts } from './action'
 
-
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (inputs) => {
-    const response = await axios.get('http://localhost:8080/posts', inputs)
-    // console.log(response)
-    const data = response.data
-    // console.log(data)
-    return data
-})
 
 export const postSlice = createSlice({
     name: 'posts',

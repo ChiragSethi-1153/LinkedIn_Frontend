@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Navbar.css'
-import { AppBar, Box, Button, InputAdornment, Stack, TextField } from '@mui/material'
+import { AppBar, Avatar, Box, Button, Divider, InputAdornment, Stack, TextField } from '@mui/material'
 import {ReactComponent as LinkedInIcon} from '../../assets/icons-linkedin.svg'
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '../../assets/home-icon.svg'
@@ -27,10 +27,14 @@ const Navbar = () => {
   }
 
   return (
-    <AppBar className='navbar'>
+    <AppBar 
+    className='navbar'
+    
+    >
         <Stack
         flexDirection={'row'}
         justifyContent={'center'}
+        alignItems={'center'}
         className='navbar-items'
         >
           <LinkedInIcon  />
@@ -47,6 +51,8 @@ const Navbar = () => {
 
           <Stack
             flexDirection={'row'}
+            alignItems={"center"}
+            justifyContent={"center"}
           >
           <Button  onClick={() => {
             setIndex(1)
@@ -59,16 +65,17 @@ const Navbar = () => {
           <Button ><JobIcon /></Button>
           <Button ><MessageIcon /></Button>
           <Button ><NotificationIcon /></Button>
+          <Avatar sx={{width: '30px', height:'30px', alignItems: 'center'}} />
           </Stack>
-
+            <Divider orientation='vertical' sx={{height: '45px', marginLeft: '10px'}} />
           <Box sx={{ display: "flex", gap: "20px" }}>
-        <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
+        <li  style={{ display: "flex", flexDirection: "column" }}>
           <BusinessIcon />
           <h4 >For Business</h4>
         </li>
-        <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-          <NavLink className="premium" to="" >Network smarter <br /> with Primium</NavLink>
-        </li>
+        <li style={{ display: "flex", flexDirection: "column" }}>
+          <NavLink className="premium" to="" >Try Premium for free</NavLink>
+        </li>        
       </Box>
 
         </Stack>

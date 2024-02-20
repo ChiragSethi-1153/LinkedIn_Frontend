@@ -29,9 +29,9 @@ body {
 
 .display-posts {
     margin: 0.8rem 0 0.8rem 0;
-    width: 538px;
+    width: fit-content;
     height: fit-content;
-    padding: 10px;
+    
     border: 1px solid #d7d8d6;
     border-radius: 10px;
     background-color: #fff;
