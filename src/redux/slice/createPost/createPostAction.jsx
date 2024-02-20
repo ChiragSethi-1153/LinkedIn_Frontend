@@ -5,6 +5,7 @@ import { type } from './createPostType'
 
 export const createPost = createAsyncThunk(type, async (inputs) => {
     try{
+        console.log(inputs)
         const response = await newPostService(inputs)
         // console.log(response)
         const data = response.data

@@ -1,60 +1,119 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import React from "react";
+import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, IconButton, Input, Stack, Typography, styled } from '@mui/material'
+import React, { useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close';
+import './CreatePost.css'
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../redux/slice/createPost/createPostAction';
+import {ReactComponent as MediaIcon} from '../../assets/media-icon.svg';
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+const CreatePost = ({ hide }, open) => {
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [inputs, setInputs] = useState({ title: '', body: '' })
+  const [images, setImages] = useState(null)
+  const dispatch = useDispatch()
+
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
+
+
+  const handleImage = (e) => {
+    setImages(e.target.files)
+
+  }
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(createPost(inputs))
+  }
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: 'form',
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
+    <Box >
+      <Box
+        className="modal-wrapper"
+        onClick={() => hide()}
+        style={{
+          position: ' fixed',
+          left: '0',
+          right: '0',
+          bottom: '0',
+          top: '0',
+          backgroundColor: 'rgba(230, 226, 226, 0.804)'
         }}
-      >
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
+      ></Box>
+      <Box className="create-post-box">
+        <DialogTitle sx={{ m: 0, p: 2, display: 'flex' }}>
+          <Avatar ></Avatar>
+          <Stack>
+            <Typography>Name</Typography>
+            <Typography>Condition</Typography>
+          </Stack>
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={hide}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            '&:hover': {}
+          }}
+
+        >
+          <CloseIcon />
+
+        </IconButton>
+
+        <DialogContent sx={{ width: '80%' }}>
+          <FormControl sx={{ width: '100%' }}>
+            <Input
+              placeholder='Title of Your Post'
+              value={inputs.title}
+              onChange={(e) => setInputs({ ...inputs, title: e.target.value })}
+              sx={{ width: '100%' }} />
+            <Input
+              placeholder='What do you want to talk about?'
+              value={inputs.body}
+              onChange={(e) => setInputs({ ...inputs, body: e.target.value })}
+
+            />
+            <Button
+              component="label"
+              role={undefined}
+              variant="standard"
+              tabIndex={-1}
+              sx={{width: '10px'}}
+              
+              startIcon={<MediaIcon />}
+            >
+             
+              <VisuallyHiddenInput type="file" multiple />
+            </Button>
+          </FormControl>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+        <Divider />
+        <DialogActions >
+          <Button autoFocus type='submit' onClick={(e) => handleSubmit(e)}>
+            Post
+          </Button>
         </DialogActions>
-      </Dialog>
-    </React.Fragment>
-  );
+
+      </Box>
+    </Box>
+  )
 }
+
+export default CreatePost
+

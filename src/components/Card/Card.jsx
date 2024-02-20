@@ -1,7 +1,11 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, CardHeader, Divider, IconButton, Typography } from "@mui/material";
+import './Card.css'
+import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, IconButton, Typography } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
+import CommentIcon from '@mui/icons-material/Comment';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import SendIcon from '@mui/icons-material/Send';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 const PostCard = ({title, body}) => {
     
   return (
@@ -28,9 +32,28 @@ const PostCard = ({title, body}) => {
           <b>Title</b>: {title} <br />
          <b>Body</b>: {body}
        </Typography>
-
       </CardContent>
-        </Card>
+      <Divider sx={{marginBottom:"5px"}}/>
+      <CardActions className='post-action' disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <ThumbUpOutlinedIcon/>
+          <Typography variant="h6">Like</Typography>
+        </IconButton>
+        <IconButton aria-label="add to favorites">
+          <CommentIcon/>
+          <Typography variant="h6">Comment</Typography>
+        </IconButton>
+        <IconButton aria-label="add to favorites">
+          <RepeatIcon/>
+          <Typography variant="h6">Repost</Typography>
+        </IconButton>
+        <IconButton aria-label="add to favorites">
+          <SendIcon/>
+          <Typography variant="h6">Send</Typography>
+        </IconButton>
+        
+        </CardActions>
+      </Card>
     </Box>
   )
 }

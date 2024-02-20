@@ -4,9 +4,9 @@ import { type } from './postType'
 import postService from '../../../services/posts.service'
 
 
-export const fetchPosts = createAsyncThunk(type, async (inputs) => {
+export const fetchPosts = createAsyncThunk(type, async () => {
 
-    try{const response = await postService(inputs)
+    try{const response = await postService()
     // console.log(response)
     const data = response.data
     // console.log(data)
