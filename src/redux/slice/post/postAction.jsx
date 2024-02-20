@@ -9,7 +9,7 @@ export const fetchPosts = createAsyncThunk(type, async () => {
     try{const response = await postService()
     // console.log(response)
     const data = response.data
-    // console.log(data)
+    console.log(data)
     return data
 }catch(err){
     console.log(err)

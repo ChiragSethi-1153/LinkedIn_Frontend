@@ -8,7 +8,7 @@ const config = {
 }
 
  const newPostService = async (inputs) => {
-        const response = await axios.post(process.env.REACT_APP_SERVER + '/post', inputs, config)
+        const response = await axios.post(process.env.REACT_APP_SERVER + '/post', inputs, config )
         return response
 }
 
