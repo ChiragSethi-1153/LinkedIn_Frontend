@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { createPost } from "../../redux/slice/createPost/createPostAction";
 import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
 
-const CreatePost = ({ hide }, open) => {
+const CreatePost = ({ hide }) => {
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [images, setImages] = useState(null);
   const dispatch = useDispatch();
@@ -53,6 +53,7 @@ const CreatePost = ({ hide }, open) => {
         formData.append("images", images[i]);
       }
       dispatch(createPost(formData));
+      hide()
     } catch (err) {
       console.log(err);
     }
