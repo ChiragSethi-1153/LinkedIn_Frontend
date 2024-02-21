@@ -4,7 +4,7 @@ const token = localStorage.getItem('token')
 console.log(token)
 const config = {
         headers: {'authorization': `Bearer ${token}`},
-        "Content-type": 'application/json'
+        "Content-type": 'multipart/form-data'
 }
 
  const newPostService = async (inputs) => {

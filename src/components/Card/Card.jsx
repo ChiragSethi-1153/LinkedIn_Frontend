@@ -1,58 +1,185 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import EmojiPicker from 'emoji-picker-react';
 import './Card.css'
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Divider, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, Stack, TextField, Typography, styled } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CommentIcon from '@mui/icons-material/Comment';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import SendIcon from '@mui/icons-material/Send';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-const PostCard = ({title, body}) => {
-    
+import axios from "axios";
+import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchComments } from "../../redux/slice/comment/commentAction";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+
+
+
+const PostCard = ({ title, body, images, user, postId }) => {
+
+  const dispatch = useDispatch()
+  // console.log(postId)
+  const [expanded, setExpanded] = React.useState(false);
+  const [comment, setComment] = useState('')
+  
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+    console.log(postId)
+    dispatch(fetchComments(postId))
+  };
+const handleComment = () => {
+
+}
+
+
+  const comments = useSelector((state) => state.getComment.content)
+  // const loading = useSelector((state) => state.getComment)
+  // const error = useSelector((state) => state.getComment)
+  console.log(comments)
+
+
+
+  // if (loading) {
+  //   return "Loading..."
+  // }
+  // if (error) {
+  //   return error
+  // }
+
+
+
   return (
     <Box>
-        <Card sx={{width: '540px', padding: '10px'}}>
-        <CardHeader
-        avatar={
-          <Avatar sx={{  }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreHorizIcon />
-          </IconButton>
-        }
-        title="nameof person"
-        subheader="createdAt"
-      />
-      <Divider />
-      <CardContent>
+      <Card sx={{ width: '540px', padding: '10px' }}>
 
-      <Typography variant="body2" color="text.secondary">
-          <b>Title</b>: {title} <br />
-         <b>Body</b>: {body}
-       </Typography>
-      </CardContent>
-      <Divider sx={{marginBottom:"5px"}}/>
-      <CardActions className='post-action' disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <ThumbUpOutlinedIcon/>
-          <Typography variant="h6">Like</Typography>
-        </IconButton>
-        <IconButton aria-label="add to favorites">
-          <CommentIcon/>
-          <Typography variant="h6">Comment</Typography>
-        </IconButton>
-        <IconButton aria-label="add to favorites">
-          <RepeatIcon/>
-          <Typography variant="h6">Repost</Typography>
-        </IconButton>
-        <IconButton aria-label="add to favorites">
-          <SendIcon/>
-          <Typography variant="h6">Send</Typography>
-        </IconButton>
-        
+        <CardHeader
+          avatar={
+            <Avatar sx={{}} aria-label="recipe">
+              R
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreHorizIcon />
+            </IconButton>
+          }
+
+          title={user?.name}
+          subheader="createdAt"
+        />
+        <Divider />
+        <CardContent>
+
+          <Typography variant="body2" color="text.secondary">
+            <b>Title</b>: {title} <br />
+            <b>Body</b>: {body}
+            {
+              images?.map((i) =>
+                <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt=""/>
+              )
+            }
+          </Typography>
+        </CardContent>
+        <Divider sx={{ marginBottom: "5px" }} />
+        <CardActions className='post-action' disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <ThumbUpOutlinedIcon />
+            <Typography variant="h6">Like</Typography>
+          </IconButton>
+          <IconButton aria-label="add to favorites">
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <CommentIcon />
+              <Typography variant="h6">Comment</Typography>
+            </ExpandMore>
+
+          </IconButton>
+          <IconButton aria-label="add to favorites">
+            <RepeatIcon />
+            <Typography variant="h6">Repost</Typography>
+          </IconButton>
+          <IconButton aria-label="add to favorites">
+            <SendIcon />
+            <Typography variant="h6">Send</Typography>
+
+          </IconButton>
+
         </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+
+          <CardContent sx={{display: 'flex', alignItems: 'center', justifyContent:'space-around'}}>
+            <Avatar aria-label="recipe"></Avatar>
+            <Box
+              sx={{
+                border: '1px solid #d7d8d6',
+                borderRadius: '50px',
+                width: '84%',
+                height: '45px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'left',
+                paddingLeft: "10px",
+                fontSize: '',
+                cursor: 'pointer',
+                '&:hover': { background: 'rgb(0,0,0,0.1)' }
+              }}
+
+            >
+              <TextField
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                  fontWeight: "500",
+                  background: 'none',
+                  color: 'rgb(0,0,0,0.6)',
+                  textTransform: 'none',
+                  '&:hover': { background: 'none' }
+                }}
+                onChange={(e) => {handleComment(e)}}
+              >
+                Add a comment...
+
+                 {/* <EmojiPicker open={false} /> */}
+              </TextField>
+            </Box>
+          </CardContent>
+
+          <CardContent>
+            <Stack flexDirection={'row'}>
+              <Avatar aria-label="recipe"></Avatar>
+              <Box>
+                {
+                  comments?.map((items) =>  (
+                      <>
+
+                      <Typography paragraph color={"black"}>{items.body}</Typography>
+                      </>
+                     
+                    )
+                  )
+                }
+              </Box>
+            </Stack>
+          </CardContent>
+        </Collapse>
       </Card>
     </Box>
   )

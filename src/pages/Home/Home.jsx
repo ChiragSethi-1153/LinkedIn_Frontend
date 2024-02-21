@@ -10,6 +10,7 @@ import { ReactComponent as ArticleIcon } from '../../assets/article-icon.svg'
 
 import Posts from '../../components/Post/Posts'
 import CreatePost from '../../components/CreatePosts/CreatePost'
+import axios from 'axios'
 
 const Home = () => {
 
@@ -26,12 +27,17 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchPosts())
-  }, [dispatch])
 
+  }, [dispatch])
+ 
+  
   const posts = useSelector((state) => state.posts.content.response)
   const loading = useSelector((state) => state.posts.isLoading)
   const error = useSelector((state) => state.posts.error)
-  console.log(posts)
+  console.log(posts)      
+
+  
+
   if (loading) {
     return "Loading..."
   }
@@ -144,9 +150,9 @@ const Home = () => {
               posts?.map((items) => {
                 return (
                   <Stack className='display-posts'>
-                    <Posts title={items.title} body={items.body} />
-                    {/* <Box>{items.title} : </Box> 
-                 <Box>{items.body}</Box> */}
+                    {/* {console.log(items._id)} */}
+                    <Posts title={items.title} body={items.body} images={items.images} user={items.userId} postId={items._id}/>
+                    
                   </Stack>
                 )
               }
