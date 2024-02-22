@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EmojiPicker from 'emoji-picker-react';
+// import EmojiPicker from 'emoji-picker-react';
 import './Card.css'
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, Stack, TextField, Typography, styled } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -11,6 +11,7 @@ import axios from "axios";
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
+import { createComment } from "./../../redux/slice/createComment/createCommentAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,7 +32,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
   const dispatch = useDispatch()
   // console.log(postId)
   const [expanded, setExpanded] = React.useState(false);
-  const [comment, setComment] = useState('')
+  const [inputs, setInputs] = useState({body: '', postId: postId})
   
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -39,7 +40,9 @@ const PostCard = ({ title, body, images, user, postId }) => {
     dispatch(fetchComments(postId))
   };
 const handleComment = () => {
-
+    
+    dispatch(createComment(inputs))
+    
 }
 
 
@@ -66,7 +69,7 @@ const handleComment = () => {
         <CardHeader
           avatar={
             <Avatar sx={{}} aria-label="recipe">
-              R
+              
             </Avatar>
           }
           action={
@@ -143,6 +146,8 @@ const handleComment = () => {
               <TextField
                 sx={{
                   width: '100%',
+                  height: '100%',
+                  padding: '0 0 0 0',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
@@ -153,13 +158,16 @@ const handleComment = () => {
                   textTransform: 'none',
                   '&:hover': { background: 'none' }
                 }}
-                onChange={(e) => {handleComment(e)}}
+                value={inputs.body}
+                placeholder="Add a comment..."
+                onChange={(e) => setInputs({...inputs, body: e.target.value})}
               >
-                Add a comment...
+                
 
                  {/* <EmojiPicker open={false} /> */}
               </TextField>
             </Box>
+            <Button variant="contained" onClick={(e) => {handleComment(e)}}>Post</Button>
           </CardContent>
 
           <CardContent>
@@ -204,6 +212,7 @@ export default PostCard
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import { createComment } from './../../redux/slice/createComment/createCommentAction';
 
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
