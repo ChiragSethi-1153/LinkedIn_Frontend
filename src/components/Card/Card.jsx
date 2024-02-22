@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker from 'emoji-picker-react';
 import './Card.css'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, Stack, TextField, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, InputBase, Stack, TextField, Typography, styled } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CommentIcon from '@mui/icons-material/Comment';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import SendIcon from '@mui/icons-material/Send';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import axios from "axios";
-import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
-import { createComment } from "./../../redux/slice/createComment/createCommentAction";
+import { createComment } from "./../../redux/slice/comment/commentAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -39,14 +37,14 @@ const PostCard = ({ title, body, images, user, postId }) => {
     console.log(postId)
     dispatch(fetchComments(postId))
   };
-const handleComment = () => {
-    
+const handleComment = (e) => {
+    // e.preventDault()
     dispatch(createComment(inputs))
-    
+    setInputs({...inputs, body: ''})
 }
 
 
-  const comments = useSelector((state) => state.getComment.content)
+  const comments = useSelector((state) => state.comment.content[postId])
   // const loading = useSelector((state) => state.getComment)
   // const error = useSelector((state) => state.getComment)
   console.log(comments)
@@ -127,58 +125,56 @@ const handleComment = () => {
 
           <CardContent sx={{display: 'flex', alignItems: 'center', justifyContent:'space-around'}}>
             <Avatar aria-label="recipe"></Avatar>
-            <Box
-              sx={{
-                border: '1px solid #d7d8d6',
-                borderRadius: '50px',
-                width: '84%',
-                height: '45px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'left',
-                paddingLeft: "10px",
-                fontSize: '',
-                cursor: 'pointer',
-                '&:hover': { background: 'rgb(0,0,0,0.1)' }
-              }}
-
-            >
-              <TextField
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  padding: '0 0 0 0',
+            {/* border: '1px solid #d7d8d6',
+                  borderRadius: '50px',
+                  width: '84%',
+                  height: '45px',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  textAlign: 'left',
+                  alignItems:'center',
+                  paddingLeft: "10px",
+                  fontSize: '',
+                  cursor: 'pointer',
                   fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                   fontWeight: "500",
                   background: 'none',
                   color: 'rgb(0,0,0,0.6)',
                   textTransform: 'none',
-                  '&:hover': { background: 'none' }
+                  '&:hover': { background: 'rgb(0,0,0,0.1)' } */}
+              <InputBase
+                sx={{
+                  border: '1px solid #d7d8d6',
+                  width: '84%',
+                  height: '45px',
+                 
                 }}
+                multiline
+                endAdornment={
+                  <>
+                  <EmojiPicker open={false} />
+                  </>
+                }
                 value={inputs.body}
                 placeholder="Add a comment..."
                 onChange={(e) => setInputs({...inputs, body: e.target.value})}
-              >
+               
+              />
                 
 
-                 {/* <EmojiPicker open={false} /> */}
-              </TextField>
-            </Box>
+            
             <Button variant="contained" onClick={(e) => {handleComment(e)}}>Post</Button>
           </CardContent>
 
           <CardContent>
             <Stack flexDirection={'row'}>
-              <Avatar aria-label="recipe"></Avatar>
+              
               <Box>
                 {
                   comments?.map((items) =>  (
                       <>
-
-                      <Typography paragraph color={"black"}>{items.body}</Typography>
+                      <Avatar aria-label="recipe"></Avatar>
+                      <Typography paragraph color={"grey"}>{items?.userId?.name}</Typography>
+                      <Typography paragraph color={"black"}>{items?.body}</Typography>
                       </>
                      
                     )
