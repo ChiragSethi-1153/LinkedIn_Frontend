@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Logo from '../../assets/Linkedin-logo.png'
 import './UserSignup.css'
-import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { Box, Button, InputAdornment,  OutlinedInput, TextField, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import Footer from '../Footer/Footer'
 
 import {ReactComponent as GoogleIcon} from '../../assets/icons-google.svg'
 import { useNavigate } from 'react-router-dom'
 import validator from 'validator'
-import { registerUsers } from '../../redux/slice/signup/userAction'
+import { registerUsers } from '../../redux/slice/signup/signupAction'
 
 const UserSignup = () => {
   const dispatch = useDispatch()

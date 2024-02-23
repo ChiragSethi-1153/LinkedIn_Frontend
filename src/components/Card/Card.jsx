@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import EmojiPicker from 'emoji-picker-react';
+import InputEmoji from "react-input-emoji";
 import './Card.css'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, InputBase, Stack, TextField, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, InputBase, Stack, TextField, ToggleButton, Typography, styled } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CommentIcon from '@mui/icons-material/Comment';
 import RepeatIcon from '@mui/icons-material/Repeat';
@@ -10,6 +11,8 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
+import {ReactComponent as MediaIcon} from '../../assets/media-icon.svg'
+import Reactions from "../Reactions/Reactions";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,7 +34,19 @@ const PostCard = ({ title, body, images, user, postId }) => {
   // console.log(postId)
   const [expanded, setExpanded] = React.useState(false);
   const [inputs, setInputs] = useState({body: '', postId: postId})
+
+
+  const [isHovering, setIsHovering] = useState(false);
   
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
     console.log(postId)
@@ -43,11 +58,12 @@ const handleComment = (e) => {
     setInputs({...inputs, body: ''})
 }
 
+ 
 
   const comments = useSelector((state) => state.comment.content[postId])
   // const loading = useSelector((state) => state.getComment)
   // const error = useSelector((state) => state.getComment)
-  console.log(comments)
+  // console.log(comments)
 
 
 
@@ -94,9 +110,25 @@ const handleComment = (e) => {
         </CardContent>
         <Divider sx={{ marginBottom: "5px" }} />
         <CardActions className='post-action' disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" 
+          sx={{
+            borderRadius: '0',
+            width:'100px'
+          }}
+          onMouseOver={handleMouseOver} 
+          onMouseOut={handleMouseOut}
+          >
             <ThumbUpOutlinedIcon />
-            <Typography variant="h6">Like</Typography>
+            Like
+            <Box  sx={{display: 'none'}}>
+              <Reactions
+                handleMouseOver={handleMouseOver}
+                handleMouseOut={handleMouseOut}
+                postId={postId}
+            />
+              </Box>
+           {isHovering && <Reactions />}
+
           </IconButton>
           <IconButton aria-label="add to favorites">
             <ExpandMore
@@ -117,7 +149,6 @@ const handleComment = (e) => {
           <IconButton aria-label="add to favorites">
             <SendIcon />
             <Typography variant="h6">Send</Typography>
-
           </IconButton>
 
         </CardActions>
@@ -125,44 +156,59 @@ const handleComment = (e) => {
 
           <CardContent sx={{display: 'flex', alignItems: 'center', justifyContent:'space-around'}}>
             <Avatar aria-label="recipe"></Avatar>
-            {/* border: '1px solid #d7d8d6',
-                  borderRadius: '50px',
-                  width: '84%',
-                  height: '45px',
-                  display: 'flex',
-                  textAlign: 'left',
-                  alignItems:'center',
-                  paddingLeft: "10px",
-                  fontSize: '',
-                  cursor: 'pointer',
+              <Box
+               sx={{
+                border: '1px solid #d7d8d6',
+                borderRadius: '50px',
+                marginLeft: '3px',
+                width: '94%',
+                height: '45px',
+                display: 'flex',
+                alignItems:'center',
+                '&:placeholder': {
                   fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                   fontWeight: "500",
-                  background: 'none',
                   color: 'rgb(0,0,0,0.6)',
-                  textTransform: 'none',
-                  '&:hover': { background: 'rgb(0,0,0,0.1)' } */}
-              <InputBase
+                },
+                
+              }}
+              >
+              <InputEmoji
                 sx={{
-                  border: '1px solid #d7d8d6',
-                  width: '84%',
-                  height: '45px',
-                 
+                  border: 'none',         
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems:'center',
+                  '&:placeholder': {
+                    fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                    fontWeight: "500",
+                    color: 'rgb(0,0,0,0.6)',
+                  },
                 }}
-                multiline
-                endAdornment={
-                  <>
-                  <EmojiPicker open={false} />
-                  </>
-                }
-                value={inputs.body}
+                theme="light"
+               
                 placeholder="Add a comment..."
-                onChange={(e) => setInputs({...inputs, body: e.target.value})}
+                onChange={(e) => 
+                {  
+                  setInputs({...inputs, body: e}
+      ) 
+                  
+                }}
                
               />
+              </Box>
+              
                 
 
             
-            <Button variant="contained" onClick={(e) => {handleComment(e)}}>Post</Button>
+            <Button 
+              variant="contained" 
+              onClick={(e) => {handleComment(e)}} 
+              sx={{
+                
+              }}
+              >Post</Button>
           </CardContent>
 
           <CardContent>

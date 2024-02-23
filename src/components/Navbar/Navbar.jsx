@@ -10,13 +10,13 @@ import {ReactComponent as JobIcon} from '../../assets/jobs-icon.svg'
 import {ReactComponent as MessageIcon} from '../../assets/message-icon.svg'
 import {ReactComponent as NotificationIcon} from '../../assets/notification-icon.svg'
 import {ReactComponent as BusinessIcon} from '../../assets/business-icon.svg'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
   const [isActive, setIsActive] = useState(0)
   const [index, setIndex] = useState(0);
-  
+  const navigate=useNavigate()
   function getImage() {
     if(index === 0){
       return <img src={HomeIcon} alt="Home" style={{width: '20px'}} />;
@@ -37,7 +37,7 @@ const Navbar = () => {
         alignItems={'center'}
         className='navbar-items'
         >
-          <LinkedInIcon  />
+          <LinkedInIcon onClick={() => navigate('/')}  />
           <TextField className='search-bar'
           placeholder='Search'
           InputProps={{
@@ -56,7 +56,7 @@ const Navbar = () => {
           >
           <Button  onClick={() => {
             setIndex(1)
-            
+            navigate('/')
             }}>{
               getImage()
             }</Button>
@@ -65,7 +65,17 @@ const Navbar = () => {
           <Button ><JobIcon /></Button>
           <Button ><MessageIcon /></Button>
           <Button ><NotificationIcon /></Button>
-          <Avatar sx={{width: '30px', height:'30px', alignItems: 'center'}} />
+          <Button
+          onClick={() => navigate('/profile')}
+          ><Avatar 
+            sx={{
+              width: '30px',
+              height:'30px', 
+              alignItems: 'center', 
+              cursor: 'pointer'
+          }} 
+          
+          /></Button>
           </Stack>
             <Divider orientation='vertical' sx={{height: '45px', marginLeft: '10px'}} />
           <Box sx={{ display: "flex", gap: "20px" }}>
