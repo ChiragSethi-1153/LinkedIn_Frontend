@@ -1,22 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { registerUsers } from './userAction'
+import { fetchUser } from './userAction'
+
 
 export const userSlice = createSlice({
-    name: 'users',
+    name: 'user',
     initialState: {
         isLoading: false,
         error: null,
-        content: []
+        content: {}
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(registerUsers.pending, (state) => {
+        builder.addCase(fetchUser.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(registerUsers.fulfilled, (state, action) => {
+        builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.isLoading = false
+            state.content = action.payload
         })
-        builder.addCase(registerUsers.rejected, (state, action) => {
+        builder.addCase(fetchUser.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })

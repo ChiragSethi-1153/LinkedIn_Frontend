@@ -17,7 +17,7 @@ const commentSlice = createSlice({
         builder.addCase(fetchComments.fulfilled, (state, action) => {
             state.isLoading = false
             console.log("before",state.content)
-            // state.content[action.payload.postId] = 
+            // state.content[action.payload.postId]
             state.content = {
                 ...state.content,
                 [action.payload.postId]: action.payload.data

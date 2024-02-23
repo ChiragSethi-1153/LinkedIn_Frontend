@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {type} from './userType'
+import {type} from './signupType'
 import signupService from '../../../services/signup.service'
 
 export const registerUsers = createAsyncThunk(type, async (inputs) => {

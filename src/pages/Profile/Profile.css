@@ -1,0 +1,17 @@
+.profile-language {
+    height: fit-content;
+    padding: 10px;
+    width: 313px;
+    border: 1px solid #d7d8d6;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.main-profile {
+    height: fit-content;
+    padding: 10px;
+    width: 873px;
+    border: 1px solid #d7d8d6;
+    border-radius: 10px;
+    background-color: #fff;
+}
