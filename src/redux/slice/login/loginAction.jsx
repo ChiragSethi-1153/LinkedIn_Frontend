@@ -8,7 +8,7 @@ export const loginUsers = createAsyncThunk(type, async (inputs) => {
     try{
         const response = await loginService(inputs)
         // console.log(response)
-        const data = response.data
+        const data = await response.data
         localStorage.setItem('token', data.token)
         // console.log(data)
         return data

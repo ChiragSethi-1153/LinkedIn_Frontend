@@ -1,9 +1,11 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Button, Box, Divider, Stack, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import './Profile.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../../redux/slice/user/userAction'
+import EditIcon from '@mui/icons-material/EditOutlined';
+import ProfileMain from '../../components/ProfileMainSection/ProfileMain'
 const Profile = () => {
 
     const dispatch = useDispatch()
@@ -24,30 +26,32 @@ const Profile = () => {
       <Stack 
       justifyContent={'center'} 
       flexDirection={'row'}
-      gap={3}
+      gap={2.8}
       marginTop={'20px'}
       > 
         
         <Stack>
-            <Box className='main-profile'>
-                <Stack>
-                <img alt='banner' />
-                <img alt='profile-image' />
-                </Stack>
-                <Box>
-                    <Typography>{user?.name}</Typography>
-                    <Typography>{user?.company?.designation}</Typography>
-                    <Typography>{user?.address?.city}</Typography>
-                </Box>
-            </Box>
+            <ProfileMain />
         </Stack>
 
         <Stack>
-            <Box className='profile-language'>
-                 <Typography>Profile language</Typography>
-            </Box>
+            <Stack className='profile-language'>
+                  <Stack flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                 <Typography className='profile-language-header'>Profile language</Typography>
+                  <Button className='edit-btn' sx={{minWidth: '10px', padding: '0'}}><EditIcon color='action' sx={{width:'30px'}} /></Button>
+                  </Stack>
+                 <Typography className='profile-language-sub-text'>English</Typography>
+                 <Divider sx={{paddingTop: '15px'}} />
+                 <Stack flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                 <Typography className='profile-language-header' sx={{marginTop:'15px'}}>Public profile & URL</Typography>
+                 <Button className='edit-btn' sx={{minWidth: '10px', padding: '0'}}><EditIcon color='action' sx={{width:'30px'}} /></Button>
+                  </Stack>
+                 <Typography className='profile-language-sub-text'>www.linkedin.com/in</Typography>
+            </Stack>
+            
+            
             <Box>
-
+                
             </Box>
             <Box>
 

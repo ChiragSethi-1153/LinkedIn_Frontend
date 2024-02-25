@@ -5,7 +5,6 @@ import createPostSlice from "../slice/createPost/createPostSlice"
 import commentSlice from "../slice/comment/commentSlice"
 import signupSlice from "../slice/signup/singupSlice"
 import userSlice from "../slice/user/userSlice"
-// import createComment  from "../slice/createComment/createCommentSlice"
 
 
 const rootReducer = combineReducers({

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EmojiPicker from 'emoji-picker-react';
 import InputEmoji from "react-input-emoji";
 import './Card.css'
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, InputBase, Stack, TextField, ToggleButton, Typography, styled } from "@mui/material";
@@ -192,6 +191,7 @@ const handleComment = (e) => {
                 onChange={(e) => 
                 {  
                   setInputs({...inputs, body: e}
+                  
       ) 
                   
                 }}
