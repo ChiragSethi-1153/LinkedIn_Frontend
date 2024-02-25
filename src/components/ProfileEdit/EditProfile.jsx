@@ -96,6 +96,7 @@ const EditProfile = ({hide}) => {
             type='text'
             name='headline'
             value={inputs.headline}
+            onChange={(e) => setInputs({...inputs, headline: e.target.value})}
             sx={{
               width: '100%',
               border: '1px solid black'
