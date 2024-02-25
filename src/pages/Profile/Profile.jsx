@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../../redux/slice/user/userAction'
 import EditIcon from '@mui/icons-material/EditOutlined';
 import ProfileMain from '../../components/ProfileMainSection/ProfileMain'
+import ProfileActivity from '../../components/ProfileActivity/ProfileActivity'
+import Experience from '../../components/ProfileExperience/Experience'
 const Profile = () => {
 
     const dispatch = useDispatch()
@@ -30,8 +32,10 @@ const Profile = () => {
       marginTop={'20px'}
       > 
         
-        <Stack>
+        <Stack gap={1}>
             <ProfileMain />
+            <ProfileActivity />
+            <Experience />
         </Stack>
 
         <Stack>

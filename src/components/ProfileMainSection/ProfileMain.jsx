@@ -1,24 +1,40 @@
 import { Button, Box, Divider, Stack, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../pages/Profile/Profile.css'
 import { useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/EditOutlined';
 import ProfileBanner from '../../assets/profileBanner.jpg'
 import ProfilePic from '../../assets/ProfilePic.jpeg'
+import EditProfile from './../ProfileEdit/EditProfile';
 
 const ProfileMain = () => {
 
     const user = useSelector((state) => state.user.content)
     console.log(user)
 
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+
   return (
-    <Box className='main-profile'>
+    <Box className='profile-page-primary-card'>
                 <Stack sx={{height: '240px'}}>
                 <img src={ProfileBanner} alt='banner' className='profile-banner' />
                 <Box sx={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                  <img src={ProfilePic} alt='profile-pic' className='profile-picture' />
-                  <Button className='edit-btn profile-main-edit-btn' sx={{minWidth: '10px', padding: '0'}}><EditIcon color='action' sx={{width:'30px'}} /></Button>
-
+                  <Button 
+                  className='edit-btn profile-main-edit-btn' 
+                  sx={{minWidth: '10px', padding: '0', height:'fit-content'}}
+                  onClick={handleOpen}
+                  >
+                  <EditIcon color='action' sx={{width:'30px'}} />
+                  </Button>
+                {open && <EditProfile hide={handleClose} />}
                 </Box>
                 
                 </Stack>

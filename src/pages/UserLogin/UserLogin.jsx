@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import "./UserLogin.css";
 import "../UserSignup/UserSignup.css";
-import Footer from "../Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 import AppleIcon from '@mui/icons-material/Apple';
 import Logo from "../../assets/Linkedin-logo2.png";
 import { ReactComponent as GoogleIcon } from "../../assets/icons-google.svg";
