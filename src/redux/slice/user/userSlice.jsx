@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { fetchUser } from './userAction'
+import { editUser, fetchUser } from './userAction'
 
 
 export const userSlice = createSlice({
@@ -19,6 +19,16 @@ export const userSlice = createSlice({
             state.content = action.payload
         })
         builder.addCase(fetchUser.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error
+        })
+        builder.addCase(editUser.pending, (state) => {
+            state.isLoading = false
+        })
+        builder.addCase(editUser.fulfilled, (state, action) => {
+            state.isLoading = false
+        })
+        builder.addCase(editUser.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })

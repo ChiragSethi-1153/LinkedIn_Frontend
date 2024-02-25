@@ -1,3 +1,20 @@
+.profile-page-primary-card {
+    height: fit-content !important;
+    width: 52.2vw !important;
+    border: 1px solid #d7d8d6 !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+}
+
+.profile-page-card-secondary {
+    width: 49vw !important;
+    height: fit-content !important;
+    border: 1px solid #d7d8d6 !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    padding: 20px !important;
+}
+
 .profile-language {
     height: fit-content;
     padding: 10px;
@@ -14,8 +31,8 @@
 }
 .profile-main-edit-btn{
     position: relative;
-    right: 15px;
-    top: -20px;
+    right: 25px;
+    top: 20px;
 }
 
 .profile-picture{
@@ -30,13 +47,7 @@
 
 }
 
-.main-profile {
-    height: fit-content;
-    width: 52.2vw;
-    border: 1px solid #d7d8d6;
-    border-radius: 10px;
-    background-color: #fff;
-}
+
 
 .profile-language {
     padding: 16px;
@@ -73,6 +84,11 @@
 .designation{
     color: #636262 !important;
     width: fit-content !important;
+}
+.profile-activity{
+    font-size: 20px !important;
+    width: fit-content !important;
+    font-weight: 600 !important;
 }
 
 .address{
@@ -130,4 +146,14 @@
     padding:  1px 15px !important;
     border: 2px solid !important;
     color: #707171 !important;
+}
+
+.profile-create-post-btn {
+    box-shadow: none !important;
+    border-radius: 50px !important;
+    text-transform: none !important;
+    font-weight: 600 !important; 
+    font-size: 16px !important;
+    padding:  1px 12px !important;
+    border: 1.5px solid !important;
 }

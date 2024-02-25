@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import UserSignup from '../components/UserSignup/UserSignup'
-import UserLogin from '../components/UserLogin/UserLogin'
+import UserSignup from '../pages/UserSignup/UserSignup'
+import UserLogin from '../pages/UserLogin/UserLogin'
 import Home from '../pages/Home/Home'
 import Profile from '../pages/Profile/Profile'
 

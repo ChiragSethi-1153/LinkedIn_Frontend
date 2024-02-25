@@ -3,7 +3,7 @@ import Logo from '../../assets/Linkedin-logo.png'
 import './UserSignup.css'
 import { Box, Button, InputAdornment,  OutlinedInput, TextField, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import Footer from '../Footer/Footer'
+import Footer from '../../components/Footer/Footer'
 
 import {ReactComponent as GoogleIcon} from '../../assets/icons-google.svg'
 import { useNavigate } from 'react-router-dom'
