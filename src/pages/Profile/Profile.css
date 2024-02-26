@@ -1,13 +1,13 @@
 .profile-page-primary-card {
     height: fit-content !important;
-    width: 52.2vw !important;
+    width: 893px !important;
     border: 1px solid #d7d8d6 !important;
     border-radius: 10px !important;
     background-color: #fff !important;
 }
 
 .profile-page-card-secondary {
-    width: 49vw !important;
+    width: 853px !important;
     height: fit-content !important;
     border: 1px solid #d7d8d6 !important;
     border-radius: 10px !important;
@@ -18,7 +18,7 @@
 .profile-language {
     height: fit-content;
     padding: 10px;
-    width: 17.4vw;
+    width: 302px;
     border: 1px solid #d7d8d6;
     border-radius: 10px;
     background-color: #fff;
@@ -54,7 +54,7 @@
 }
 
 .profile-language-header{
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 600 !important;
 }
 .main-user-details{
@@ -84,6 +84,7 @@
 .designation{
     color: #636262 !important;
     width: fit-content !important;
+    
 }
 .profile-activity{
     font-size: 20px !important;
@@ -156,4 +157,9 @@
     font-size: 16px !important;
     padding:  1px 12px !important;
     border: 1.5px solid !important;
+}
+@media only screen and (min-width: 1600px) {
+    .main-user-details{
+        margin-top: 40px;
+    }
 }

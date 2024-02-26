@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
 import {ReactComponent as MediaIcon} from '../../assets/media-icon.svg'
-import Reactions from "../Reactions/Reactions";
+import {Reactions} from "../Reactions/Reactions";
+import { createReaction } from "../../redux/slice/reactions/reactionAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,7 +31,6 @@ const ExpandMore = styled((props) => {
 const PostCard = ({ title, body, images, user, postId }) => {
 
   const dispatch = useDispatch()
-  // console.log(postId)
   const [expanded, setExpanded] = React.useState(false);
   const [inputs, setInputs] = useState({body: '', postId: postId})
 
@@ -38,10 +38,12 @@ const PostCard = ({ title, body, images, user, postId }) => {
   const [isHovering, setIsHovering] = useState(false);
   
   const handleMouseOver = () => {
+
     setIsHovering(true);
   };
 
   const handleMouseOut = () => {
+
     setIsHovering(false);
   };
 
@@ -73,7 +75,10 @@ const handleComment = (e) => {
   //   return error
   // }
 
+  const handleReactions = (emoji) => {
 
+    dispatch(createReaction({reactions:emoji,postId}))
+}
 
   return (
     <Box>
@@ -96,16 +101,21 @@ const handleComment = (e) => {
         />
         <Divider />
         <CardContent>
-
-          <Typography variant="body2" color="text.secondary">
+          
+          
+          <Stack>
+           <Typography>
             <b>Title</b>: {title} <br />
             <b>Body</b>: {body}
+            </Typography> 
             {
               images?.map((i) =>
                 <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt=""/>
               )
             }
-          </Typography>
+            </Stack>
+          
+          
         </CardContent>
         <Divider sx={{ marginBottom: "5px" }} />
         <CardActions className='post-action' disableSpacing>
@@ -123,10 +133,11 @@ const handleComment = (e) => {
               <Reactions
                 handleMouseOver={handleMouseOver}
                 handleMouseOut={handleMouseOut}
-                postId={postId}
-            />
+                handleReactions={handleReactions}
+                // postId={postId}
+                />
               </Box>
-           {isHovering && <Reactions />}
+                {/* {isHovering && <Reactions />}  */}
 
           </IconButton>
           <IconButton aria-label="add to favorites">

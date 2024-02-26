@@ -149,7 +149,7 @@ const Home = () => {
             {
               posts?.map((items) => {
                 return (
-                  <Stack className='display-posts'>
+                  <Stack className='display-posts' key={items._id}>
                     {/* {console.log(items._id)} */}
                     <Posts title={items.title} body={items.body} images={items.images} user={items.userId} postId={items._id}/>
                     
