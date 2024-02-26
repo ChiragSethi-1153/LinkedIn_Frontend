@@ -19,8 +19,7 @@ const commentSlice = createSlice({
             console.log("before",state.content)
             // state.content[action.payload.postId]
             state.content = {
-                ...state.content,
-                [action.payload.postId]: action.payload.data
+                ...state.content, [action.payload.postId]: action.payload.data
                 }
             console.log("get",state.content)
         })

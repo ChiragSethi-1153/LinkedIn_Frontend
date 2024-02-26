@@ -75,10 +75,6 @@ const handleComment = (e) => {
   //   return error
   // }
 
-  const handleReactions = (emoji) => {
-
-    dispatch(createReaction({reactions:emoji,postId}))
-}
 
   return (
     <Box>
@@ -129,15 +125,14 @@ const handleComment = (e) => {
           >
             <ThumbUpOutlinedIcon />
             Like
-            <Box  sx={{display: 'none'}}>
+            <Box  sx={{display: isHovering?"block":'none'}}>
               <Reactions
                 handleMouseOver={handleMouseOver}
                 handleMouseOut={handleMouseOut}
-                handleReactions={handleReactions}
-                // postId={postId}
+                postId = {postId}
                 />
               </Box>
-                {/* {isHovering && <Reactions />}  */}
+          
 
           </IconButton>
           <IconButton aria-label="add to favorites">
