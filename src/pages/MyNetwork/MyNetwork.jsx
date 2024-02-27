@@ -1,6 +1,9 @@
 import { 
+  Avatar,
     Box, 
     Button, 
+    Card, 
+    CardContent, 
     Stack, 
     Typography, 
   } from '@mui/material'
@@ -32,13 +35,20 @@ const MyNetwork = () => {
           <Typography>Manage my network</Typography>
           <NetworkPageList />
         </Box>
-        <Stack>
+        <Stack gap={2}>
           <Box className="manage-invitations-card">
             <Typography>Invitations</Typography>
             <Button className='manage-btn' onClick={() => navigate('/mynetwork/manage')}>Manage</Button>
           </Box>
           <Box className="manage-suggestions-card">
-            
+            <Card>
+              <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
+                <Avatar></Avatar>
+                name
+                designation
+                <Button variant='contained'>Connect</Button>
+              </CardContent>
+            </Card>
           </Box>
         </Stack>
       </Stack>

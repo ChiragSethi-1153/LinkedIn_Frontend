@@ -28,3 +28,8 @@
 .manage-btn:hover{
     background-color: #ececec !important;
 }
+
+.manage-suggestions-card{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
