@@ -12,7 +12,7 @@ import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
 import {ReactComponent as MediaIcon} from '../../assets/media-icon.svg'
 import {Reactions} from "../Reactions/Reactions";
-import { createReaction } from "../../redux/slice/reactions/reactionAction";
+import {fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,6 +37,12 @@ const PostCard = ({ title, body, images, user, postId }) => {
 
   const [isHovering, setIsHovering] = useState(false);
   
+  useEffect(() => {
+    dispatch(fetchPostReactions(postId))
+  }, [])
+
+  const reactions = useSelector((state) => state?.reactions?.content[postId])
+  console.log(reactions?.totalReactions)
   const handleMouseOver = () => {
 
     setIsHovering(true);
@@ -109,7 +115,8 @@ const handleComment = (e) => {
                 <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt=""/>
               )
             }
-            </Stack>
+            <Typography>{reactions?.totalReactions}</Typography>
+          </Stack>
           
           
         </CardContent>

@@ -55,6 +55,14 @@ body {
     background-color: #fff;
 }
 
+.create-post-btns {
+    color: #919090 !important;
+    text-transform: none !important;
+    font-size: medium !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+}
 /* 
 margin: 0.4rem 0;
 font-size: 1.4rem;

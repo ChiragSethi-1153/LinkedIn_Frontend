@@ -1,0 +1,30 @@
+.manage-network-card {
+    
+    height: fit-content !important;
+    width: 303px !important;
+    border: 1px solid #d7d8d6 !important;
+    padding: 10px 15px;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+}
+
+.manage-invitations-card {
+    height: fit-content !important;
+    width: 874px !important;
+    padding: 8px 15px;
+    border: 1px solid #d7d8d6 !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.manage-btn {
+    color: #676667 !important;
+    text-transform: none !important;
+    font-size: large !important;
+}
+.manage-btn:hover{
+    background-color: #ececec !important;
+}

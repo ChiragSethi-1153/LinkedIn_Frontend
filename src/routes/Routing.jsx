@@ -5,6 +5,7 @@ import UserLogin from '../pages/UserLogin/UserLogin'
 import Home from '../pages/Home/Home'
 import Profile from '../pages/Profile/Profile'
 import MyNetwork from '../pages/MyNetwork/MyNetwork'
+import ManageRequest from '../pages/MyNetwork/ManageRequest'
 
 
 const Routing = () => {
@@ -15,6 +16,7 @@ const Routing = () => {
         <Route path='/login' Component={UserLogin} />
         <Route path='/profile' Component={Profile} />
         <Route path='/mynetwork' Component={MyNetwork} />
+        <Route path='/mynetwork/manage' Component={ManageRequest} />
       </Routes>
 
   )

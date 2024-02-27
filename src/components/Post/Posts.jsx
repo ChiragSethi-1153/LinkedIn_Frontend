@@ -4,6 +4,8 @@ import { Box } from '@mui/material'
 
 const Posts = ({title, body, images, user, postId}) => {
     // console.log(images)
+
+    console.log(title, body, images, user, postId);
     
   return (
     <Box>

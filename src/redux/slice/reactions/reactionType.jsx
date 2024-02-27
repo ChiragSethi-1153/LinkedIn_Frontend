@@ -1,3 +1,3 @@
-export const reactionType = 'reactions/fetchReaction'
+export const reactionType = 'reactions/fetchPostReactions'
 
 export const reactionPost = 'reaction/postReaction'

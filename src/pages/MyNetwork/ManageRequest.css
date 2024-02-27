@@ -1,0 +1,9 @@
+.invitation-box{
+    height: fit-content !important;
+    width: 865px !important;
+    border: 1px solid #d7d8d6 !important;
+    padding: 10px 15px;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    
+}

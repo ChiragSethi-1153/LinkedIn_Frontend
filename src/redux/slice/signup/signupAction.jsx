@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit'
 import {type} from './signupType'
 import signupService from '../../../services/signup.service'
 
-export const registerUsers = createAsyncThunk(type, async (inputs) => {
+export const registerUsers = createAsyncThunk(type, async (inputs, {rejectWithValue}) => {
     try{const response = await signupService(inputs)
     // console.log(response)
     const data = response.data
@@ -10,6 +10,6 @@ export const registerUsers = createAsyncThunk(type, async (inputs) => {
     return data
 }catch(err){
     console.log(err)
-    return err
+    return rejectWithValue(err)
 }
 })

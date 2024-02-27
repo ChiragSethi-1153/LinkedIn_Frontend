@@ -1,8 +1,7 @@
 import { Button, Stack } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createReaction } from '../../redux/slice/reactions/reactionAction'
-import { ReactionCounter } from '@charkour/react-reactions';
+import { createPostReaction } from '../../redux/slice/reactions/reactionAction'
 
 export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
 
@@ -22,8 +21,11 @@ export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
     const handleReactions = (emoji) => {
         console.log(postId)
         const newReaction = {reaction: emoji, postId: postId}
-        dispatch(createReaction(newReaction))
+        dispatch(createPostReaction(newReaction))
     }
+
+
+
 
   return (
 

@@ -4,7 +4,7 @@ import loginService from '../../../services/login.service'
 import { type } from './loginType'
 
 
-export const loginUsers = createAsyncThunk(type, async (inputs) => {
+export const loginUsers = createAsyncThunk(type, async (inputs, {rejectWithValue}) => {
     try{
         const response = await loginService(inputs)
         // console.log(response)
@@ -14,6 +14,6 @@ export const loginUsers = createAsyncThunk(type, async (inputs) => {
         return data
     }catch(err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })

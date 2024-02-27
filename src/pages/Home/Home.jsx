@@ -10,7 +10,8 @@ import { ReactComponent as ArticleIcon } from '../../assets/article-icon.svg'
 
 import Posts from '../../components/Post/Posts'
 import CreatePost from '../../components/CreatePosts/CreatePost'
-import axios from 'axios'
+import { fetchPostReactions } from '../../redux/slice/reactions/reactionAction'
+
 
 const Home = () => {
 
@@ -27,7 +28,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchPosts())
-
   }, [dispatch])
  
   
@@ -142,7 +142,7 @@ const Home = () => {
                   >Event</Button>
                 <Button className='create-post-btns' 
                 startIcon={<ArticleIcon />}
-                >Write Article</Button>
+                >Write article</Button>
               </Stack>
             </Stack>
             <Divider />

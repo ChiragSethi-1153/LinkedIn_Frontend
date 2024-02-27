@@ -61,7 +61,7 @@ const Navbar = () => {
               getImage()
             }</Button>
          
-          <Button ><NetworkIcon /></Button>
+          <Button onClick={()=> navigate('/mynetwork')}><NetworkIcon /></Button>
           <Button ><JobIcon /></Button>
           <Button ><MessageIcon /></Button>
           <Button ><NotificationIcon /></Button>

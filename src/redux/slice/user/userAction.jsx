@@ -5,7 +5,7 @@ import editUserService from "../../../services/editUser.service";
 import { editUserType } from "./userType";
 
 
-export const fetchUser = createAsyncThunk(userType, async () => {
+export const fetchUser = createAsyncThunk(userType, async (_,{rejectWithValue}) => {
     try {
         // console.log()
         const response = await getUserService()
@@ -15,12 +15,13 @@ export const fetchUser = createAsyncThunk(userType, async () => {
     }
     catch (err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })
 
-export const editUser = createAsyncThunk(editUserType, async (inputs) => {
+export const editUser = createAsyncThunk(editUserType, async (inputs, {rejectWithValue}) => {
     try{
+        console.log()
         const response= await editUserService(inputs)
         const data = response.data
         console.log(data)
@@ -28,6 +29,6 @@ export const editUser = createAsyncThunk(editUserType, async (inputs) => {
 
     }catch(err){
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })

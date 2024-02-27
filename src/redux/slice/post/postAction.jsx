@@ -4,7 +4,7 @@ import { type } from './postType'
 import postService from '../../../services/posts.service'
 
 
-export const fetchPosts = createAsyncThunk(type, async () => {
+export const fetchPosts = createAsyncThunk(type, async (_,{rejectWithValue}) => {
 
     try{const response = await postService()
     // console.log(response)
@@ -13,7 +13,7 @@ export const fetchPosts = createAsyncThunk(type, async () => {
     return data
 }catch(err){
     console.log(err)
-    return (err)
+    return rejectWithValue(err)
 }
 })
 

@@ -5,24 +5,24 @@ import {Type } from './commentType'
 import postCommentService from '../../../services/postComment.service'
 import getCommentService from "../../../services/comment.service";
 
-export const fetchComments = createAsyncThunk(type, async (inputs) => {
+export const fetchComments = createAsyncThunk(type, async (inputs, {rejectWithValue}) => {
     try {
         console.log(inputs)
         const response = await getCommentService(inputs)
         const data = response.data
         console.log(response)
-        return {data,postId:inputs}
+        return {data, postId:inputs}
     }
     catch (err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })
 
 
 
 
-export const createComment = createAsyncThunk(Type, async (inputs) => {
+export const createComment = createAsyncThunk(Type, async (inputs, {rejectWithValue}) => {
     try{
         console.log(inputs)
         const response = await postCommentService(inputs)
@@ -32,6 +32,6 @@ export const createComment = createAsyncThunk(Type, async (inputs) => {
         return {data ,postId:inputs.postId}
     }catch(err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })

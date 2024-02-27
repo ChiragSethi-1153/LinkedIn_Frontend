@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createReaction, fetchReactions } from "./reactionAction";
+import { createPostReaction, fetchPostReactions } from "./reactionAction";
 
 const reactionSlice = createSlice({
     name: "reactions",
@@ -10,33 +10,36 @@ const reactionSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchReactions.pending, (state) => {
+        builder.addCase(fetchPostReactions.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(fetchReactions.fulfilled, (state, action) => {
+        builder.addCase(fetchPostReactions.fulfilled, (state, action) => {
             state.isLoading = false
-            console.log("before", state.content)
+            console.log(action.payload)
+            // console.log("before", state.content)
             // state.content[action.payload.postId]
-            state.content = {
-                ...state.content,
-                [action.payload.postId]: action.payload.data
-                }
-            console.log("get",state.content)
+            state.content = {...state.content, [action.payload.postId]: action.payload.data}
+                console.log("get", state.content)
+            // {
+            //     ...state.content,
+            //     [action.payload.postId]: action.payload.data
+            //     }
+            // console.log("get",state.content)
         })
-        builder.addCase(fetchReactions.rejected, (state, action) => {
+        builder.addCase(fetchPostReactions.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })
-        builder.addCase(createReaction.pending, (state) => {
+        builder.addCase(createPostReaction.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(createReaction.fulfilled, (state, action) => {
+        builder.addCase(createPostReaction.fulfilled, (state, action) => {
             state.isLoading = false
-            state.content = action.payload 
+            state.content[action.payload.postId].currReaction = action.payload.data 
             console.log("post",action.payload.data)
 
         })
-        builder.addCase(createReaction.rejected, (state, action) => {
+        builder.addCase(createPostReaction.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })

@@ -4,33 +4,33 @@ import getReactionService from "../../../services/reaction.service";
 import postReactionService from "../../../services/postReaction.service";
 
 
-export const fetchReactions = createAsyncThunk(reactionType, async (inputs) => {
+export const fetchPostReactions = createAsyncThunk(reactionType, async (postId, {rejectWithValue}) => {
     try {
-        console.log(inputs)
-        const response = await getReactionService(inputs)
+        console.log(postId)
+        const response = await getReactionService(postId)
         const data = response.data
-        // console.log(response)
-        return {data, postId:inputs}
+        console.log(response.data)
+        return {data, postId: postId}
     }
     catch (err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })
 
 
 
 
-export const createReaction = createAsyncThunk(reactionPost, async (input) => {
+export const createPostReaction = createAsyncThunk(reactionPost, async (input,{rejectWithValue}) => {
     try{
         console.log(input.postId)
         const response = await postReactionService(input)
         console.log(response)
         const data = response.data
         // console.log(data)
-        return data
+        return {data, postId: input.postId}
     }catch(err) {
         console.log(err)
-        return err
+        return rejectWithValue(err)
     }
 })

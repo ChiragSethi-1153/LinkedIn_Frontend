@@ -10,22 +10,34 @@ const EditProfile = ({hide}) => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state?.user?.content)
-  console.log(user)
+  // console.log(user)
   const [inputs, setInputs] = useState({
       name: user?.name,
       headline: user?.headline,
-      company: {
+        companyName: user?.company?.name,
         designation: user?.company?.designation,
-      },
-      address: {
         city: user?.address?.city,
         country: user?.address?.country
-      },
-
   })
 
+  const obj = {
+    name: inputs.name,
+    headline: inputs.headline,
+    company: {
+      name: inputs.companyName,
+      designation: inputs.designation,
+    },
+    address: {
+      city: inputs.city,
+      country: inputs.country
+    }
+  }
+
+
+
+
   const handleSubmit = () => {
-    dispatch(editUser(inputs))
+    dispatch(editUser(obj))
   }
 
   return (
@@ -103,17 +115,17 @@ const EditProfile = ({hide}) => {
             }}
 
           />
-          <Typography>Current Poistion</Typography>
+          <Typography>Current Position</Typography>
           <label htmlFor='designation'>Position</label>
           <InputBase 
             type='text'
             name='designation'
-            value={inputs.company.designation}
+            value={inputs.designation}
             sx={{
               width: '100%',
               border: '1px solid black'
-            }}
-            onChange={(e) => setInputs({ ...inputs, ...inputs.company, designation: e.target.value})}
+            }}   
+            onChange={(e) => setInputs({...inputs, designation: e.target.value})}
           />
         </FormControl>
         <Box>
