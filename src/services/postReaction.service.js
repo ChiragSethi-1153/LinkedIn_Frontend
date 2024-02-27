@@ -7,9 +7,9 @@ const config = {
         "Content-type": 'application/json'
 }
 
-const postReactionService = async (inputs, {postId}) => {
-    // console.log(inputs," " + postId)
-    const response = await axios.post(`${process.env.REACT_APP_SERVER}/reactions/${postId}`, inputs, config)
+const postReactionService = async (emoji, postId) => {
+        // console.log(postId)
+        const response = await axios.post(`${process.env.REACT_APP_SERVER}/reactions/${postId}`, emoji, config)
     // console.log(response)
     return response
 }

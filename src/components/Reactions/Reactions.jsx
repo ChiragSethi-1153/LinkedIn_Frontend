@@ -4,20 +4,25 @@ import { useDispatch } from 'react-redux'
 import { createReaction } from '../../redux/slice/reactions/reactionAction'
 import { ReactionCounter } from '@charkour/react-reactions';
 
-const Reactions = ({handleMouseOver, handleMouseOut, postId }) => {
-    console.log(postId)
+export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
+
+    console.log("reactions postId",postId)
     const dispatch = useDispatch()
-    const [reactions, setReactions] = useState('Like')
+    // const [reactions, setReactions] = useState('Like')
+
+    // const handleClick = (emoji) => {
+    //     console.log(emoji)
+   
+    //     setReactions(emoji)
+    //     const reaction = { reactions: reactions, postId: postId }
+    //     console.log(reaction)
+    //     dispatch(createReaction(reaction))
+    // }
 
     const handleReactions = (emoji) => {
-        console.log(emoji)
-        console.log(postId)
-        setReactions(emoji)
-        const reaction = { reactions: reactions, postId: postId }
-        console.log(reaction)
-        dispatch(createReaction(reaction))
+             console.log(postId)
+        dispatch(createReaction(emoji, postId))
     }
-
 
   return (
 
@@ -54,4 +59,4 @@ const Reactions = ({handleMouseOver, handleMouseOut, postId }) => {
   )
 }
 
-export default Reactions
+// export default Reactions

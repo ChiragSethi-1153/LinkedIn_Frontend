@@ -70,7 +70,14 @@ const ProfileMain = () => {
                     </Stack>
 
                     <Stack sx={{width: '200px'}}>
-                    <Typography className='designation'>{user?.company?.name}</Typography>
+                    <Typography 
+                     sx={{
+                      fontWeight: '500',
+                      fontSize: '18px'
+                     }}
+                    >
+                      {user?.company?.name}
+                    </Typography>
                     </Stack>
                 </Stack>
             </Box>

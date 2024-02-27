@@ -21,10 +21,10 @@ export const fetchReactions = createAsyncThunk(reactionType, async (inputs) => {
 
 
 
-export const createReaction = createAsyncThunk(reactionPost, async (reaction, postId) => {
+export const createReaction = createAsyncThunk(reactionPost, async (emoji, postId) => {
     try{
-        console.log(reaction, postId)
-        const response = await postReactionService(reaction, postId)
+        console.log(postId)
+        const response = await postReactionService(emoji, postId)
         console.log(response)
         const data = response.data
         // console.log(data)

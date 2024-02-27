@@ -24,7 +24,7 @@ const ProfileActivity = () => {
   return (
     <Box classname='profile-page-card-secondary'
     sx={{
-        width: '49vw !important',
+        width: '853px !important',
     height: 'fit-content !important',
     border: '1px solid #d7d8d6 !important',
     borderRadius: '10px !important',

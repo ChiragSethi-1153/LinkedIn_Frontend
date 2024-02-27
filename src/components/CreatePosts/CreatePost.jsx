@@ -72,7 +72,7 @@ const CreatePost = ({ hide }) => {
           top: "0",
           backgroundColor: "rgba(230, 226, 226, 0.804)",
         }}
-      ></Box>
+      />
       <Box className="create-post-box">
         <DialogTitle sx={{ m: 0, p: 2, display: "flex" }}>
           <Avatar></Avatar>
