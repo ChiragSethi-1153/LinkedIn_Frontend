@@ -6,7 +6,7 @@ import { ReactionCounter } from '@charkour/react-reactions';
 
 export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
 
-    console.log("reactions postId",postId)
+    console.log("reactions postId", postId)
     const dispatch = useDispatch()
     // const [reactions, setReactions] = useState('Like')
 
@@ -20,8 +20,9 @@ export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
     // }
 
     const handleReactions = (emoji) => {
-             console.log(postId)
-        dispatch(createReaction(emoji, postId))
+        console.log(postId)
+        const newReaction = {reaction: emoji, postId: postId}
+        dispatch(createReaction(newReaction))
     }
 
   return (

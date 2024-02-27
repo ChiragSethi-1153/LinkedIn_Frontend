@@ -7,9 +7,11 @@ const config = {
         "Content-type": 'application/json'
 }
 
-const postReactionService = async (emoji, postId) => {
-        // console.log(postId)
-        const response = await axios.post(`${process.env.REACT_APP_SERVER}/reactions/${postId}`, emoji, config)
+const postReactionService = async (input) => {
+        console.log(input.postId)
+        const emoji = {emoji: input.reaction}
+        console.log(emoji)
+        const response = await axios.post(`${process.env.REACT_APP_SERVER}/reactions/${input.postId}`, emoji, config)
     // console.log(response)
     return response
 }
