@@ -37,12 +37,12 @@ const PostCard = ({ title, body, images, user, postId }) => {
 
   const [isHovering, setIsHovering] = useState(false);
   
-  useEffect(() => {
-    dispatch(fetchPostReactions(postId))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchPostReactions(postId))
+  // }, [])
 
-  const reactions = useSelector((state) => state?.reactions?.content[postId])
-  console.log(reactions?.totalReactions)
+  // const reactions = useSelector((state) => state?.reactions?.content[postId])
+  // console.log(reactions?.totalReactions)
   const handleMouseOver = () => {
 
     setIsHovering(true);
@@ -115,7 +115,7 @@ const handleComment = (e) => {
                 <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt=""/>
               )
             }
-            <Typography>{reactions?.totalReactions}</Typography>
+            {/* <Typography>{reactions?.totalReactions}</Typography> */}
           </Stack>
           
           
