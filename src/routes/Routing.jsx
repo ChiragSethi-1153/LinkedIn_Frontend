@@ -6,6 +6,7 @@ import Home from '../pages/Home/Home'
 import Profile from '../pages/Profile/Profile'
 import MyNetwork from '../pages/MyNetwork/MyNetwork'
 import ManageRequest from '../pages/MyNetwork/ManageRequest'
+import Messages from '../pages/Messages/Messages'
 
 
 const Routing = () => {
@@ -17,6 +18,7 @@ const Routing = () => {
         <Route path='/profile' Component={Profile} />
         <Route path='/mynetwork' Component={MyNetwork} />
         <Route path='/mynetwork/manage' Component={ManageRequest} />
+        <Route path='/messages' Component={Messages} />
       </Routes>
 
   )

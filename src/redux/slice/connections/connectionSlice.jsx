@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { requestRecieved } from './connectionAction'
+import { requestSent } from './connectionAction'
 
 
 export const connectionSlice = createSlice({
@@ -11,14 +11,14 @@ export const connectionSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(requestRecieved.pending, (state) => {
+        builder.addCase(requestSent.pending, (state) => {
             state.isLoading = false
         })
-        builder.addCase(requestRecieved.fulfilled, (state, action) => {
+        builder.addCase(requestSent.fulfilled, (state, action) => {
             state.isLoading = false
             state.content = action.payload
         })
-        builder.addCase(requestRecieved.rejected, (state, action) => {
+        builder.addCase(requestSent.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })

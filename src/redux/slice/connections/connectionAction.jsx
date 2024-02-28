@@ -1,12 +1,12 @@
 import { createAsyncThunk} from '@reduxjs/toolkit'
 import { connectionByType } from './connectionType'
-import connectionRecieved from '../../../services/requestConnection.service'
+import connectionSent from '../../../services/sentConnection.service'
 
 
 
-export const requestRecieved = createAsyncThunk(connectionByType, async (_, {rejectWithValue}) => {
+export const requestSent = createAsyncThunk(connectionByType, async (_, {rejectWithValue}) => {
     try{
-        const response = await connectionRecieved()
+        const response = await connectionSent()
         // console.log(response)
         const data = response.data
         // console.log(data)
