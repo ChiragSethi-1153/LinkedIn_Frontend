@@ -38,6 +38,7 @@ const EditProfile = ({hide}) => {
 
   const handleSubmit = () => {
     dispatch(editUser(obj))
+    hide()
   }
 
   return (

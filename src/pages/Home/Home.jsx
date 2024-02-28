@@ -62,7 +62,7 @@ const Home = () => {
              justifyContent={'center'}
              alignItems={'center'}
             >
-            <Avatar sx={{border: '1px solid #d7d8d6',
+            <Avatar sx={{
                     borderRadius: '100%',
                     width: '45px',
                     height: '45px',
@@ -70,7 +70,7 @@ const Home = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginLeft: '5px'}} aria-label="recipe">
-                  R
+                  
                 </Avatar>
               User details
 
@@ -93,7 +93,7 @@ const Home = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginLeft: '5px'}} aria-label="recipe">
-                  R
+                  
                 </Avatar>
                 <Box
                   sx={{

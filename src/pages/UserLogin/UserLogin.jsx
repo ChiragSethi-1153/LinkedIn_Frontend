@@ -1,10 +1,10 @@
 import {
   Box,
   Button,
-  Divider,
   FormControl,
   Input,
   InputAdornment,
+  InputBase,
   InputLabel,
   Stack,
   TextField,
@@ -89,7 +89,7 @@ const UserLogin = () => {
       justifyContent="space-between"
       alignItems="center"
       className="login-page"
-      style={{ backgroundColor: "#fff" }}
+      sx={{ backgroundColor: "#fff", width: '100%', height: '100%' }}
     >
       <Stack
         direction="row"
@@ -128,9 +128,9 @@ const UserLogin = () => {
             align="left"
             sx={{
               width: "100%",
-              fontFamily:
-                "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ",
+              fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ",
               fontSize: "14px",
+
             }}
           >
             Stay updated on your professional world
@@ -155,30 +155,38 @@ const UserLogin = () => {
             onChange={(e) => {handleEmail(e)}}
           />
           <Typography style={{ color: "red" }}>{emailErrorMsg}</Typography>
-          <FormControl sx={{ width: "100%" }} variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">
+          <FormControl sx={{ width: "100%", display: 'flex', alignItems: 'center' }} variant="standard">
+            
+          <InputLabel sx={{padding: '7px 15px'}} htmlFor="standard-adornment-password">
               Password
             </InputLabel>
-
-            <Input
+            <InputBase
               id="standard-adornment-password"
               inputProps={{
                 style: {
+                  
                   height: "3px",
                   borderWidth: "1px",
+                  
                   padding: "14px 16px 14px 16px",
                 },
               }}
               sx={{
+                marginTop: '10px',
                 paddingRight: "0",
+                border: '1px solid #dadada',
+                borderRadius: '4px',
+                height: '58px'
               }}
             value={inputs.password}
+            disableUnderline={true}
             onChange={(e) => {
               handlePassword(e)
               validate(e.target.value)
             }}
               type={showPassword ? "text" : "password"}
               endAdornment={
+                
                 <InputAdornment position="end">
                   <Button
                     aria-label="toggle password visibility"
@@ -313,7 +321,7 @@ const UserLogin = () => {
       </Box>
       
       <Box>
-        <Typography paragraph={true} className="login-footer-text">New to LinkedIn? <span className="login-footer-text-btn">Join Now</span> </Typography>
+        <Typography paragraph={true} className="login-footer-text">New to LinkedIn? <span className="login-footer-text-btn" onClick={() => navigate('/signup')}>Join Now</span> </Typography>
       </Box>
 
       <footer style={{ width: "100%" }}>

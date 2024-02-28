@@ -1,146 +1,170 @@
 import React, { useEffect, useState } from "react";
 import InputEmoji from "react-input-emoji";
-import './Card.css'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, InputBase, Stack, TextField, ToggleButton, Typography, styled } from "@mui/material";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import CommentIcon from '@mui/icons-material/Comment';
-import RepeatIcon from '@mui/icons-material/Repeat';
-import SendIcon from '@mui/icons-material/Send';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import "./Card.css";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Collapse,
+  Divider,
+  IconButton,
+  InputBase,
+  Stack,
+  TextField,
+  ToggleButton,
+  Typography,
+  styled,
+} from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import CommentIcon from "@mui/icons-material/Comment";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import SendIcon from "@mui/icons-material/Send";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
-import {ReactComponent as MediaIcon} from '../../assets/media-icon.svg'
-import {Reactions} from "../Reactions/Reactions";
-import {fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
+import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
+import { Reactions } from "../Reactions/Reactions";
+import { deleteReaction, fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
 }));
 
-
-
-
 const PostCard = ({ title, body, images, user, postId }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
-  const [inputs, setInputs] = useState({body: '', postId: postId})
-
+  const [inputs, setInputs] = useState({ body: "", postId: postId });
+  const [showBtn, setShowBtn] = useState(false);
 
   const [isHovering, setIsHovering] = useState(false);
-  
+
   useEffect(() => {
-    dispatch(fetchPostReactions(postId))
-  }, [])
+    dispatch(fetchPostReactions(postId));
+  }, []);
 
-  const reactions = useSelector((state) => state?.reactions?.content[postId])
-  console.log(reactions?.totalReactions)
+  const reactions = useSelector((state) => state?.reactions?.content[postId]);
+  console.log(reactions);
+  const currentReactionLength = reactions?.currReaction.length
+  const currentReaction = reactions?.currReaction;
+  console.log(currentReaction)
+
   const handleMouseOver = () => {
-
     setIsHovering(true);
   };
 
   const handleMouseOut = () => {
-
     setIsHovering(false);
   };
 
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    console.log(postId)
-    dispatch(fetchComments(postId))
+    console.log(postId);
+    dispatch(fetchComments(postId));
   };
-const handleComment = (e) => {
+  const handleComment = (e) => {
     // e.preventDault()
-    dispatch(createComment(inputs))
-    setInputs({...inputs, body: ''})
-}
+    dispatch(createComment(inputs));
+    setInputs({ ...inputs, body: "" });
+  };
 
- 
+  const handleReaction = () => {
+    dispatch(deleteReaction(postId))
+  }
 
-  const comments = useSelector((state) => state.comment.content[postId])
-  // const loading = useSelector((state) => state.getComment)
-  // const error = useSelector((state) => state.getComment)
+  const comments = useSelector((state) => state.comment.content[postId]);
+  const loading = useSelector((state) => state.comment.isLoading);
+  const error = useSelector((state) => state.comment.error);
   // console.log(comments)
 
-
-
-  // if (loading) {
-  //   return "Loading..."
-  // }
-  // if (error) {
-  //   return error
-  // }
-
+  if (loading) {
+    return "Loading...";
+  }
+  if (error) {
+    return error;
+  }
 
   return (
     <Box>
-      <Card sx={{ width: '540px', padding: '10px' }}>
-
+      <Card sx={{ width: "540px", padding: "10px" }}>
         <CardHeader
-          avatar={
-            <Avatar sx={{}} aria-label="recipe">
-              
-            </Avatar>
-          }
+          avatar={<Avatar sx={{}} aria-label="recipe"></Avatar>}
           action={
             <IconButton aria-label="settings">
               <MoreHorizIcon />
             </IconButton>
           }
-
-          title={user?.name}
-          subheader="createdAt"
+          title={user?.name ? user?.name : "LinkedIn User"}
+          subheader={user?.headline}
         />
         <Divider />
         <CardContent>
-          
-          
           <Stack>
-           <Typography>
-            <b>Title</b>: {title} <br />
-            <b>Body</b>: {body}
-            </Typography> 
-            {
-              images?.map((i) =>
-                <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt=""/>
-              )
-            }
+            <Typography>
+              <b>Title</b>: {title} <br />
+              <b>Body</b>: {body}
+            </Typography>
+            {images?.map((i) => (
+              <img src={`${process.env.REACT_APP_SERVER}/${i}`} alt="" />
+            ))}
             <Typography>{reactions?.totalReactions}</Typography>
           </Stack>
-          
-          
         </CardContent>
         <Divider sx={{ marginBottom: "5px" }} />
-        <CardActions className='post-action' disableSpacing>
-          <IconButton aria-label="add to favorites" 
-          sx={{
-            borderRadius: '0',
-            width:'100px'
-          }}
-          onMouseOver={handleMouseOver} 
-          onMouseOut={handleMouseOut}
+        <CardActions
+          className="post-action"
+          sx={{ display: "flex", justifyContent: "space-around" }}
+        >
+          <IconButton
+            aria-label="add to favorites"
+            sx={{
+              borderRadius: "0",
+              width: "100px",
+            }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
           >
-            <ThumbUpOutlinedIcon />
-            Like
-            <Box  sx={{display: isHovering?"block":'none'}}>
+            {
+              currentReactionLength !==0 ? (
+              currentReaction?.map((i) => {
+                return (
+                  <Button 
+                  key={i._id} 
+                  sx={{  fontWeight: "500", textTransform: 'none', width: '100%' }}
+                  onClick={handleReaction}
+                  >
+                  
+                    {i?.emoji}
+                  </Button>
+                );
+              })
+            ) : (
+              <>
+              <ThumbUpOutlinedIcon />
+              <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
+               Like
+              </Typography>
+              </>
+              
+            )}
+
+            <Box sx={{ display: isHovering ? "block" : "none" }}>
               <Reactions
                 handleMouseOver={handleMouseOver}
                 handleMouseOut={handleMouseOut}
-                postId = {postId}
-                />
-              </Box>
-          
-
+                postId={postId}
+              />
+            </Box>
           </IconButton>
           <IconButton aria-label="add to favorites">
             <ExpandMore
@@ -150,217 +174,151 @@ const handleComment = (e) => {
               aria-label="show more"
             >
               <CommentIcon />
-              <Typography variant="h6">Comment</Typography>
+              <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
+                Comment
+              </Typography>
             </ExpandMore>
-
           </IconButton>
           <IconButton aria-label="add to favorites">
             <RepeatIcon />
-            <Typography variant="h6">Repost</Typography>
+            <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
+              Repost
+            </Typography>
           </IconButton>
           <IconButton aria-label="add to favorites">
             <SendIcon />
-            <Typography variant="h6">Send</Typography>
+            <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
+              Send
+            </Typography>
           </IconButton>
-
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-
-          <CardContent sx={{display: 'flex', alignItems: 'center', justifyContent:'space-around'}}>
+          <CardContent
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-around",
+            }}
+          >
             <Avatar aria-label="recipe"></Avatar>
+
+            <Stack sx={{ width: "100%" }}>
               <Box
-               sx={{
-                border: '1px solid #d7d8d6',
-                borderRadius: '50px',
-                marginLeft: '3px',
-                width: '94%',
-                height: '45px',
-                display: 'flex',
-                alignItems:'center',
-                '&:placeholder': {
-                  fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
-                  fontWeight: "500",
-                  color: 'rgb(0,0,0,0.6)',
-                },
-                
-              }}
-              >
-              <InputEmoji
                 sx={{
-                  border: 'none',         
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems:'center',
-                  '&:placeholder': {
-                    fontFamily: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                  border: "1px solid #d7d8d6",
+                  borderRadius: "50px",
+                  marginLeft: "3px",
+                  width: "94%",
+                  height: "45px",
+                  display: "flex",
+                  alignItems: "center",
+                  "&:placeholder": {
+                    fontFamily:
+                      '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                     fontWeight: "500",
-                    color: 'rgb(0,0,0,0.6)',
+                    color: "rgb(0,0,0,0.6)",
                   },
                 }}
-                theme="light"
-               
-                placeholder="Add a comment..."
-                onChange={(e) => 
-                {  
-                  setInputs({...inputs, body: e}
-                  
-      ) 
-                  
-                }}
-               
-              />
+              >
+                <InputEmoji
+                  sx={{
+                    border: "none",
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    "&:placeholder": {
+                      fontFamily:
+                        '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                      fontWeight: "500",
+                      color: "rgb(0,0,0,0.6)",
+                    },
+                  }}
+                  theme="light"
+                  placeholder="Add a comment..."
+                  onChange={(e) => {
+                    setInputs({ ...inputs, body: e });
+                    setShowBtn(false);
+                  }}
+                />
               </Box>
-              
-                
 
-            
-            <Button 
-              variant="contained" 
-              onClick={(e) => {handleComment(e)}} 
-              sx={{
-                
-              }}
-              >Post</Button>
+              <Button
+                variant="contained"
+                onClick={(e) => {
+                  handleComment(e);
+                }}
+                sx={{
+                  width: "30px",
+                  boxShadow: "none",
+                  marginTop: "5px",
+                  marginLeft: "20px",
+                  display: showBtn === true ? "block" : "none",
+                }}
+              >
+                Post
+              </Button>
+            </Stack>
           </CardContent>
 
           <CardContent>
-            <Stack flexDirection={'row'}>
-              
+            <Stack flexDirection={"row"} sx={{ width: "100%" }}>
               <Box>
-                {
-                  comments?.map((items) =>  (
-                      <>
-                      <Avatar aria-label="recipe"></Avatar>
-                      <Typography paragraph color={"grey"}>{items?.userId?.name}</Typography>
-                      <Typography paragraph color={"black"}>{items?.body}</Typography>
-                      </>
-                     
-                    )
-                  )
-                }
+                {comments?.map((items) => (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "500px",
+                    }}
+                  >
+                    <Avatar aria-label="recipe"></Avatar>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        backgroundColor: "#f3f2f3",
+                        padding: "8px",
+                        marginLeft: "10px",
+                        marginBottom: "15px",
+                        borderRadius: "0px 10px 10px 10px",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {items?.userId?.name
+                          ? items?.userId?.name
+                          : "LinkedIn User"}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "300",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {items?.userId?.headline
+                          ? items?.userId?.headline
+                          : "nothing much"}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          marginTop: "10px",
+                        }}
+                      >
+                        {items?.body}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
               </Box>
             </Stack>
           </CardContent>
         </Collapse>
       </Card>
     </Box>
-  )
-}
+  );
+};
 
-export default PostCard
-
-
-// import * as React from 'react';
-// import { styled } from '@mui/material/styles';
-// import Card from '@mui/material/Card';
-// import CardHeader from '@mui/material/CardHeader';
-// import CardMedia from '@mui/material/CardMedia';
-// import CardContent from '@mui/material/CardContent';
-// import CardActions from '@mui/material/CardActions';
-// import Collapse from '@mui/material/Collapse';
-// import Avatar from '@mui/material/Avatar';
-// import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
-// import { red } from '@mui/material/colors';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
-// import { createComment } from './../../redux/slice/createComment/createCommentAction';
-
-// const ExpandMore = styled((props) => {
-//   const { expand, ...other } = props;
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//   marginLeft: 'auto',
-//   transition: theme.transitions.create('transform', {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
-
-// export default function RecipeReviewCard() {
-//   const [expanded, setExpanded] = React.useState(false);
-
-//   const handleExpandClick = () => {
-//     setExpanded(!expanded);
-//   };
-
-//   return (
-//     <Card sx={{ maxWidth: 345 }}>
-//       <CardHeader
-//         avatar={
-//           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-//             R
-//           </Avatar>
-//         }
-//         action={
-//           <IconButton aria-label="settings">
-//             <MoreVertIcon />
-//           </IconButton>
-//         }
-//         title="Shrimp and Chorizo Paella"
-//         subheader="September 14, 2016"
-//       />
-//       <CardMedia
-//         component="img"
-//         height="194"
-//         image="/static/images/cards/paella.jpg"
-//         alt="Paella dish"
-//       />
-//       <CardContent>
-//         <Typography variant="body2" color="text.secondary">
-//           This impressive paella is a perfect party dish and a fun meal to cook
-//           together with your guests. Add 1 cup of frozen peas along with the mussels,
-//           if you like.
-//         </Typography>
-//       </CardContent>
-//       <CardActions disableSpacing>
-//         <IconButton aria-label="add to favorites">
-//           <FavoriteIcon />
-//         </IconButton>
-//         <IconButton aria-label="share">
-//           <ShareIcon />
-//         </IconButton>
-//         <ExpandMore
-//           expand={expanded}
-//           onClick={handleExpandClick}
-//           aria-expanded={expanded}
-//           aria-label="show more"
-//         >
-//           <ExpandMoreIcon />
-//         </ExpandMore>
-//       </CardActions>
-//       <Collapse in={expanded} timeout="auto" unmountOnExit>
-//         <CardContent>
-//           <Typography paragraph>Method:</Typography>
-//           <Typography paragraph>
-//             Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-//             aside for 10 minutes.
-//           </Typography>
-//           <Typography paragraph>
-//             Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-//             medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-//             occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-//             large plate and set aside, leaving chicken and chorizo in the pan. Add
-//             pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-//             stirring often until thickened and fragrant, about 10 minutes. Add
-//             saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-//           </Typography>
-//           <Typography paragraph>
-//             Add rice and stir very gently to distribute. Top with artichokes and
-//             peppers, and cook without stirring, until most of the liquid is absorbed,
-//             15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-//             mussels, tucking them down into the rice, and cook again without
-//             stirring, until mussels have opened and rice is just tender, 5 to 7
-//             minutes more. (Discard any mussels that don&apos;t open.)
-//           </Typography>
-//           <Typography>
-//             Set aside off of the heat to let rest for 10 minutes, and then serve.
-//           </Typography>
-//         </CardContent>
-//       </Collapse>
-//     </Card>
-//   );
-// }
+export default PostCard;

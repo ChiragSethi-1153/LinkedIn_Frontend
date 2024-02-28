@@ -22,6 +22,7 @@ export const Reactions = ({handleMouseOver, handleMouseOut,postId} ) => {
         console.log(postId)
         const newReaction = {reaction: emoji, postId: postId}
         dispatch(createPostReaction(newReaction))
+        // window.location.reload()
     }
 
 
