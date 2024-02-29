@@ -45,7 +45,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [inputs, setInputs] = useState({ body: "", postId: postId });
-  const [showBtn, setShowBtn] = useState(false);
+
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -57,7 +57,9 @@ const PostCard = ({ title, body, images, user, postId }) => {
   console.log(reactions);
   const currentReactionLength = reactions?.currReaction.length
   const currentReaction = reactions?.currReaction;
-  console.log(currentReaction)
+  console.log("asas",currentReaction)
+
+  const [currentEmoji, setCurrentEmoji] = useState('')
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -72,10 +74,10 @@ const PostCard = ({ title, body, images, user, postId }) => {
     console.log(postId);
     dispatch(fetchComments(postId));
   };
-  const handleComment = (e) => {
+  const handleComment = async (e) => {
     // e.preventDault()
-    dispatch(createComment(inputs));
-    setInputs({ ...inputs, body: "" });
+    await dispatch(createComment(inputs));
+    setInputs(inputs => inputs.body = '');
   };
 
   const handleReaction = () => {
@@ -87,9 +89,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
   const error = useSelector((state) => state.comment.error);
   // console.log(comments)
 
-  if (loading) {
-    return "Loading...";
-  }
+  
   if (error) {
     return error;
   }
@@ -135,7 +135,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
             onMouseOut={handleMouseOut}
           >
             {
-              currentReactionLength !==0 ? (
+              currentReaction && currentReactionLength !==0 ? (
               currentReaction?.map((i) => {
                 return (
                   <Button 
@@ -143,7 +143,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
                   sx={{  fontWeight: "500", textTransform: 'none', width: '100%' }}
                   onClick={handleReaction}
                   >
-                  
+                    {console.log(i)}
                     {i?.emoji}
                   </Button>
                 );
@@ -236,14 +236,18 @@ const PostCard = ({ title, body, images, user, postId }) => {
                   }}
                   theme="light"
                   placeholder="Add a comment..."
+                  
+                  value={inputs.body}
                   onChange={(e) => {
                     setInputs({ ...inputs, body: e });
-                    setShowBtn(false);
                   }}
                 />
               </Box>
 
-              <Button
+
+                  {
+                    inputs.body !== "" ? 
+                <Button
                 variant="contained"
                 onClick={(e) => {
                   handleComment(e);
@@ -253,11 +257,17 @@ const PostCard = ({ title, body, images, user, postId }) => {
                   boxShadow: "none",
                   marginTop: "5px",
                   marginLeft: "20px",
-                  display: showBtn === true ? "block" : "none",
+                  display:"block"
                 }}
               >
                 Post
               </Button>
+                
+              : <>
+                </>
+                
+                }
+              
             </Stack>
           </CardContent>
 

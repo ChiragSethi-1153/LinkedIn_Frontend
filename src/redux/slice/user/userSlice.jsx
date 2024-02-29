@@ -12,7 +12,7 @@ export const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchUser.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.isLoading = false
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
             state.error = action.error
         })
         builder.addCase(editUser.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(editUser.fulfilled, (state, action) => {
             state.isLoading = false

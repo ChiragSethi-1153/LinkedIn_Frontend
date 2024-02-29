@@ -12,7 +12,7 @@ const commentSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchComments.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(fetchComments.fulfilled, (state, action) => {
             state.isLoading = false
@@ -28,7 +28,7 @@ const commentSlice = createSlice({
             state.error = action.error
         })
         builder.addCase(createComment.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(createComment.fulfilled, (state, action) => {
             state.isLoading = false

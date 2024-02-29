@@ -11,7 +11,7 @@ export const signupSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(registerUsers.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(registerUsers.fulfilled, (state, action) => {
             state.isLoading = false

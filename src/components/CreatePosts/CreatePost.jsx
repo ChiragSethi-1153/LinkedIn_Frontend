@@ -23,7 +23,7 @@ import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
 
 const CreatePost = ({ hide }) => {
   const [inputs, setInputs] = useState({ title: "", body: "" });
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
   const dispatch = useDispatch();
 
   const VisuallyHiddenInput = styled("input")({

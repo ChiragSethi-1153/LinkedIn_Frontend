@@ -20,6 +20,15 @@
     justify-content: space-between;
 }
 
+.manage-suggestions-card{
+    height: fit-content !important;
+    width: 874px !important;
+    border: 1px solid #d7d8d6 !important;
+    padding: 10px 15px;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+}
+
 .manage-btn {
     color: #676667 !important;
     text-transform: none !important;
@@ -29,7 +38,7 @@
     background-color: #ececec !important;
 }
 
-.manage-suggestions-card{
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
+.display-suggestion-cards{
+    display: flex;
+    flex-wrap: wrap;
 }

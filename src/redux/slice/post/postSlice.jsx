@@ -9,14 +9,18 @@ export const postSlice = createSlice({
         error: null,
         content: []
     },
-    reducers: {},
+    reducers: {
+        addNewPost(state,{payload}){
+            state.content.unshift(payload) 
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchPosts.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(fetchPosts.fulfilled, (state, action) => {
             state.isLoading = false
-            state.content = action.payload
+            state.content = action.payload?.response
         })
         builder.addCase(fetchPosts.rejected, (state, action) => {
             state.isLoading = false
@@ -25,4 +29,5 @@ export const postSlice = createSlice({
     }
 })
 
+export const {addNewPost} = postSlice.actions
 export default postSlice.reducer

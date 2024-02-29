@@ -31,12 +31,14 @@ const Home = () => {
   }, [dispatch])
  
   
-  const posts = useSelector((state) => state.posts.content.response)
+  const posts = useSelector((state) => state.posts.content)
   const loading = useSelector((state) => state.posts.isLoading)
   const error = useSelector((state) => state.posts.error)
   console.log(posts)      
 
   
+
+
 
   if (loading) {
     return "Loading..."

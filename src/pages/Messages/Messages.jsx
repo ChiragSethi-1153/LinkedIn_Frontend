@@ -1,4 +1,4 @@
-import { Box, Button, Divider, InputAdornment, Stack, TextField, Typography } from '@mui/material'
+import { Avatar, Box, Button, Divider, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import './Messages.css'
 import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
@@ -69,8 +69,27 @@ const Messages = () => {
           </Stack>
           </Stack>
           <Divider />
+      
+            {/* map */}
+         
+            
+            <Stack sx={{ marginTop: '20px', width: '100%' }} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                <Stack flexDirection={'row'} sx={{ width: '70%' }} >
+                <Avatar sx={{ width: '60px', height: '60px' }}></Avatar>
+                <Stack flexDirection={'column'} sx={{ marginLeft: '20px' }}>
+                 <Typography sx={{ fontWeight: '500', fontSize: '20px' }}></Typography> 
+                 <Typography sx={{ fontWeight: '400', fontSize: '14px' }}></Typography> 
+                  </Stack>
+                  </Stack>
+                  <Stack flexDirection={'row'} sx={{ width: '15%' }} alignItems={"center"}>
+                </Stack>
+                
+            </Stack>
+            <Divider sx={{marginTop: '15px'}} />
+
+        
         </Stack>
-        <Divider orientation='vertical' sx={{width: '1px'}}/>
+        <Divider orientation='vertical'/>
          <Stack className='user-message-box'></Stack>
           <Typography 
             sx={{
@@ -81,6 +100,7 @@ const Messages = () => {
           ></Typography>
         </Box>
 
+        
 
         <Box className="messages-side-box">
           <Typography

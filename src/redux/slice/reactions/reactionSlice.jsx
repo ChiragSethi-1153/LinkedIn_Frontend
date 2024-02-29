@@ -1,25 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createPostReaction, fetchPostReactions } from "./reactionAction";
 
+
+
 const reactionSlice = createSlice({
     name: "reactions",
     initialState: {
         isLoading: false,
         error: null,
-        content: {}
+        isUpdate: false,
+        content: []
     },
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchPostReactions.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(fetchPostReactions.fulfilled, (state, action) => {
             state.isLoading = false
-            console.log(action.payload)
+            // console.log(action.payload)
             // console.log("before", state.content)
             // state.content[action.payload.postId]
             state.content = {...state.content, [action.payload.postId]: action.payload.data}
-                console.log("get", state.content)
+                // console.log("get", state.content)
             // {
             //     ...state.content,
             //     [action.payload.postId]: action.payload.data
@@ -31,12 +34,15 @@ const reactionSlice = createSlice({
             state.error = action.error
         })
         builder.addCase(createPostReaction.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
         })
         builder.addCase(createPostReaction.fulfilled, (state, action) => {
             state.isLoading = false
-            state.content[action.payload.postId].currReaction = action.payload.data 
-            console.log("post",action.payload.data)
+            state.isUpdate = true
+            console.log("post", action.payload.data)
+            state.content[action.payload.postId].currReaction = [{...action.payload.data.response}] 
+            
+            console.log(state.content[action.payload.postId].currReaction)
 
         })
         builder.addCase(createPostReaction.rejected, (state, action) => {

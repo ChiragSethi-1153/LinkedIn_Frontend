@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     comment: commentSlice,
     user: userSlice,
     reactions: reactionSlice,
-    connections: connectionSlice
+    connections: connectionSlice,
 }
 )
 export default rootReducer
