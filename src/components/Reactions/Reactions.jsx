@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createPostReaction } from '../../redux/slice/reactions/reactionAction'
 

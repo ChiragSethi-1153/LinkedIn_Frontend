@@ -1,13 +1,10 @@
 import { 
-  Avatar,
     Box, 
-    Button, 
-    Card, 
-    CardContent, 
+    Button,
     Stack, 
     Typography, 
   } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './MyNetwork.css'
 import Navbar from '../../components/Navbar/Navbar'
 import NetworkPageList from '../../components/NetworkPageList/NetworkPageList'
@@ -30,14 +27,15 @@ const MyNetwork = () => {
   const suggestions = useSelector((state) => state.connections.content)
   const loading = useSelector((state) => state.connections.isLoading)
   const error = useSelector((state) => state.connections.error)
+  console.log(error)
 
   console.log(suggestions)
 
   if (loading) {
     return "Loading..."
   }
-  if (error) {
-    return error
+  if (error !== null ) {
+    return error.message
   }
 
   
@@ -72,13 +70,13 @@ const MyNetwork = () => {
 
           <Box className="display-suggestion-cards">
           {
-          suggestions && 
+          suggestions && suggestions?.map ?
               suggestions?.map((item) => {
                 return(
-                  <SuggestionCard  item={item} />
+                  <SuggestionCard key={item._id} item={item} />
                 )
               })
-              // : "No Suggestion for you"
+              : "No Suggestion for you"
             }
           </Box>
             

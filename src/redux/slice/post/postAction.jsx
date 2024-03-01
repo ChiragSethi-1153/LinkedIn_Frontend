@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import { type } from './postType'
 
-import postService from '../../../services/posts.service'
+import postService from '../../../services/Post/posts.service'
 
 
 export const fetchPosts = createAsyncThunk(type, async (_,{rejectWithValue}) => {

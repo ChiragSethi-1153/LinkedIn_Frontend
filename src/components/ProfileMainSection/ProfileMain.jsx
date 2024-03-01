@@ -1,5 +1,5 @@
 import { Button, Box, Divider, Stack, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import '../../pages/Profile/Profile.css'
 import { useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/EditOutlined';

@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type } from "./commentType";
 
 import {Type } from './commentType'
-import postCommentService from '../../../services/postComment.service'
-import getCommentService from "../../../services/comment.service";
+import postCommentService from '../../../services/Comment/postComment.service'
+import getCommentService from "../../../services/Comment/comment.service";
 
 export const fetchComments = createAsyncThunk(type, async (inputs, {rejectWithValue}) => {
     try {

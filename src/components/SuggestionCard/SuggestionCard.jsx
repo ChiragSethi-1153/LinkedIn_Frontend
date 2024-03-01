@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { sendRequest } from '../../redux/slice/connections/connectionAction'
 
-const SuggestionCard = ( { item}) => {
+const SuggestionCard = ( {item}) => {
     
     const [toggle, setToggle] = useState(true)
     // const [status]

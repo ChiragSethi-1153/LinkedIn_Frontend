@@ -1,9 +1,10 @@
 import { createAsyncThunk} from '@reduxjs/toolkit'
 import { connectionByType, connectionToType, sendRequestType, suggestionType, updateConnectionType } from './connectionType'
-import connectionSent from '../../../services/sentConnection.service'
-import requestSuggestionService from '../../../services/suggestion.service'
-import sendConnectionRequestService from '../../../services/sendConnectionRequest.service'
-import connectionRecieved from '../../../services/connectionRecieved.service'
+import connectionSent from '../../../services/Connections/sentConnection.service'
+import requestSuggestionService from '../../../services/Connections/suggestion.service'
+import connectionRecieved from '../../../services/Connections/connectionRecieved.service'
+import editConnectionService from '../../../services/Connections/editConnection.service'
+import sendConnectionRequestService from '../../../services/Connections/sendConnectionRequest.service'
 
 
 
@@ -12,7 +13,7 @@ export const requestSent = createAsyncThunk(connectionByType, async (_, {rejectW
         const response = await connectionSent()
         // console.log(response)
         const data = response.data
-        // console.log(data)
+        console.log(data)
         return data
     }catch(err) {
         console.log(err)
@@ -26,7 +27,7 @@ export const requestRecieved = createAsyncThunk(connectionToType, async (_, {rej
         console.log(response)
         const data = response.data
         console.log(data)
-        return data
+        return data.response
     }catch(err) {
         console.log(err)
         return rejectWithValue(err)
@@ -63,11 +64,11 @@ export const sendRequest = createAsyncThunk(sendRequestType, async (input, {reje
     export const updateConnection = createAsyncThunk(updateConnectionType, async (input, {rejectWithValue}) => {
         try{
             console.log(input)
-            const response = await sendConnectionRequestService(input)
+            const response = await editConnectionService(input)
             console.log(response)
-            // const data = response.data
-            // console.log(data)
-            // return data
+            const data = response.data
+            console.log(data)
+            return data
         }catch(err) {
             console.log(err)
             return rejectWithValue(err)

@@ -8,6 +8,7 @@ const config = {
 
  const connectionSent = async () => {
         const response = await axios.get(process.env.REACT_APP_SERVER + '/connectionby', config )
+        console.log(response)
         return response
 }
 

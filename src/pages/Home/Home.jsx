@@ -10,7 +10,6 @@ import { ReactComponent as ArticleIcon } from '../../assets/article-icon.svg'
 
 import Posts from '../../components/Post/Posts'
 import CreatePost from '../../components/CreatePosts/CreatePost'
-import { fetchPostReactions } from '../../redux/slice/reactions/reactionAction'
 
 
 const Home = () => {

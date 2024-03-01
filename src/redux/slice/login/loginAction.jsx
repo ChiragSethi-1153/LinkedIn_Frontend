@@ -1,6 +1,6 @@
 import { createAsyncThunk} from '@reduxjs/toolkit'
 
-import loginService from '../../../services/login.service'
+import loginService from '../../../services/Auth/login.service'
 import { type } from './loginType'
 
 

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  Input,
   InputAdornment,
   InputBase,
   InputLabel,

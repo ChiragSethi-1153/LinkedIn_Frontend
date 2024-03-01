@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Divider, List, ListItem, Stack, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Avatar,  Button, Divider, Stack, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { requestRecieved } from '../../redux/slice/connections/connectionAction'
+import { requestRecieved, updateConnection } from '../../redux/slice/connections/connectionAction'
 
 const Recieved = () => {
 
@@ -11,22 +11,32 @@ const Recieved = () => {
     dispatch(requestRecieved())
   }, [dispatch])
 
-  const requests = useSelector((state) => state?.connections?.content)
-  console.log(requests?.response)
+  const requests = useSelector((state) => state?.connections?.received)
+  console.log(requests)
+  
+  const handleAccept = (id) => {
+    console.log(id)
+    const inputs = {Id: id, status: "accepted"}
+    dispatch(updateConnection(inputs))
+  }
 
-  const handleAccept = () => {
-    
+  const handleIgnore = (id) => {
+    console.log(id)
+    const inputs = {Id: id, status: "rejected"}
+    dispatch(updateConnection(inputs))
   }
 
   return (
     <Stack sx={{ display: 'flex', flexDirection: 'column' }} >
       {
-        requests?.response && requests?.response.length !== 0 ?
-          requests?.response?.map((i) => {
+        requests && 
+        requests?.map &&
+        requests.length !== 0 ?
+          requests?.map((i) => {
             return (
-              <>
-              <Stack sx={{ marginTop: '20px', width: '100%' }} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} key={i._id}>
-                <Stack flexDirection={'row'} sx={{ width: '70%' }} >
+              <Stack key={i._id}>
+              <Stack sx={{ marginTop: '20px', width: '100%' }} flexDirection={'row'} justifyreceived={'space-between'} alignItems={'center'} key={i._id}>
+                <Stack flexDirection={'row'} sx={{ width: '70%' }} key={i._id} >
                   <Avatar sx={{ width: '60px', height: '60px' }}></Avatar>
                   <Stack flexDirection={'column'} sx={{ marginLeft: '20px' }}>
                     <Typography sx={{ fontWeight: '500', fontSize: '20px' }}>{i?.connectionBy?.name}</Typography>
@@ -35,22 +45,30 @@ const Recieved = () => {
                     <Button sx={{ padding: '0', marginTop: '10px', textTransform: 'none' }}>Message</Button>
                   </Stack>
                 </Stack>
-                <Stack flexDirection={'row'} sx={{ width: '30%' }} alignItems={"center"}>
-                  <Button sx={{ padding: '0', margin: '10px', color: '#525353', textTransform: 'none' }}>Ignore</Button>
+                <Stack flexDirection={'row'} sx={{ width: '30%' }} alignItems={"center"} key={i._id}>
+                  <Button 
+                  sx={{ 
+                    padding: '0', 
+                    margin: '10px', 
+                    color: '#525353', 
+                    textTransform: 'none' }}
+                    onClick={() => handleIgnore(i?.connectionBy?._id)}
+                    >Ignore</Button>
                   <Button variant='outlined'
                     sx={{ padding: '5px 25px', margin: '10px', borderRadius: '50px', textTransform: 'none', fontWeight: '500' }}
-
+                    onClick={() => handleAccept(i?.connectionBy?._id)}
                   >Accept</Button>
                 </Stack>
               
               </Stack>
-              <Divider sx={{marginTop: '15px'}} />
-            </>
+              <Divider sx={{marginTop: '15px'}} key={i._id} />
+            </Stack>
             )
 
           }
 
-          ) : "No new Requests received"
+          ) 
+          : "No new requests received"
       }
 
     </Stack>

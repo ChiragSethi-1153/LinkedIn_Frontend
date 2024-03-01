@@ -12,10 +12,7 @@ import {
   Collapse,
   Divider,
   IconButton,
-  InputBase,
   Stack,
-  TextField,
-  ToggleButton,
   Typography,
   styled,
 } from "@mui/material";
@@ -27,7 +24,6 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
-import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
 import { Reactions } from "../Reactions/Reactions";
 import { deleteReaction, fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
 
@@ -51,7 +47,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
 
   useEffect(() => {
     dispatch(fetchPostReactions(postId));
-  }, []);
+  }, [dispatch, postId]);
 
   const reactions = useSelector((state) => state?.reactions?.content[postId]);
   console.log(reactions);

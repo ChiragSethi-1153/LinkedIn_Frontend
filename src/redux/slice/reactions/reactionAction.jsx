@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { deleteReactionType, reactionPost, reactionType } from "./reactionType";
-import getReactionService from "../../../services/reaction.service";
-import postReactionService from "../../../services/postReaction.service";
-import removeReactionService from './../../../services/removeReaction.service';
+import getReactionService from "../../../services/Reactions/reaction.service";
+import postReactionService from "../../../services/Reactions/postReaction.service";
+import removeReactionService from './../../../services/Reactions/removeReaction.service';
 
 export const fetchPostReactions = createAsyncThunk(reactionType, async (postId, {rejectWithValue}) => {
     try {

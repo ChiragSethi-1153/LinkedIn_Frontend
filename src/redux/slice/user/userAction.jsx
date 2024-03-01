@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import getUserService from "../../../services/user.service";
-import { userType } from "./userType";
-import editUserService from "../../../services/editUser.service";
-import { editUserType } from "./userType";
+import { userType, editUserType } from "./userType";
+import editUserService from "../../../services/User/editUser.service";
+import getUserService from "../../../services/User/user.service";
 
 
 export const fetchUser = createAsyncThunk(userType, async (_,{rejectWithValue}) => {

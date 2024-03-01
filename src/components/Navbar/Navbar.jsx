@@ -14,7 +14,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
-  const [isActive, setIsActive] = useState(0)
+  // const [isActive, setIsActive] = useState(0)
   const [index, setIndex] = useState(0);
   const navigate=useNavigate()
   function getImage() {
