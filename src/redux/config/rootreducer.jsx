@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit"
-import LoginSlice from "../slice/login/loginSlice"
+import LoginSlice from "../slice/login/LoginSlice"
 import postSlice from "../slice/post/postSlice"
 import createPostSlice from "../slice/createPost/createPostSlice"
 import commentSlice from "../slice/comment/commentSlice"

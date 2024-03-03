@@ -1,10 +1,16 @@
-import { Avatar, Box, Button, Divider, InputAdornment, InputBase, Stack, TextField, Typography } from '@mui/material'
+import { Avatar, Box, Button, Divider, InputAdornment, InputBase, Stack, TextField, TextareaAutosize, Typography } from '@mui/material'
 import './Messages.css'
 import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import PhotoIcon from '@mui/icons-material/Photo';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import GifIcon from '@mui/icons-material/Gif';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 const Messages = () => {
   return (
     <Box>
@@ -14,17 +20,17 @@ const Messages = () => {
         flexDirection={'row'}
         justifyContent={'center'}
         gap={3}
-        sx={{ marginTop: '20px' }}
+        sx={{ marginTop: '20px'}}
       >
 
         <Box className="main-message-box" sx={{display: 'flex', flexDirection: 'row'}}>
 
-        <Stack className='messaging-box' sx={{width: '310px'}}>
+        <Stack className='messaging-box'  sx={{width: '312px'}}>
           <Stack 
             flexDirection={'row'}
             justifyContent={'space-between'}
             alignItems={'center'}
-            sx={{width: '100%', padding: '10px 0px 10px 0px'}}
+            sx={{width: '100%', padding: '5px 0px 5px 0px'}}
             >
             <Typography
             
@@ -41,46 +47,6 @@ const Messages = () => {
 
 
           <Stack sx={{width: '100%', marginTop:'10px', padding: '0', border: 'box'}} alignItems={'center'}>
-          
-          
-          {/* <TextField className='search-bar'
-          variant='filled'
-          placeholder='Search messages' 
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start" >
-                <SearchIcon style={{color: 'black'}} />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <Button sx={{borderRadius: "50px"}}>
-                <TuneIcon style={{color: 'black'}} />
-              </Button>
-            ),
-          }}
-            
-          sx={{
-            width: '90%',
-            
-            "& .MuiFilledInput-root": {
-              height: '52px',
-              
-              border: "none",
-              '&.Mui-focused fieldset': {
-                  border: '1px solid black',   
-                },
-                '&:.MuiFilledInput-underline': {
-                  
-                  textUnderlineOffset: 'none'
-                },
-              '&:hover fieldset': {
-                border: '1px solid black',
-                
-              },
-            }
-          }}
-                    
-          /> */}
 
           <InputBase 
           startAdornment={<SearchIcon sx={{color: 'black', paddingLeft: '10px', paddingRight: '8px'}} />}
@@ -97,7 +63,7 @@ const Messages = () => {
             "&:hover" : {
               border: '1px solid black',
             },
-            "&:active" : {
+            "&:focus" : {
               border: '1px solid black',
             },
             
@@ -127,40 +93,135 @@ const Messages = () => {
           </Stack>
           <Divider />
       
-            {/* map */}
+            <Stack sx={{ width: '100%', height: '100%', overflow: 'scroll' }}>
+              {/* map */}
          
             
-            <Stack sx={{ marginTop: '20px', width: '100%' }} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Stack sx={{ width: '100%', height: '91px'}} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
                 
-                <Button sx={{padding: '0', width: '100%', textTransform: 'none', color: 'black'}}>
-                  <Stack flexDirection={'row'} sx={{ width: '100%' }} >
+                <Button sx={{padding: '15px ', width: '100%',height: '100%', textTransform: 'none', color: 'black'}}>
+                  <Stack flexDirection={'row'} sx={{ width: '100%' }}>
                   <Avatar sx={{ width: '60px', height: '60px' }}></Avatar>
-                  <Stack flexDirection={'column'} sx={{ marginLeft: '20px' }} alignItems={'flex-start'}>
-                  <Typography sx={{ fontWeight: '400', fontSize: '18px' }}>Tera Naam</Typography> 
+                  <Stack flexDirection={'column'} sx={{ marginLeft: '10px', width: '100%' }} alignItems={'flex-start'}>
+                  <Stack flexDirection={"row"} alignItems={'center'} justifyContent={'space-between'} sx={{width: '100%'}}>
+                  <Typography sx={{ fontWeight: '400', fontSize: '18px' }}>Naam</Typography> 
+                  <Typography>Date</Typography>
+                  </Stack>
                   <Typography sx={{ fontWeight: '400', fontSize: '14px' }}>Naam: Last Msg</Typography> 
                   </Stack>
                   </Stack>
-                </Button>
-                
-                
-
-
-                  
-                
+                </Button>         
             </Stack>
-            <Divider sx={{marginTop: '15px'}} />
+            <Divider  />
+            <Stack sx={{ width: '100%', height: '91px'}} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                
+                <Button sx={{padding: '15px ', width: '100%',height: '100%', textTransform: 'none', color: 'black'}}>
+                  <Stack flexDirection={'row'} sx={{ width: '100%' }}>
+                  <Avatar sx={{ width: '60px', height: '60px' }}></Avatar>
+                  <Stack flexDirection={'column'} sx={{ marginLeft: '10px', width: '100%' }} alignItems={'flex-start'}>
+                  <Stack flexDirection={"row"} alignItems={'center'} justifyContent={'space-between'} sx={{width: '100%'}}>
+                  <Typography sx={{ fontWeight: '400', fontSize: '18px' }}>Naam</Typography> 
+                  <Typography>Date</Typography>
+                  </Stack>
+                  <Typography sx={{ fontWeight: '400', fontSize: '14px' }}>Naam: Last Msg</Typography> 
+                  </Stack>
+                  </Stack>
+                </Button>         
+            </Stack>
+            <Divider  />
+            
+            
+
+
+            </Stack>
 
         
         </Stack>
         <Divider orientation='vertical'/>
-         <Stack className='user-message-box'></Stack>
-          <Typography 
+         
+         
+         <Stack className='user-message-box' sx={{width: '468px'}}>
+
+            <Stack className='user-name' 
+            flexDirection={'row'} 
+            justifyContent={'space-between'} 
+            alignItems={'center'} 
+            sx={{ width: '100%', boxSizing: 'border-box', padding: '8px'}}
+            >
+            <Typography 
             sx={{
               fontSize: '16px', 
               fontWeight: '500',
-              marginBottom: '8px'
             }}
-          ></Typography>
+          >
+          Naam
+          </Typography>
+
+            <Stack flexDirection={'row'} gap={2}>
+              <MoreHorizIcon />
+              <VideoCallIcon />
+              <StarBorderRoundedIcon />
+            </Stack>
+
+            </Stack>
+            <Divider />
+            <Stack sx={{height: '55vh'}}>
+
+            </Stack>
+            <Divider />
+            <Stack className='textField' sx={{boxSizing: 'border-box', padding: '10px', height: '121px'}}>
+              <InputBase
+              multiline
+              minRows={4}
+              placeholder='Write a message...'
+              sx={{
+                backgroundColor: '#f5f3ee', 
+                borderRadius: '5px', 
+                boxSizing: 'border-box', 
+                padding: '30px 10px 10px 10px',
+                fontSize: '14px',
+                height: '100%',
+                overflow: 'scroll',
+                WebkitOverflowScrolling: 'auto'
+                }}
+               />
+            </Stack>
+            <Divider />
+
+              <Stack 
+                flexDirection={'row'} 
+                sx={{height: '98px', boxSizing: 'border-box', padding: '20px'}}
+                gap={2}
+                alignItems={'center'}
+                justifyContent={'space-between'}
+              >
+              <Stack flexDirection={'row'}  gap={2}>
+                <PhotoIcon />
+                <AttachFileIcon sx={{rotate: '50deg'}} />
+                <GifIcon />
+                <SentimentSatisfiedAltIcon />
+              </Stack>
+              <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
+                <Button variant='contained' 
+                sx={{textTransform: 'none', borderRadius:'50px', padding: '0'}}>
+                  Send
+                </Button>
+                <MoreHorizIcon />
+              </Stack>
+              </Stack>
+        
+        
+        
+         </Stack>
+          
+       
+       
+       
+       
+       
+       
+       
+       
         </Box>
 
         

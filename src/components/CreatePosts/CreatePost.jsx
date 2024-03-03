@@ -16,7 +16,7 @@ import {
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./CreatePost.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../redux/slice/createPost/createPostAction";
 import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
 
@@ -24,6 +24,7 @@ const CreatePost = ({ hide }) => {
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.content)
 
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -76,8 +77,8 @@ const CreatePost = ({ hide }) => {
         <DialogTitle sx={{ m: 0, p: 2, display: "flex" }}>
           <Avatar></Avatar>
           <Stack>
-            <Typography>Name</Typography>
-            <Typography>Condition</Typography>
+            <Typography>{user.name}</Typography>
+            {/* <Typography>Condition</Typography> */}
           </Stack>
         </DialogTitle>
         <IconButton

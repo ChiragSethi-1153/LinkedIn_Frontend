@@ -9,10 +9,11 @@
 
 
 .main-message-box {
-    height: fit-content !important;
+    height: 90vh !important;
     width: 782px !important;
     border: 1px solid #d7d8d6 !important;
     border-radius: 10px !important;
     background-color: #fff !important;
+
 }
 

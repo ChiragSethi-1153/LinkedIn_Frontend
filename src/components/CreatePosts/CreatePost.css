@@ -1,11 +1,14 @@
 .create-post-box {
-  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #fff;
-    width: 60vw;
+    width: 40vw;
+    height: 50vh;
     position: fixed;
-    top: 122px;
+    top: 175px;
     z-index: 1;
-    left: 70px;
+    left: 400px;
     border-radius: 10px;
 }
 

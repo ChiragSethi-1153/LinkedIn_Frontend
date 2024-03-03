@@ -1,32 +1,31 @@
 .manage-network-card {
     
-    height: fit-content !important;
-    width: 303px !important;
-    border: 1px solid #d7d8d6 !important;
-    padding: 10px 15px;
-    border-radius: 10px !important;
-    background-color: #fff !important;
+    height: fit-content ;
+    width: 303px ;
+    border: 1px solid #d7d8d6 ;
+    border-radius: 10px ;
+    background-color: #fff ;
 }
 
 .manage-invitations-card {
-    height: fit-content !important;
-    width: 874px !important;
+    height: fit-content;
+    width: 874px ;
     padding: 8px 15px;
-    border: 1px solid #d7d8d6 !important;
-    border-radius: 10px !important;
-    background-color: #fff !important;
+    border: 1px solid #d7d8d6 ;
+    border-radius: 10px;
+    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .manage-suggestions-card{
-    height: fit-content !important;
-    width: 874px !important;
-    border: 1px solid #d7d8d6 !important;
-    padding: 10px 15px;
-    border-radius: 10px !important;
-    background-color: #fff !important;
+    height: fit-content ;
+    width: 874px ;
+    border: 1px solid #d7d8d6 ;
+    padding: 10px 14px;
+    border-radius: 10px ;
+    background-color: #fff ;
 }
 
 .manage-btn {
@@ -39,6 +38,67 @@
 }
 
 .display-suggestion-cards{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
+
+@media only screen and (max-width: 1600px) {
+    .manage-invitations-card {
+        height: fit-content ;
+        width: 780px ;
+        padding: 2px 8px 0px 16px;
+        border: 1px solid #d7d8d6 ;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .manage-suggestions-card{
+        height: fit-content ;
+        width: 780px;
+        border: 1px solid #d7d8d6 ;
+        padding: 10px 12px;
+        border-radius: 10px ;
+        background-color: #fff ;
+    }
+
+    .display-suggestion-cards{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    .manage-network-card {
+        height: fit-content ;
+        width: 300px ;
+        border: 1px solid #d7d8d6 ;
+        border-radius: 10px ;
+        background-color: #fff ;
+    }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 1200px) {
+    .manage-invitations-card {
+        height: fit-content ;
+        width: 780px;
+        padding: 2px 8px 0px 16px;
+        border: 1px solid #d7d8d6 ;
+        border-radius: 10px ;
+        background-color: #fff ;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .manage-suggestions-card{
+        height: fit-content ;
+        width: 780px;
+        border: 1px solid #d7d8d6 ;
+        padding: 10px 12px;
+        border-radius: 10px ;
+        background-color: #fff ;
+    }
+}
+@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1200px) {}

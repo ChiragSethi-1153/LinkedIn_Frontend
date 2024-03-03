@@ -45,6 +45,7 @@ const MyNetwork = () => {
       <Box className='home-nav'>
         <Navbar />
       </Box>
+
       <Stack 
         flexDirection={'row'} 
         justifyContent={'center'}
@@ -54,7 +55,7 @@ const MyNetwork = () => {
         }}
       >
         <Box className="manage-network-card">
-          <Typography>Manage my network</Typography>
+          <Typography sx={{padding: '13px 0px 0px 16px'}}>Manage my network</Typography>
           <NetworkPageList />
         </Box>
         <Stack gap={2}>
@@ -66,7 +67,7 @@ const MyNetwork = () => {
 
 
           <Stack className="manage-suggestions-card">
-            <Typography>People you may know</Typography>
+            <Typography sx={{paddingLeft: '4px'}} >People you may know</Typography>
 
           <Box className="display-suggestion-cards">
           {

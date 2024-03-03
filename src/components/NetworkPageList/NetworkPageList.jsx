@@ -10,13 +10,30 @@ import { ReactComponent as NetworkIcon } from '../../assets/network-icons.svg'
 
 const NetworkPageList = () => {
   return (
-    <List sx={{ display: 'flex', flexDirection: 'column' }}>
-      <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <ListItemButton>
+    <List sx={{ 
+      display: 'flex', 
+      flexDirection: 'column',
+      padding: '0' 
+      
+      }}>
+      <ListItem 
+      sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'flex-start', 
+        padding: '0 !important',
+        }}>
+        <ListItemButton sx={{}}>
           <ListItemIcon>
             <NetworkIcon />
           </ListItemIcon>
           <ListItemText primary="Connections" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemIcon>
+            <NetworkIcon />
+          </ListItemIcon>
+          <ListItemText primary="Contacts" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
