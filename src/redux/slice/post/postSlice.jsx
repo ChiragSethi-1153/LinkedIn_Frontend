@@ -20,7 +20,7 @@ export const postSlice = createSlice({
         })
         builder.addCase(fetchPosts.fulfilled, (state, action) => {
             state.isLoading = false
-            state.content = action.payload?.response
+            state.content.push(...action.payload?.response)
         })
         builder.addCase(fetchPosts.rejected, (state, action) => {
             state.isLoading = false

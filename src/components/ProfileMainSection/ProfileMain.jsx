@@ -40,7 +40,7 @@ const ProfileMain = () => {
                 </Stack>
                 {/* <Divider /> */}
                 <Stack className='main-user-details' flexDirection={'row'} justifyContent={'space-between'}>
-
+                    
                     <Stack justifyContent={'flex-start'}>
                       
                     <Typography className='username'>{user?.name}</Typography>

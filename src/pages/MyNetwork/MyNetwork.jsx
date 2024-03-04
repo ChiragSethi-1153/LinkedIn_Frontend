@@ -18,22 +18,22 @@ const MyNetwork = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  
-
-  useEffect(() => {
-    dispatch(requestSuggestions())
-  }, [dispatch])
-
   const suggestions = useSelector((state) => state.connections.content)
   const loading = useSelector((state) => state.connections.isLoading)
   const error = useSelector((state) => state.connections.error)
+  
+
+  useEffect(() => {
+    if(suggestions.length === 0){
+      dispatch(requestSuggestions())
+    }
+  }, [dispatch])
+
   console.log(error)
 
   console.log(suggestions)
 
-  if (loading) {
-    return "Loading..."
-  }
+  
   if (error !== null ) {
     return error.message
   }
@@ -70,6 +70,9 @@ const MyNetwork = () => {
             <Typography sx={{paddingLeft: '4px'}} >People you may know</Typography>
 
           <Box className="display-suggestion-cards">
+          {
+            loading && <>Loading...</>
+          }
           {
           suggestions && suggestions?.map ?
               suggestions?.map((item) => {

@@ -16,6 +16,10 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import {ReactComponent as Like} from '../../assets/Like.svg'
+import {ReactComponent as Comment} from '../../assets/Comment.svg'
+import {ReactComponent as Repost} from '../../assets/Repost.svg'
+import {ReactComponent as Share} from '../../assets/Share.svg'
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CommentIcon from "@mui/icons-material/Comment";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -146,7 +150,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
               })
             ) : (
               <>
-              <ThumbUpOutlinedIcon />
+              <Like />
               <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
                Like
               </Typography>
@@ -169,20 +173,20 @@ const PostCard = ({ title, body, images, user, postId }) => {
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <CommentIcon />
+              <Comment />
               <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
                 Comment
               </Typography>
             </ExpandMore>
           </IconButton>
           <IconButton aria-label="add to favorites">
-            <RepeatIcon />
+            <Repost />
             <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
               Repost
             </Typography>
           </IconButton>
           <IconButton aria-label="add to favorites">
-            <SendIcon />
+            <Share />
             <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
               Send
             </Typography>
@@ -270,6 +274,7 @@ const PostCard = ({ title, body, images, user, postId }) => {
           <CardContent>
             <Stack flexDirection={"row"} sx={{ width: "100%" }}>
               <Box>
+              {loading && <>Loading...</>}
                 {comments?.map((items) => (
                   <Box
                     sx={{

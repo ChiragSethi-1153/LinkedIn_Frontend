@@ -2,16 +2,22 @@ import { Avatar, Button, Divider, Stack, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { requestSent, updateConnection } from '../../redux/slice/connections/connectionAction'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 
 const Sent = () => {
   const dispatch = useDispatch()
+const navigate = useNavigate()
+  const sent = useSelector((state) => state?.connections?.sent)
 
   useEffect(() => {
     dispatch(requestSent())
   }, [dispatch])
 
-  const sent = useSelector((state) => state?.connections?.sent)
   console.log(sent)
+
+  const handleMessage = () => {
+    navigate('/messages')
+  }
 
   const handleWithdraw = (id) => {
     console.log(id)
@@ -36,7 +42,10 @@ const Sent = () => {
                  <Typography sx={{ fontWeight: '500', fontSize: '20px' }}>{i?.connectionTo?.name}</Typography> 
                  <Typography sx={{ fontWeight: '400', fontSize: '14px' }}>{i?.connectionTo?.headline}</Typography> 
                  {/* <Typography>{i?.connectionTo?.company?.name}</Typography>  */}
-                 
+                 <Button 
+                  sx={{ padding: '0', marginTop: '10px', textTransform: 'none' }}
+                  onClick={handleMessage}
+                  >Message</Button>
                   </Stack>
                   </Stack>
                   <Stack flexDirection={'row'} sx={{ width: '15%' }} alignItems={"center"}>

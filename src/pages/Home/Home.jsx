@@ -14,31 +14,35 @@ import News from '../../components/News/News'
 const Home = () => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false);
-  const [loader, setLoader] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
   const bottom = useRef(null);
   const delay = 10000;
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const posts = useSelector((state) => state.posts.content)
 
   const handleClose = () => {
     setOpen(false);
   };
 
   useEffect(() => {
-    dispatch(fetchPosts(1))
+    if(posts.length === 0){
+      dispatch(fetchPosts(1))
+      
+    }
   }, [dispatch])
  
-  const posts = useSelector((state) => state.posts.content)
   const loading = useSelector((state) => state.posts.isLoading)
   const error = useSelector((state) => state.posts.error)
+
+  const user = useSelector((state) => state.user.content)
 
   const time = posts[posts.length-1]?.createdAt
   console.log(time)
 
   useEffect(() => {
+    
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {      
           dispatch(fetchPosts(time))
@@ -50,12 +54,10 @@ const Home = () => {
     };
   }, [dispatch, time]);
 
-  if (loading) {
-    return "Loading...";
-  }
+  
 
   if (error) {
-    return error;
+    return error.message;
   }
 
   return (
@@ -84,7 +86,7 @@ const Home = () => {
                 justifyContent: 'center',
                 marginLeft: '5px'}} aria-label="recipe">
               </Avatar>
-              User details
+              {user.name}
             </Stack>
             <Box className='side-profile'>
               Recent
@@ -154,11 +156,15 @@ const Home = () => {
               </Stack>
             </Stack>
             <Divider />
-            {posts?.map((items) => (
+            {
+              loading && <>"Loading..."</>
+            }
+            {posts && posts.length > 0 && posts?.map((items) => (
               <Stack className='display-posts' key={items._id}>
                 <Posts title={items.title} body={items.body} images={items.images} user={items.userId} postId={items._id}/>
               </Stack>
             ))}
+           
           </Stack>
 
           <Box className='home-news-section'>
