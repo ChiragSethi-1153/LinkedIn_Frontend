@@ -1,5 +1,5 @@
-import { Button, Divider, InputBase, Stack, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, Button, Divider, InputBase, Stack, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
@@ -7,8 +7,28 @@ import PhotoIcon from '@mui/icons-material/Photo';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import { fetchMessages } from '../../redux/slice/messages/messageAction';
+import { useDispatch } from 'react-redux';
 
-const MessageData = () => {
+const MessageData = ({reciever, socket}) => {
+
+  const dispatch = useDispatch()
+  console.log(reciever)
+  console.log(socket)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    // dispatch(fetchMessages())
+  }, [dispatch])
+
+  useEffect(() => {
+    socket.on
+  })
+
+  const handleMessage = () => {
+      socket.emit('')
+  }
+
   return (
     <Stack className='user-message-box' sx={{width: '468px'}}>
 
@@ -24,7 +44,7 @@ const MessageData = () => {
               fontWeight: '500',
             }}
           >
-          Naam
+          {reciever.name}
           </Typography>
 
             <Stack flexDirection={'row'} gap={2}>
@@ -35,8 +55,29 @@ const MessageData = () => {
 
             </Stack>
             <Divider />
-            <Stack sx={{height: '55vh'}}>
+            <Stack sx={{height: '58vh', overflow: "scroll", overflowX: 'hidden', overflowY: 'scroll', boxSizing: 'border-box'}}>
+              <Stack sx={{width: '100%', padding: '8px'}}>
 
+              <Avatar sx={{height: '72px', width: '72px'}}></Avatar>
+              <Typography 
+              sx={{ 
+                fontSize: '17px', 
+                fontWeight: '500',
+                marginLeft: '11px',
+                marginTop: '10px',
+                "&:hover": {
+                  textDecoration: 'underline',
+                  cursor: 'pointer'
+                }
+              }}>{reciever?.name}</Typography>
+              <Typography
+              sx={{
+                fontSize: '14px',
+                marginLeft: '11px',
+              }}
+              >{reciever?.headline}</Typography>
+              </Stack>
+              <Divider />
             </Stack>
             <Divider />
             <Stack className='textField' sx={{boxSizing: 'border-box', padding: '10px', height: '121px'}}>
@@ -52,8 +93,11 @@ const MessageData = () => {
                 fontSize: '14px',
                 height: '100%',
                 overflow: 'scroll',
-                WebkitOverflowScrolling: 'auto'
+                WebkitOverflowScrolling: 'auto',
+                overflowX: 'hidden'
                 }}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                />
             </Stack>
             <Divider />
@@ -73,7 +117,9 @@ const MessageData = () => {
               </Stack>
               <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
                 <Button variant='contained' 
-                sx={{textTransform: 'none', borderRadius:'50px', padding: '0'}}>
+                sx={{textTransform: 'none', borderRadius:'50px', padding: '0'}}
+                onClick={handleMessage}
+                >
                   Send
                 </Button>
                 <MoreHorizIcon />

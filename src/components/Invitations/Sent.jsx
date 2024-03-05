@@ -1,13 +1,17 @@
 import { Avatar, Button, Divider, Stack, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { requestSent, updateConnection } from '../../redux/slice/connections/connectionAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import { createRoom } from '../../redux/slice/rooms/roomAction';
 
 const Sent = () => {
   const dispatch = useDispatch()
-const navigate = useNavigate()
+  const navigate = useNavigate()
+ 
   const sent = useSelector((state) => state?.connections?.sent)
+  const loggedUser = useSelector((state) => state?.user?.content) 
+  console.log(loggedUser._id)
 
   useEffect(() => {
     dispatch(requestSent())
@@ -15,7 +19,9 @@ const navigate = useNavigate()
 
   console.log(sent)
 
-  const handleMessage = () => {
+  const handleMessage = async (id) => {
+    console.log(id, "   ", loggedUser._id)
+    dispatch(createRoom([id, loggedUser._id]))
     navigate('/messages')
   }
 
@@ -44,8 +50,9 @@ const navigate = useNavigate()
                  {/* <Typography>{i?.connectionTo?.company?.name}</Typography>  */}
                  <Button 
                   sx={{ padding: '0', marginTop: '10px', textTransform: 'none' }}
-                  onClick={handleMessage}
-                  >Message</Button>
+                  onClick={() => handleMessage(i?.connectionTo?._id)}
+                  >Message
+                  </Button>
                   </Stack>
                   </Stack>
                   <Stack flexDirection={'row'} sx={{ width: '15%' }} alignItems={"center"}>

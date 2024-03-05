@@ -6,10 +6,10 @@ const config = {
         "Content-type": 'application/json'
 }
 
-const createRoomService = async (inputs) => {
+const createMessageService = async (inputs) => {
     console.log(inputs)
-    const response = await axios.post(`${process.env.REACT_APP_SERVER}/room`, inputs, config)
+    const response = await axios.post(`${process.env.REACT_APP_SERVER}/message`, inputs, config)
     return response
 }
 
-export default createRoomService
+export default createMessageService

@@ -5,9 +5,9 @@ const config = {
         headers: {'authorization': `Bearer ${token}`}
 }
 
-const fetchMessageService = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER}/messages`, config)
+const fetchRoomService = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_SERVER}/rooms`, config)
     return response
 }
 
-export default fetchMessageService
+export default fetchRoomService

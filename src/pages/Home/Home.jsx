@@ -29,7 +29,6 @@ const Home = () => {
   useEffect(() => {
     if(posts.length === 0){
       dispatch(fetchPosts(1))
-      
     }
   }, [dispatch])
  

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { createRoom } from './roomAction'
+import { createRoom, fetchRooms } from './roomAction'
 
 
 export const roomSlice = createSlice({
@@ -7,6 +7,7 @@ export const roomSlice = createSlice({
     initialState: {
         isLoading: false,
         error: null,
+        rooms: [],
         content: []
     },
     reducers: {},
@@ -16,8 +17,21 @@ export const roomSlice = createSlice({
         })
         builder.addCase(createRoom.fulfilled, (state, action) => {
             state.isLoading = false
+            state.rooms = action.payload
+            console.log(state.rooms)
         })
         builder.addCase(createRoom.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error
+        })
+        builder.addCase(fetchRooms.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(fetchRooms.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.content = action.payload
+        })
+        builder.addCase(fetchRooms.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error
         })

@@ -9,16 +9,17 @@ import ManageRequest from '../pages/MyNetwork/ManageRequest'
 import Messages from '../pages/Messages/Messages'
 
 
-const Routing = () => {
+const Routing = ({socket}) => {
   return (
       <Routes>
-        <Route path='/' Component={Home} />
-        <Route path='/signup' Component={UserSignup} />
-        <Route path='/login' Component={UserLogin} />
-        <Route path='/profile' Component={Profile} />
-        <Route path='/mynetwork' Component={MyNetwork} />
-        <Route path='/mynetwork/manage' Component={ManageRequest} />
-        <Route path='/messages' Component={Messages} />
+        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/signup' element={<UserSignup />} />
+        <Route path='/login' element={<UserLogin />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/mynetwork' element={<MyNetwork />} />
+        <Route path='/mynetwork/manage' element={<ManageRequest />} />
+        <Route path='/messages' element={<Messages socket={socket} />} />
       </Routes>
 
   )

@@ -1,13 +1,21 @@
 import { Avatar, Box, Button, Divider, InputAdornment, InputBase, Stack, TextField, TextareaAutosize, Typography } from '@mui/material'
 import './Messages.css'
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 
 import MessageList from '../../components/MessageList/MessageList';
 import MessageData from '../../components/MessageData/MessageData';
 
 
-const Messages = () => {
+const Messages = ({socket}) => {
+
+  const [reciever, setReciever] = useState({})
+
+  const handleReciever = (data) => {
+    console.log(data)
+    setReciever(data)
+ }
+ 
   return (
     <Box>
       <Box className="home-nav"><Navbar /></Box>
@@ -21,9 +29,9 @@ const Messages = () => {
 
         <Box className="main-message-box" sx={{display: 'flex', flexDirection: 'row'}}>
 
-        <MessageList />
+        <MessageList handleReciever={handleReciever} />
         <Divider orientation='vertical'/>
-        <MessageData /> 
+        <MessageData reciever={reciever} socket={socket} /> 
        
         </Box>
 
