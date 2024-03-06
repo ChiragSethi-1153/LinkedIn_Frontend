@@ -8,26 +8,47 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import GifIcon from '@mui/icons-material/Gif';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { fetchMessages } from '../../redux/slice/messages/messageAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessages } from '../../redux/slice/messages/messageSlice';
 
-const MessageData = ({reciever, socket}) => {
+const MessageData = ({reciever, roomId, socket, allMessages, loading}) => {
 
   const dispatch = useDispatch()
-  console.log(reciever)
-  console.log(socket)
+  // console.log(reciever)
+  // console.log(loading)
+  // console.log(allMessages)
+  // console.log(roomId)
+  // console.log(socket)
+  const user = useSelector((state) => state?.user?.content)
+  const userId = user._id
+
   const [message, setMessage] = useState('')
 
-  // useEffect(() => {
-  //   // dispatch(fetchMessages())
-  // }, [dispatch])
-
+  
   useEffect(() => {
     socket.on('room')
+
+    socket.emit("room-join",roomId);
+
+    socket.on("message", ({content, roomId, sender}) => {
+      console.log(content, " " , roomId, " ", sender,"-dkl");
+      dispatch(addMessages({sender: sender, content: content, roomId: roomId}))
+  })
+
+  return ()=>{
+    socket.off(roomId)
+  }
+
   }, [])
 
-  // const handleMessage = () => {
-  //     socket.emit('')
-  // }
+  const handleMessage = () => {
+    socket.emit("message", {
+      content: message,
+      roomId: roomId, 
+      sender: userId    
+    })
+    setMessage('')
+  }
 
   return (
     <Stack className='user-message-box' sx={{width: '468px'}}>
@@ -55,7 +76,7 @@ const MessageData = ({reciever, socket}) => {
 
             </Stack>
             <Divider />
-            <Stack sx={{height: '58vh', overflow: "scroll", overflowX: 'hidden', overflowY: 'scroll', boxSizing: 'border-box'}}>
+            <Stack sx={{height: '58vh', overflow: "auto", overflowX: 'hidden', boxSizing: 'border-box'}}>
               <Stack sx={{width: '100%', padding: '8px'}}>
 
               <Avatar sx={{height: '72px', width: '72px'}}></Avatar>
@@ -78,9 +99,48 @@ const MessageData = ({reciever, socket}) => {
               >{reciever?.headline}</Typography>
               </Stack>
               <Divider />
+              {
+                loading && <>Loading...</>
+              }
+              {
+                allMessages && 
+                allMessages.length > 0 && 
+                allMessages.map((item) => {
+                    return(
+                      <Stack>
+                        <Stack flexDirection={'row'} sx={{marginLeft: '10px', marginTop: '10px'}}>
+                          <Avatar sx={{}}></Avatar>
+                          <Stack sx={{marginLeft: '10px'}}>
+                          <Typography sx={{fontWeight: '500'}}>{item?.sender?.name}</Typography>
+                          <Typography>{item?.content}</Typography>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+                    )
+                })
+              }
+              {/* {
+                recievedMessage && 
+                recievedMessage.length > 0 &&
+                recievedMessage.map &&
+                recievedMessage.map((item) => {
+                  return(
+                    <Stack>
+                      <Stack flexDirection={'row'} sx={{marginLeft: '10px', marginTop: '10px'}}>
+                        <Avatar sx={{}}></Avatar>
+                        <Stack sx={{marginLeft: '10px'}}>
+                        <Typography sx={{fontWeight: '500'}}>{item?.sender?.name}</Typography>
+                        <Typography>{item?.content}</Typography>
+                        </Stack>
+                      </Stack>
+                    </Stack>
+                  )
+                })
+              } */}
+
             </Stack>
             <Divider />
-            <Stack className='textField' sx={{boxSizing: 'border-box', padding: '10px', height: '121px'}}>
+            <Stack className='textField' sx={{boxSizing: 'border-box', padding: '10px', height: 'fit-content', overflow: 'auto'}}>
               <InputBase
               multiline
               minRows={4}
@@ -89,11 +149,8 @@ const MessageData = ({reciever, socket}) => {
                 backgroundColor: '#f5f3ee', 
                 borderRadius: '5px', 
                 boxSizing: 'border-box', 
-                padding: '30px 10px 10px 10px',
+                padding:  "10px 5px 5px 10px",
                 fontSize: '14px',
-                height: '100%',
-                overflow: 'scroll',
-                WebkitOverflowScrolling: 'auto',
                 overflowX: 'hidden'
                 }}
                 value={message}
@@ -118,7 +175,7 @@ const MessageData = ({reciever, socket}) => {
               <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
                 <Button variant='contained' 
                 sx={{textTransform: 'none', borderRadius:'50px', padding: '0'}}
-                // onClick={handleMessage}
+                onClick={handleMessage}
                 >
                   Send
                 </Button>

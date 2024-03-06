@@ -10,7 +10,12 @@ export const messageSlice = createSlice({
         message: [],
         content: []
     },
-    reducers: {},
+    reducers: {
+        addMessages(state, action) {
+            console.log(action.payload, "wdwedwe")
+            state.content = [...state.content, action.payload]
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(createMessage.pending, (state) => {
             state.isLoading = true
@@ -38,4 +43,5 @@ export const messageSlice = createSlice({
     }
 })
 
+export const {addMessages} = messageSlice.actions
 export default messageSlice.reducer

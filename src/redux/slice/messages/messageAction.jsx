@@ -20,10 +20,10 @@ export const createMessage = createAsyncThunk(messageType, async (inputs, {rejec
     }
 })
 
-export const fetchMessages = createAsyncThunk(fetchMessageType, async (_, {rejectWithValue}) => {
+export const fetchMessages = createAsyncThunk(fetchMessageType, async (roomId, {rejectWithValue}) => {
     try{
-       
-        const response = await fetchMessageService()
+        console.log(roomId)
+        const response = await fetchMessageService(roomId)
         console.log(response)
         const data = response.data
         console.log(data)

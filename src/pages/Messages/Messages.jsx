@@ -5,17 +5,31 @@ import Navbar from '../../components/Navbar/Navbar'
 
 import MessageList from '../../components/MessageList/MessageList';
 import MessageData from '../../components/MessageData/MessageData';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMessages } from '../../redux/slice/messages/messageAction';
 
 
 const Messages = ({socket}) => {
-
+  const dispatch = useDispatch()
+  const [roomId, setRoomId] = useState('')
   const [reciever, setReciever] = useState({})
 
-  const handleReciever = (data) => {
+  const handleReciever = async (data, id) => {
     console.log(data)
+    setRoomId(id)
     setReciever(data)
  }
  
+const handleMessages = async (roomId) => {
+  console.log(roomId)
+  await dispatch(fetchMessages(roomId))
+} 
+
+const allMessages = useSelector((state) => state?.message?.content)
+const loading = useSelector((state) => state?.message?.isLoading)
+const error = useSelector((state) => state?.message?.error)
+
+console.log(allMessages)
   return (
     <Box>
       <Box className="home-nav"><Navbar /></Box>
@@ -29,9 +43,9 @@ const Messages = ({socket}) => {
 
         <Box className="main-message-box" sx={{display: 'flex', flexDirection: 'row'}}>
 
-        <MessageList handleReciever={handleReciever} />
+        <MessageList handleReciever={handleReciever} handleMessages={handleMessages} />
         <Divider orientation='vertical'/>
-        <MessageData reciever={reciever} socket={socket} /> 
+        <MessageData reciever={reciever} roomId={roomId} allMessages={allMessages} loading={loading} socket={socket} /> 
        
         </Box>
 

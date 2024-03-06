@@ -6,10 +6,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { fetchRooms } from '../../redux/slice/rooms/roomAction';
 import { useDispatch, useSelector } from 'react-redux';
 
-const MessageList = ({handleReciever}) => {
+const MessageList = ({handleReciever, handleMessages}) => {
     const dispatch = useDispatch()
 
-
+    console.log(handleMessages)
 
     useEffect(() => {
       dispatch(fetchRooms())
@@ -91,7 +91,7 @@ const MessageList = ({handleReciever}) => {
           </Stack>
           <Divider />
       
-            <Stack sx={{ width: '100%', height: '100%', overflow: 'scroll', overflowX: 'hidden' }}>
+            <Stack sx={{ width: '100%', height: '100%', overflow: 'auto', overflowX: 'hidden' }}>
               {/* map */}
 
 {
@@ -106,7 +106,14 @@ const MessageList = ({handleReciever}) => {
             
             <Button 
               sx={{padding: '15px ', width: '100%',height: '100%', textTransform: 'none', color: 'black'}}
-              onClick={() => handleReciever(item?.participants[0]?._id === user?._id ? {name: item?.participants[1]?.name, headline: item?.participants[1]?.headline} : {name: item?.participants[0]?.name, headline: item?.participants[0]?.headline})}
+              onClick={async () => { 
+                await handleReciever(item?.participants[0]?._id === user?._id ? {name: item?.participants[1]?.name, headline: item?.participants[1]?.headline} : {name: item?.participants[0]?.name, headline: item?.participants[0]?.headline}, item._id)
+                await handleMessages(item._id);
+                console.log("object")
+              }
+              
+              }
+              
               >
               <Stack flexDirection={'row'} sx={{ width: '100%' }}>
               <Avatar sx={{ width: '60px', height: '60px' }}></Avatar>
