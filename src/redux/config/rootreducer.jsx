@@ -1,5 +1,4 @@
 import { combineReducers } from "@reduxjs/toolkit"
-import LoginSlice from "../slice/login/loginSlice"
 import postSlice from "../slice/post/postSlice"
 import createPostSlice from "../slice/createPost/createPostSlice"
 import commentSlice from "../slice/comment/commentSlice"
@@ -9,11 +8,12 @@ import reactionSlice from "../slice/reactions/reactionSlice"
 import connectionSlice from "../slice/connections/connectionSlice"
 import roomSlice from "../slice/rooms/roomSlice"
 import messageSlice from "../slice/messages/messageSlice"
+import loginSlice  from './../slice/login/LoginSlice';
 
 
 const rootReducer = combineReducers({
     signup: signupSlice,
-    login: LoginSlice,
+    login: loginSlice,
     posts: postSlice,
     newPost: createPostSlice,
     comment: commentSlice,
