@@ -17,17 +17,17 @@ const MessageData = ({reciever, socket}) => {
   console.log(socket)
   const [message, setMessage] = useState('')
 
-  useEffect(() => {
-    // dispatch(fetchMessages())
-  }, [dispatch])
+  // useEffect(() => {
+  //   // dispatch(fetchMessages())
+  // }, [dispatch])
 
   useEffect(() => {
-    socket.on
-  })
+    socket.on('room')
+  }, [])
 
-  const handleMessage = () => {
-      socket.emit('')
-  }
+  // const handleMessage = () => {
+  //     socket.emit('')
+  // }
 
   return (
     <Stack className='user-message-box' sx={{width: '468px'}}>
@@ -118,7 +118,7 @@ const MessageData = ({reciever, socket}) => {
               <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
                 <Button variant='contained' 
                 sx={{textTransform: 'none', borderRadius:'50px', padding: '0'}}
-                onClick={handleMessage}
+                // onClick={handleMessage}
                 >
                   Send
                 </Button>

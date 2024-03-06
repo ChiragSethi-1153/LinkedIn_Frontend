@@ -62,7 +62,7 @@ const Sent = () => {
                       margin: '10px', 
                       color: '#525353', 
                       textTransform: 'none' }}
-                    onClick={() => handleWithdraw(i?.connectionTo?._id)}  
+                      onClick={() => handleWithdraw(i?.connectionTo?._id)}  
                       >Withdraw</Button>
                   
                 </Stack>

@@ -8,8 +8,11 @@ import MyNetwork from '../pages/MyNetwork/MyNetwork'
 import ManageRequest from '../pages/MyNetwork/ManageRequest'
 import Messages from '../pages/Messages/Messages'
 
+import io from 'socket.io-client'
 
-const Routing = ({socket}) => {
+const socket = io.connect(process.env.REACT_APP_SERVER)
+
+const Routing = () => {
   return (
       <Routes>
         <Route path='/' element={<Home />} />
