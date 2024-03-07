@@ -64,7 +64,7 @@ const Navbar = () => {
           <Button onClick={()=> navigate('/mynetwork')}><NetworkIcon /></Button>
           <Button ><JobIcon /></Button>
           <Button onClick={()=> navigate('/messages')}><MessageIcon /></Button>
-          <Button ><NotificationIcon /></Button>
+          <Button onClick={()=> navigate('/notifications')}><NotificationIcon /></Button>
           <Button
           onClick={() => navigate('/profile')}
           ><Avatar 

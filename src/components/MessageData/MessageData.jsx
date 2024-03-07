@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, InputBase, Stack, Typography } from '@mui/material'
+import { Avatar, Box, Button, Divider, InputBase, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
@@ -25,13 +25,12 @@ const MessageData = ({ reciever, roomId, socket, allMessages, loading }) => {
   const [message, setMessage] = useState('')
 
   const dummy = useRef(null);
- 
+
 
   useEffect(() => {
-    socket.on('room')
 
     socket.emit("room-join", roomId);
-   
+
     socket.on("message", ({ content, roomId, sender }) => {
       console.log(content, " ", roomId, " ", sender, "-dkl");
       dispatch(addMessages({ sender: sender, content: content, roomId: roomId }))
@@ -124,8 +123,8 @@ const MessageData = ({ reciever, roomId, socket, allMessages, loading }) => {
             )
           })
         }
-        <div ref={dummy} />
-      
+        <Box ref={dummy} />
+
       </Stack>
       <Divider />
       <Stack className='textField' sx={{ boxSizing: 'border-box', padding: '10px', height: 'fit-content', overflow: 'auto' }}>
@@ -161,12 +160,26 @@ const MessageData = ({ reciever, roomId, socket, allMessages, loading }) => {
           <SentimentSatisfiedAltIcon />
         </Stack>
         <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
-          <Button variant='contained'
+          {message !== '' ?
+            <Button variant='contained'
+              sx={{ textTransform: 'none', borderRadius: '50px', padding: '0' }}
+              onClick={handleMessage}
+            
+            >
+              Send
+            </Button>
+            : 
+            <Button variant='contained'
             sx={{ textTransform: 'none', borderRadius: '50px', padding: '0' }}
-            onClick={handleMessage}
+            // onClick={handleMessage}
+            disabled
           >
             Send
           </Button>
+
+
+          }
+
           <MoreHorizIcon />
         </Stack>
       </Stack>

@@ -10,9 +10,12 @@ import { ReactComponent as ArticleIcon } from '../../assets/article-icon.svg'
 import Posts from '../../components/Post/Posts'
 import CreatePost from '../../components/CreatePosts/CreatePost'
 import News from '../../components/News/News'
+import { fetchUser } from '../../redux/slice/user/userAction'
 
-const Home = () => {
+const Home = ({socket}) => {
   const dispatch = useDispatch()
+
+  console.log(socket)
   const [open, setOpen] = useState(false);
   const bottom = useRef(null);
   const delay = 10000;
@@ -25,17 +28,26 @@ const Home = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    dispatch(fetchUser())
+}, [dispatch])
 
   useEffect(() => {
     if(posts.length === 0){
       dispatch(fetchPosts(1))
     }
   }, [dispatch])
- 
-  const loading = useSelector((state) => state.posts.isLoading)
-  const error = useSelector((state) => state.posts.error)
 
-  const user = useSelector((state) => state.user.content)
+  const user = useSelector((state) => state?.user?.content)
+  console.log(user._id)
+
+  useEffect(() => {
+    socket.emit("notification-room", user._id)
+  }, [socket, user._id])
+ 
+  const loading = useSelector((state) => state?.posts?.isLoading)
+  const error = useSelector((state) => state?.posts?.error)
+
 
   const time = posts[posts.length-1]?.createdAt
   console.log(time)

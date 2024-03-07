@@ -12,9 +12,7 @@ const Profile = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(fetchUser())
-    }, [dispatch])
+    
 
     const user = useSelector((state) => state.user.content)
     console.log(user)
