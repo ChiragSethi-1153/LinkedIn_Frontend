@@ -40,9 +40,13 @@ const Home = ({socket}) => {
 
   const user = useSelector((state) => state?.user?.content)
   console.log(user._id)
-
+  
   useEffect(() => {
     socket.emit("notification-room", user._id)
+    // return () => {
+    //   socket.off('room')
+    //   socket.off('message')
+    // }
   }, [socket, user._id])
  
   const loading = useSelector((state) => state?.posts?.isLoading)

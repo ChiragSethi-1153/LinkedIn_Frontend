@@ -8,8 +8,10 @@ import reactionSlice from "../slice/reactions/reactionSlice"
 import connectionSlice from "../slice/connections/connectionSlice"
 import roomSlice from "../slice/rooms/roomSlice"
 import messageSlice from "../slice/messages/messageSlice"
-import loginSlice from "../slice/login/loginSlice"
-// import loginSlice  from './../slice/login/LoginSlice';
+// import loginSlice from "../slice/login/loginSlice"
+import loginSlice  from './../slice/login/LoginSlice';
+import notificationSlice from "../slice/notifications/notificationSlice"
+
 
 
 const rootReducer = combineReducers({
@@ -23,6 +25,7 @@ const rootReducer = combineReducers({
     connections: connectionSlice,
     room: roomSlice,
     message: messageSlice,
+    notifications: notificationSlice
 }
 )
 export default rootReducer

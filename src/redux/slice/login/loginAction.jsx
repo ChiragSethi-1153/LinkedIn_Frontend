@@ -9,7 +9,6 @@ export const loginUsers = createAsyncThunk(type, async (inputs, {rejectWithValue
         const response = await loginService(inputs)
         // console.log(response)
         const data = await response.data
-        localStorage.setItem('token', data.token)
         // console.log(data)
         return data
     }catch(err) {

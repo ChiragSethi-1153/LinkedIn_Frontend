@@ -21,7 +21,6 @@ const MessageData = ({ reciever, roomId, socket, allMessages, loading }) => {
   // console.log(socket)
   const user = useSelector((state) => state?.user?.content)
   const userId = user._id
-  const [disable, setDisable] = useState(true)
   const [message, setMessage] = useState('')
 
   const dummy = useRef(null);
