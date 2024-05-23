@@ -2,34 +2,47 @@ import {
   Box,
   Button,
   FormControl,
+  IconButton,
   InputAdornment,
   InputBase,
   InputLabel,
+  OutlinedInput,
+  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import "./UserLogin.css";
-import "../UserSignup/UserSignup.css";
-import Footer from "../../components/Footer/Footer";
-import AppleIcon from '@mui/icons-material/Apple';
+import styles from "./UserLogin.module.css";
+import AppleIcon from "@mui/icons-material/Apple";
 import Logo from "../../assets/Linkedin-logo2.png";
-import { ReactComponent as GoogleIcon } from "../../assets/icons-google.svg";
-import { ReactComponent as LinkIcon } from "../../assets/link-icon.svg";
+import {ReactComponent as GoogleIcon} from "../../assets/icons-google.svg";
+import {ReactComponent as LinkIcon} from "../../assets/link-icon.svg";
+import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUsers } from "../../redux/slice/login/loginAction";
 import validator from "validator";
+import Footer from "../../components/Footer/Footer";
+import { loginUsers } from "../../redux/slice/login/loginAction";
+
+
 
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [navigation, setNavigation] = useState(true)
+
+  const [open, setOpen] = React.useState(false);
+  const [conflict, setConflict] = React.useState(false)
+  const [invalid, setInvalid] = React.useState(false)
+  const [err, setErr] = React.useState(false)
+  const [inputs, setInputs] = useState({ email: "", password: "" });
+  
 
   const validate = (value) => {
     if (
@@ -54,7 +67,28 @@ const UserLogin = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const handleClose = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+    setConflict(false)
+    setInvalid(false)
+    setErr(false)
+  };
+  const action = (
+    <React.Fragment>
+      
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   const handleEmail = (e) => {
     setInputs({ ...inputs, email: e.target.value })
@@ -87,7 +121,7 @@ const UserLogin = () => {
       direction="column"
       justifyContent="space-between"
       alignItems="center"
-      className="login-page"
+      className={styles.loginPage}
       sx={{ backgroundColor: "#fff", width: '100%', height: '100%' }}
     >
       <Stack
@@ -95,20 +129,20 @@ const UserLogin = () => {
         justifyContent="flex-start"
         alignItems="flex-start"
         sx={{
-          width: "100%",
-          marginLeft: "114px",
+          width: "60%",
+          marginLeft: "-114px",
           marginTop: "32px",
         }}
       >
-        <img src={Logo} alt="Logo" className="login-logo" />
+        <img src={Logo} alt="Logo" className={styles.loginLogo} />
       </Stack>
 
-      <Box className="login-form-box">
+      <Box className={styles.loginFormBox}>
         <Stack
           direction="column"
           justifyContent="space-between"
           alignItems="center"
-          className="login-form"
+          className={styles.loginForm}
         >
           <Typography
             align="left"
@@ -160,7 +194,6 @@ const UserLogin = () => {
               Password
             </InputLabel>
             <InputBase
-              id="standard-adornment-password"
               inputProps={{
                 style: {
                   
@@ -257,75 +290,111 @@ const UserLogin = () => {
           >
             Sign in
           </Button>
-          </form>
+          
 
-          {/* <Divider>or</Divider> */}
-          <Box className="form-divider">
+          <Box className={styles.formDivider}>
             <span>
-              <span className="divider-line"></span>
+              <span className={styles.dividerLine}></span>
             </span>
-            <span className="divider-text-content">
-              {/* <span className="divider-text">or</span> */}
+            <span className={styles.dividerTextContent}>
+              <span className={styles.dividerText}>or</span>
             </span>
-            <p className='login-text'>By clicking to Continue, you agree to the LinkedIn's <span className='login-text-span'>User Agreement</span>, <span className='login-text-span'>Privacy Policy</span>, and <span className='login-text-span'>Cookie Policy</span>.</p>
           </Box>
-          <Box className="third-party-container-login">
-            <Button
-              variant="outlined"
-              startIcon={
-                <GoogleIcon
-                  style={{ width: "21px", height: "21px", minWidth: "18px" }}
-                />
-              }
-              className="third-party-btns"
-            >
-              Continue with Google
-            </Button>
-          </Box>
-          <Box className="third-party-container-login">
-            <Button
-              variant="outlined"
-              startIcon={
-                <AppleIcon
-                  style={{ width: "21px", height: "21px", minWidth: "18px" }}
-                />
-              }
-              className="third-party-btns"
-            >
-              Sign in with Apple
-            </Button>
-          </Box>
-          <Box className="third-party-container-login">
-            <Button
-              variant="outlined"
-              startIcon={
-                <LinkIcon
-                  style={{ width: "21px", height: "21px", minWidth: "18px" }}
-                />
-              }
-              className="third-party-btns"
-            >
-              Sign in with a one-time link
-            </Button>
-          </Box>
-          <Box className="third-party-container-login">
-            <Button
-              variant="outlined"
-              className="third-party-btns"
-            >
-              Sign in with a passkey
-            </Button>
-          </Box>
+          <Box>
+              <p className={styles.loginText}>
+                By clicking to Continue, you agree to the LinkedIn's
+                <span className={styles.loginTextSpan}> User Agreement</span>,
+                <span className={styles.loginTextSpan}> Privacy Policy</span>,
+                and <span className={styles.loginTextSpan}>Cookie Policy</span>.
+              </p>
+            </Box>
+          
+            <Box className={styles.thirdPartyContainerLogin}>
+              <Button
+                variant="outlined"
+                startIcon={<GoogleIcon style={{width: '20px', height: '20px'}} />}
+                className={styles.thirdPartyBtns}
+              >
+                Continue with Google
+              </Button>
+            </Box>
+            <Box className={styles.thirdPartyContainerLogin}>
+              <Button
+                variant="outlined"
+                startIcon={
+                  <AppleIcon
+                    style={{ width: "21px", height: "21px", minWidth: "18px" }}
+                  />
+                }
+                className={styles.thirdPartyBtns}
+              >
+                Sign in with Apple
+              </Button>
+            </Box>
+
+            <Box className={styles.thirdPartyContainerLogin}>
+              <Button
+                variant="outlined"
+                startIcon={
+                  <LinkIcon
+                    style={{ width: "21px", height: "21px", minWidth: "18px" }}
+                  />
+                }
+                className={styles.thirdPartyBtns}
+              >
+                Sign in with a one-time link
+              </Button>
+            </Box>
+            <Box className={styles.thirdPartyContainerLogin}>
+              <Button variant="outlined" className={styles.thirdPartyBtns}>
+                Sign in with a passkey
+              </Button>
+            </Box>
+            </form>
         </Stack>
       </Box>
       
       <Box>
-        <Typography paragraph={true} className="login-footer-text">New to LinkedIn? <span className="login-footer-text-btn" onClick={() => navigate('/signup')}>Join Now</span> </Typography>
+        <Typography className={styles.loginFooterText}>
+          New to LinkedIn?{" "}
+          <span
+            className={styles.loginFooterTextBtn}
+            onClick={() => navigate("/register")}
+          >
+            Join Now
+          </span>{" "}
+        </Typography>
       </Box>
 
-      <footer style={{ width: "100%" }}>
         <Footer />
-      </footer>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        onClose={handleClose}
+        message="Logged in Successfully"
+        action={action} 
+      />
+        <Snackbar
+        open={invalid}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Invalid Credentials"
+        action={action} 
+      />
+      <Snackbar
+        open={conflict}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message={"User does not exists! Kindly signup"}
+        action={action}
+      />
+      <Snackbar
+        open={err}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message={"Error Occured! Try Again"}
+        action={action}
+      />
     </Stack>
   );
 };

@@ -23,7 +23,7 @@ const UserSignup = () => {
 
 
   
-  const [inputs, setInputs] = useState({ email: '', password: '' })
+  const [inputs, setInputs] = useState({name:'', email: '', password: '' })
   const [errorMessage, setErrorMessage] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [navigation, setNavigation] = useState(true)
@@ -94,6 +94,23 @@ const handlePassword = (e) => {
             <section className='signup-form-section'>
 
               <Box className='signup-inputs'>
+                <label htmlFor='name'>Name</label>
+                <TextField
+                  name='name'
+                  className='email'
+                  inputProps={{ style: { height: '3px', padding: '14px 16px 14px 16px' } }}
+                  sx={{
+                    border: '1px solid black',
+                    mb: 2,
+                    outline: 'none',
+                    '&.Mui-focused fieldset': {
+                      border: "none",
+                      outline: 'none',
+                  }
+                  }}
+                  value={inputs.name}
+                  onChange={(e) => setInputs({...inputs, name: e.target.value})}
+                  required />
                 <label htmlFor='email'>Email</label>
                 <TextField
                   name='email'

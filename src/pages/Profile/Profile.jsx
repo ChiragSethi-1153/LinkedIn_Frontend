@@ -19,9 +19,7 @@ const Profile = () => {
 
   return (
     <Box className='profile-page'>
-      <Box className='home-nav'>
-        <Navbar />
-      </Box>
+     
 
       <Stack 
       justifyContent={'center'} 

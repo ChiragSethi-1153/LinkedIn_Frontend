@@ -1,7 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+
 
 .footer{
     background-color: #fff;
@@ -16,7 +13,7 @@
     
 }
 
-.footer-content{
+.footerContent{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -33,7 +30,7 @@
     background: transparent;
 }
 
-li {
+.listTag {
     color: rgb(0,0,0,0.6);
     font-weight: 600;
     font-size: 12px !important;
@@ -50,14 +47,14 @@ li {
     background: 0;
 }
 
-.footer-year {
+.footerYear {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     outline: 0;
 }
 
-.logo-span{
+.logoSpan{
     position: absolute;
     width: 1px;
     height: 1px;
@@ -77,7 +74,7 @@ li {
     width: 1px !important;
 }
 
-.footer-icon {
+.footerIcon {
     opacity: 1;
     color: black;
     display: inline-block;
@@ -87,18 +84,11 @@ li {
     margin-right: 8px;
 }   
 
-
-
-
-
-
-
-
 @media (min-width: 992px) {
-    .footer-content{
+    .footerContent{
         padding: 0;
     }
-    .footer-content>li {
+    .footerContent>li {
         justify-content: center;
         width: auto;
     }

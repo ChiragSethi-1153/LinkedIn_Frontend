@@ -42,9 +42,7 @@ const MyNetwork = () => {
 
   return (
     <Box>
-      <Box className='home-nav'>
-        <Navbar />
-      </Box>
+      
 
       <Stack 
         flexDirection={'row'} 

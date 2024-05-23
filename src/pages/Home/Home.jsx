@@ -77,9 +77,7 @@ const Home = ({socket}) => {
 
   return (
     <Stack flexDirection={'column'} className='Home'>
-      <Box className='home-nav'>
-        <Navbar />
-      </Box>
+      
       <Box className='home-main'>
         <Stack
           gap={2.5}

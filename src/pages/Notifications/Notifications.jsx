@@ -35,9 +35,7 @@ const Notifications = ({socket}) => {
   console.log(notificationData);
   return (
     <Box>
-      <Box className="home-nav">
-        <Navbar />
-      </Box>
+      
 
       <Stack
         flexDirection={"row"}

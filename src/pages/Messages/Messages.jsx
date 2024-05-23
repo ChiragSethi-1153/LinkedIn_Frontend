@@ -32,7 +32,7 @@ const error = useSelector((state) => state?.message?.error)
 console.log(allMessages)
   return (
     <Box>
-      <Box className="home-nav"><Navbar /></Box>
+      
 
       <Stack
         flexDirection={'row'}

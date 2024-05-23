@@ -10,19 +10,22 @@ import Messages from '../pages/Messages/Messages'
 
 import io from 'socket.io-client'
 import Notifications from '../pages/Notifications/Notifications'
+import Jobs from '../pages/Jobs/Jobs'
 
 const socket = io.connect(process.env.REACT_APP_SERVER)
 const notificationSocket = io.connect(process.env.REACT_APP_MICROSERVICE_URL)
 const Routing = () => {
   return (
       <Routes>
+        
         <Route path='/' element={<Home socket={notificationSocket} />} />
         <Route path='/home' element={<Home socket={notificationSocket} />} />
-        <Route path='/signup' element={<UserSignup />} />
+        <Route path='/register' element={<UserSignup />} />
         <Route path='/login' element={<UserLogin />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/mynetwork' element={<MyNetwork />} />
         <Route path='/mynetwork/manage' element={<ManageRequest />} />
+        <Route path='/jobs' element={<Jobs />} />
         <Route path='/messages' element={<Messages socket={socket} />} />
         <Route path='/notifications' element={<Notifications socket={notificationSocket} />} />
       </Routes>

@@ -1,29 +1,28 @@
 import React from "react";
-import "./Footer.css";
-// import Logo from '../../assets/logo-black.png'
+import styles from "./Footer.module.css";
 import Logo from "../../assets/logo-black.png";
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <div className={styles.footer}>
 
-       <ul className="footer-content" type="none">
-        <li>
-          <span className="footer-year">
-          <img src={Logo} alt='icon' width={'56px'}></img>
+       <ul className={styles.footerContent} itemType="none">
+        <li className={styles.listTag} >
+          <span className={styles.footerYear}>
+          <img src={Logo} alt='icon' width={'56px'} />
            © 2024 </span>
         </li>
         
-        <li>About</li>
-        <li>Accessibility</li>
-        <li>User Agreement</li>
-        <li>Privacy Policy</li>
-        <li>Cookie Policy</li>
-        <li>Copyright Policy</li>
-        <li>Brand Policy</li>
-        <li>Guest Controls</li>
-        <li>Community Guidelines</li>
-        <li>Language</li>
+        <li className={styles.listTag} >About</li>
+        <li className={styles.listTag} >Accessibility</li>
+        <li className={styles.listTag} >User Agreement</li>
+        <li className={styles.listTag} >Privacy Policy</li>
+        <li className={styles.listTag} >Cookie Policy</li>
+        <li className={styles.listTag} >Copyright Policy</li>
+        <li className={styles.listTag} >Brand Policy</li>
+        <li className={styles.listTag} >Guest Controls</li>
+        <li className={styles.listTag} >Community Guidelines</li>
+        <li className={styles.listTag} >Language</li>
         </ul>
     </div>
   );
