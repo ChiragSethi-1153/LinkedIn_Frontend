@@ -5,10 +5,9 @@ import postService from "../../../services/Post/posts.service";
 
 export const fetchPosts = createAsyncThunk(
   type,
-  async (time, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-        console.log(time)
-      const response = await postService(time);
+      const response = await postService();
       // console.log(response)
       const data = response.data;
       console.log(data);

@@ -10,7 +10,7 @@ import theme from './theme/theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
       <ThemeProvider theme={theme}>
@@ -18,5 +18,5 @@ root.render(
       </ThemeProvider>
       </PersistGate>
     </Provider>
- </StrictMode>
+//  </StrictMode>
 );

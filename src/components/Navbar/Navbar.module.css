@@ -10,13 +10,11 @@
     box-shadow: none;
     flex-shrink: 0;
     position: fixed;
-    /* z-index: 100; */
     top: 0;
-    height: 51px;
+    height: 51px !important;
     right: 0;
     left: 0;
     padding: 0 2.4rem;
-    z-index: 105;
     border-bottom: 1px solid rgb(140 140 140/.2);
 }
 

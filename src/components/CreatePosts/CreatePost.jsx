@@ -2,25 +2,34 @@ import {
   Avatar,
   Box,
   Button,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
+  Fab,
   FormControl,
   IconButton,
   Input,
+  InputBase,
   Stack,
   Typography,
   styled,
 } from "@mui/material";
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { ThreeCircles } from 'react-loader-spinner';
 import "./CreatePost.css";
+import styles from './CreatePost.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../redux/slice/createPost/createPostAction";
+import PhotoSizeSelectActualRoundedIcon from '@mui/icons-material/PhotoSizeSelectActualRounded';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+
 import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
 
-const CreatePost = ({ hide }) => {
+const CreatePost = ({ open, setOpen}) => {
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
@@ -37,7 +46,7 @@ const CreatePost = ({ hide }) => {
     whiteSpace: "nowrap",
     width: 1,
   });
-
+  const [isLoading, setIsLoading] = useState(false)
   const handleImage = (e) => {
     setImages(e.target.files);
   };
@@ -53,87 +62,94 @@ const CreatePost = ({ hide }) => {
         formData.append("images", images[i]);
       }
       dispatch(createPost(formData));
-      hide()
+      setOpen(false)
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <Box>
-      <Box
-        className="modal-wrapper"
-        onClick={() => hide()}
-        style={{
-          position: " fixed",
-          left: "0",
-          right: "0",
-          bottom: "0",
-          top: "0",
-          backgroundColor: "rgba(230, 226, 226, 0.804)",
-        }}
-      />
-      <Box className="create-post-box">
-        <DialogTitle sx={{ m: 0, p: 2, display: "flex" }}>
-          <Avatar></Avatar>
-          <Stack>
-            <Typography>{user.name}</Typography>
-            {/* <Typography>Condition</Typography> */}
-          </Stack>
+    <React.Fragment>
+      <Dialog
+        onClose={() => setOpen(false)}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        className={`dialogbox ${styles.dialog}`}
+      >
+        {isLoading &&
+          <Box className={styles.loader}>
+            <ThreeCircles
+              visible={true}
+              height="100"
+              width="100"
+              color="#4fa94d"
+              ariaLabel="three-circles-loading"
+              wrapperClass={styles.loaderWrapper}
+            />
+          </Box>}
+        <DialogTitle className={styles.dialogTitle} >
+          <Box className={styles.dialogHeader}>
+            <Avatar className={styles.avatar} 
+            // src={user?.image ?
+            //   `${process.env.REACT_APP_IMG_BASE_URL}/${user.image}` :
+            //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQbi0Cq6ANBTGJwu8uGYunx3XKWJJW38NECclo4Iidgg&s"
+            // } 
+            />
+            <Box className={styles.dialogHeaderText}>
+              <Typography variant="h6">{user.name}</Typography>
+              <Typography>Post to Anyone</Typography>
+            </Box>
+          </Box>
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={hide}
+          onClick={() => setOpen(false)}
           sx={{
-            position: "absolute",
+            position: 'absolute',
             right: 8,
             top: 8,
-            "&:hover": {},
+            color: (theme) => theme.palette.grey[500],
           }}
         >
           <CloseIcon />
         </IconButton>
+        <DialogContent sx={{ padding: 2 }} className={styles.dialogContent}>
+          <InputBase
+            disabled={isLoading}
+            className={styles.title}
+            placeholder="Title of Your Post"
+            value={inputs.title}
+            onChange={(e) => setInputs({ ...inputs, title: e.target.value })}
+          />
+          <InputBase
+            disabled={isLoading}
+            className={styles.content}
+            multiline
+            placeholder="What do you want to talk about?"
+            value={inputs.body}
+            onChange={(e) => setInputs({ ...inputs, body: e.target.value })}
+          />
 
-        <DialogContent sx={{ width: "80%" }}>
-          <FormControl sx={{ width: "100%" }} enctype="multipart/form-data">
-            <Input
-              placeholder="Title of Your Post"
-              value={inputs.title}
-              onChange={(e) => setInputs({ ...inputs, title: e.target.value })}
-              sx={{ width: "100%" }}
-            />
-            <Input
-              placeholder="What do you want to talk about?"
-              value={inputs.body}
-              onChange={(e) => setInputs({ ...inputs, body: e.target.value })}
-            />
-            <Button
-              component="label"
-              role={undefined}
-              variant="standard"
-              tabIndex={-1}
-              sx={{ width: "10px" }}
-              startIcon={<MediaIcon />}
-            >
-              <VisuallyHiddenInput
-                type="file"
-                name="images"
-                multiple
-                onChange={(e) => {
-                  handleImage(e);
-                }}
-              />
-            </Button>
-          </FormControl>
+          <Box className={styles.createPostBtns}>
+            <Button className={`${styles.aibtn} ${styles.contentImgBtn}`} > <AutoAwesomeIcon sx={{ color: '#c37d16', height: "16px", paddingLeft: "12px" }} />Rewrite with AI </Button>
+            <input type="file" id="file-picker" multiple onChange={(e) => {handleImage(e);}} hidden />
+            <Button disabled={isLoading} onClick={(e) => { e.preventDefault(); document.getElementById("file-picker").click() }} className={styles.contentImgBtn}><PhotoSizeSelectActualRoundedIcon sx={{ color: '#00000099', height: "20px" }} />&nbsp; </Button>
+            <Button className={styles.contentImgBtn}> <CalendarMonthRoundedIcon sx={{ color: '#00000099', height: "20px" }} />&nbsp; </Button>
+          </Box>
         </DialogContent>
-        <Divider />
-        <DialogActions>
-          <Button autoFocus type="submit" onClick={(e) => handleSubmit(e)}>
+        <Divider style={{ margin: "0px !important" }} />
+        <DialogActions sx={{ padding: "12px 24px 12px 16px" }}>
+          <Fab
+            className={styles.postBtn}
+            variant='extended'
+            // disabled={((data.content && file && data.title) ? false : true) || isLoading}
+            onClick={handleSubmit}
+          >
             Post
-          </Button>
+          </Fab>
         </DialogActions>
-      </Box>
-    </Box>
+      </Dialog>
+    </React.Fragment>
   );
 };
 

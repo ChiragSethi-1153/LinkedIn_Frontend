@@ -11,13 +11,15 @@ import Messages from '../pages/Messages/Messages'
 import io from 'socket.io-client'
 import Notifications from '../pages/Notifications/Notifications'
 import Jobs from '../pages/Jobs/Jobs'
+import Navbar from '../components/Navbar/Navbar'
+import { Stack } from '@mui/material'
 
 const socket = io.connect(process.env.REACT_APP_SERVER)
 const notificationSocket = io.connect(process.env.REACT_APP_MICROSERVICE_URL)
 const Routing = () => {
   return (
-      <Routes>
-        
+    
+      <Routes >
         <Route path='/' element={<Home socket={notificationSocket} />} />
         <Route path='/home' element={<Home socket={notificationSocket} />} />
         <Route path='/register' element={<UserSignup />} />
