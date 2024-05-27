@@ -58,7 +58,7 @@ export const connectionSlice = createSlice({
         builder.addCase(updateConnection.fulfilled, (state, action) => {
             state.isLoading = false
             state.error = null
-            state.content = [...action.payload]
+            state.content = [...action?.payload]
             console.log(state.content)
         })
         builder.addCase(updateConnection.rejected, (state, action) => {

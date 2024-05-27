@@ -112,7 +112,7 @@ const UserLogin = () => {
     else{
       console.log(inputs);
       dispatch(loginUsers(inputs));
-      navigate("/");
+      navigate("/home");
     }
   };
 
@@ -122,7 +122,7 @@ const UserLogin = () => {
       justifyContent="space-between"
       alignItems="center"
       className={styles.loginPage}
-      sx={{ backgroundColor: "#fff", width: '100%', height: '100%' }}
+      sx={{ backgroundColor: "#fff", width: '100%', height: '100vh' }}
     >
       <Stack
         direction="row"

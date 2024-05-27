@@ -81,7 +81,11 @@ const SuggestionCard = ({ item }) => {
               color: "#414140",
               display: 'flex',
               alignItems: 'center',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              "&:hover": {
+                border: '1px solid #414140',
+                backgroundColor: 'transparent'
+              }
             }}
           >
           <AccessTimeRoundedIcon sx={{color: 'black', width: '17px', marginRight: '3px'}} />

@@ -25,15 +25,15 @@ body {
     border-radius: 10px;
 }
 
-.display-posts {
-    margin: 0.8rem 0 0.8rem 0;
-    width: fit-content;
-    height: fit-content;
+.display-posts { 
+    /* margin: 0.8rem 0 0.8rem 0; */
+    /* width: fit-content; */
+    /* height: fit-content; */
     
-    border: 1px solid #d7d8d6;
+    /* border: 1px solid #d7d8d6;
     border-radius: 10px;
-    background-color: #fff;
-}
+    background-color: #fff; */
+} 
 
 .side-profile {
     height: fit-content;

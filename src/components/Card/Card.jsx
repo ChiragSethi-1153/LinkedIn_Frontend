@@ -20,12 +20,12 @@ import {
   styled,
 } from "@mui/material";
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
-import {ReactComponent as Like} from '../../assets/Like.svg'
-import {ReactComponent as Comment} from '../../assets/Comment.svg'
-import {ReactComponent as Repost} from '../../assets/Repost.svg'
-import {ReactComponent as Share} from '../../assets/Share.svg'
-import {ReactComponent as Globe} from '../../assets/globe.svg' 
-import {ReactComponent as Plus} from '../../assets/Plus.svg' 
+import { ReactComponent as Like } from '../../assets/Like.svg'
+import { ReactComponent as Comment } from '../../assets/Comment.svg'
+import { ReactComponent as Repost } from '../../assets/Repost.svg'
+import { ReactComponent as Share } from '../../assets/Share.svg'
+import { ReactComponent as Globe } from '../../assets/globe.svg'
+import { ReactComponent as Plus } from '../../assets/Plus.svg'
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CommentIcon from "@mui/icons-material/Comment";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -35,7 +35,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../redux/slice/comment/commentAction";
 import { createComment } from "./../../redux/slice/comment/commentAction";
 import { Reactions } from "../Reactions/Reactions";
-import { deleteReaction, fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
+import { addPostReaction, deleteReaction, fetchPostReactions } from "../../redux/slice/reactions/reactionAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -45,23 +45,24 @@ const ExpandMore = styled((props) => {
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
+  backgroundColor: 'transparent'
 }));
 
 const cal_days = (date) => {
   const date1 = new Date(date);
-  const date2 =  Date.now();
+  const date2 = Date.now();
   const diffTime = Math.abs(date2 - date1);
-  const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-  if(diffTime<(1000 * 60 * 60 * 24)) return "Today";
-  else if(days<2) return "Yesterday";
-  else if(days<7) return `${days}d`;
-  else if(days<30) return `${Math.floor(days/7)}w`;
-  else if(days<365) return `${Math.floor(days/30)}m`;
-  else return `${Math.floor(days/365)}y`;
+  const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (diffTime < (1000 * 60 * 60 * 24)) return "Today";
+  else if (days < 2) return "Yesterday";
+  else if (days < 7) return `${days}d`;
+  else if (days < 30) return `${Math.floor(days / 7)}w`;
+  else if (days < 365) return `${Math.floor(days / 30)}m`;
+  else return `${Math.floor(days / 365)}y`;
 }
 
 
-const PostCard = ({post}) => {
+const PostCard = ({ post }) => {
   console.log(post)
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
@@ -84,17 +85,17 @@ const PostCard = ({post}) => {
 
 
   const handlereaction = (newReaction) => {
-    if (newReaction !== reaction[user._id]?.reaction || reaction[user._id] === undefined) {
+    if (newReaction !== reactions[post?.userId._id]?.reaction || reactions[post?.userId._id] === undefined) {
       dispatch(addPostReaction({ postId: post._id, newReaction }));
     }
     else dispatch(addPostReaction({ postId: post._id, newReaction: '' }));
   };
-  
+
   const reactions = useSelector((state) => state?.reactions?.content[post._id]);
-  
+  console.log(reactions)
   const currentReactionLength = reactions?.currReaction.length
   const currentReaction = reactions?.currReaction;
-  
+
 
   const [currentEmoji, setCurrentEmoji] = useState('')
 
@@ -125,7 +126,7 @@ const PostCard = ({post}) => {
   const error = useSelector((state) => state.comment.error);
 
 
-  
+
   if (error) {
     return error;
   }
@@ -140,8 +141,8 @@ const PostCard = ({post}) => {
     //           <MoreHorizIcon />
     //         </IconButton>
     //       }
-    //       title={user?.name ? user?.name : "LinkedIn User"}
-    //       subheader={user?.headline}
+    //       title={userId?.name ? userId?.name : "LinkedIn userId"}
+    //       subheader={userId?.headline}
     //     />
     //     <Divider />
     //     <CardContent>
@@ -191,7 +192,7 @@ const PostCard = ({post}) => {
     //            Like
     //           </Typography>
     //           </>
-              
+
     //         )}
 
     //         <Box sx={{ display: isHovering ? "block" : "none" }}>
@@ -209,7 +210,7 @@ const PostCard = ({post}) => {
     //           aria-expanded={expanded}
     //           aria-label="show more"
     //         >
-    //           <Comment />
+    // <Comment />
     //           <Typography sx={{ marginLeft: "5px", fontWeight: "500" }}>
     //             Comment
     //           </Typography>
@@ -272,7 +273,7 @@ const PostCard = ({post}) => {
     //               }}
     //               theme="light"
     //               placeholder="Add a comment..."
-                  
+
     //               value={inputs.body}
     //               onChange={(e) => {
     //                 setInputs({ ...inputs, body: e });
@@ -298,12 +299,12 @@ const PostCard = ({post}) => {
     //           >
     //             Post
     //           </Button>
-                
+
     //           : <>
     //             </>
-                
+
     //             }
-              
+
     //         </Stack>
     //       </CardContent>
 
@@ -367,44 +368,40 @@ const PostCard = ({post}) => {
     // </Box>
     <Card className={styles.main}>
       <CardHeader
-        className={styles.cardHeader}
-        action={
-          <Box className={styles.postHeaderWrap}>
-            <Box className={styles.subpostHeader}>
-              <Avatar
-                className={styles.postHeaderAvatar}
-                // onClick={navigateToProfile}
-                // src={post?.user_id?.image ?
-                //   `${process.env.REACT_APP_IMG_BASE_URL}/${post?.user_id?.image}` :
-                //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQbi0Cq6ANBTGJwu8uGYunx3XKWJJW38NECclo4Iidgg&s"
-                // }
-                // alt={post?.user_id?.first_name ||"avatar"}
-              />
-              <Box className={styles.postHeaderUser}>
-                <Typography 
-                // onClick={navigateToProfile}
-                >
-                  {post?.user?.name ? `${post?.user?.name}` : "LinkedIn User"}
-                </Typography>
-                <Typography>{post?.user?.headline}</Typography>
-                <Typography className={styles.timeText}>
-                  {cal_days(post.createdAt)} •&nbsp;<Globe />
-                </Typography>
-              </Box>
-              <Button className={styles.followBtn}>
-                <Plus color="#0a66c2"/> Follow
-              </Button>
-            </Box>
-          </Box>
+       className={styles.cardHeader}
+        avatar={
+          <Avatar 
+            className={styles.postHeaderAvatar} 
+             // onClick={navigateToProfile}
+            // src={post?.user_id?.image ?
+           //   `${process.env.REACT_APP_IMG_BASE_URL}/${post?.user_id?.image}` :
+           //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQbi0Cq6ANBTGJwu8uGYunx3XKWJJW38NECclo4Iidgg&s"
+           // }
+            />
         }
+        action={
+          <Button className={styles.followBtn}>
+            <Plus color="#0a66c2" /> Follow
+          </Button>
+        }
+        title={post?.userId?.name ? `${post?.userId?.name}` : "LinkedIn User"}
+        subheader={
+        <Box display={'flex'} alignItems={'center'} gap={1} >
+          {`${cal_days(post.createdAt)}`}
+          <Globe />
+        </Box>    
+        
+        }
+        
       />
+
       <CardContent className={styles.cardContent}>
         <Box className={styles.postBody}>
           <Typography className={styles.postTitle}>{post?.title}</Typography>
           <pre>{post?.body}</pre>
           {post?.images?.length && (
             <img
-              src={`${process.env.REACT_APP_SERVER_URL}/${post.images[0]}`}
+              src={`${process.env.REACT_APP_SERVER}/${post.images[0]}`}
               alt="postImg"
               className={styles.postImage}
             />
@@ -416,7 +413,7 @@ const PostCard = ({post}) => {
             <span className={styles.emojis}>😂</span>
             <span className={styles.emojis}>❤️</span>
             <span className={styles.count}>
-              {reactions ? Object.keys(reactions).length : 0}
+              {reactions ? reactions?.totalReactions : 0}
             </span>
           </Typography>
         </Box>
@@ -436,7 +433,7 @@ const PostCard = ({post}) => {
         <ReactionBarSelector
           className={styles.reactionSelector}
           onSelect={(reaction) => handlereaction(reaction)}
-          reactions={[{ label: "Like", node: <div>👍</div>, key: "Like" }, { label: "Celebrate", node: <div>👏</div>, key: "Celebrate" }, { label: "Support", node: <div>🫰</div>, key: "Support" }, { label: "Love", node: <div>❤️</div>, key: "Love" }, { label: "Insightful", node: <div>💡</div>, key: "Insightful" }, { label: "Funny", node: <div>😄</div>, key: "Funny" }]}
+          reactions={[{ label: "Like", node: <div><Like /></div>, key: "Like" }, { label: "Celebrate", node: <div>👏</div>, key: "Celebrate" }, { label: "Support", node: <div>🫰</div>, key: "Support" }, { label: "Love", node: <div>❤️</div>, key: "Love" }, { label: "Insightful", node: <div>💡</div>, key: "Insightful" }, { label: "Funny", node: <div>😄</div>, key: "Funny" }]}
         />
       </BasePopup>
 
@@ -448,19 +445,27 @@ const PostCard = ({post}) => {
         >
           <Button
             className={styles.postButton}
-            onClick={() => handlereaction(reaction[user._id]?.reaction||"Like")}
+            onClick={() => handlereaction(reactions[post?.userId._id]?.reaction || "Like")}
             onMouseOver={() => setReactionBar(true)}
             onMouseOut={() => setReactionBar(false)}
             ref={setAnchor}
-            style={{ color: reactions[user._id]?.reaction === "Like" ? "blue !important" : "black" }}
+          // style={{ color: reactions[post?.userId._id]?.reaction === "Like" ? "blue !important" : "black" }}
           >
-            {reactionLogo[reactions[user._id]?.reaction] ||<ThumbUpOutlinedIcon />}&nbsp; {reaction[user._id]?.reaction || "Like"}
+            {<Like />}&nbsp; {reactions?.currReaction[0] || "Like"}
           </Button>
           <Button
-            className={styles.postButton}
+            className={styles.commentButton}
             onClick={() => setShowComments(!showComments)}
           >
-            <Comment />&nbsp;Comment
+            <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+            className={styles.postButton}
+          >
+              <Comment />&nbsp;Comment
+            </ExpandMore>
           </Button>
           <Button
             className={styles.postButton}
@@ -474,8 +479,141 @@ const PostCard = ({post}) => {
           </Button>
         </ButtonGroup>
       </CardActions>
-      <Collapse in={showComments} timeout="auto" unmountOnExit>
-        <Comments postId={post._id} image={user.image}/>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent
+          sx={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-around",
+          }}
+        >
+          <Avatar aria-label="recipe"></Avatar>
+
+          <Stack sx={{ width: "100%" }}>
+            <Box
+              sx={{
+                border: "1px solid #d7d8d6",
+                borderRadius: "50px",
+                marginLeft: "3px",
+                width: "94%",
+                height: "45px",
+                display: "flex",
+                alignItems: "center",
+                "&:placeholder": {
+                  fontFamily:
+                    '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                  fontWeight: "500",
+                  color: "rgb(0,0,0,0.6)",
+                },
+              }}
+            >
+              <InputEmoji
+                sx={{
+                  border: "none",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  "&:placeholder": {
+                    fontFamily:
+                      '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                    fontWeight: "500",
+                    color: "rgb(0,0,0,0.6)",
+                  },
+                }}
+                theme="light"
+                placeholder="Add a comment..."
+
+                value={inputs.body}
+                onChange={(e) => {
+                  setInputs({ ...inputs, body: e });
+                }}
+              />
+            </Box>
+
+
+            {
+              inputs.body !== "" ?
+                <Button
+                  variant="contained"
+                  onClick={(e) => {
+                    handleComment(e);
+                  }}
+                  sx={{
+                    width: "30px",
+                    boxShadow: "none",
+                    marginTop: "5px",
+                    marginLeft: "20px",
+                    display: "block"
+                  }}
+                >
+                  Post
+                </Button>
+
+                : <>
+                </>
+
+            }
+
+          </Stack>
+        </CardContent>
+
+        <CardContent>
+          <Stack flexDirection={"row"} sx={{ width: "100%" }}>
+            <Box>
+              {loading && <>Loading...</>}
+              {comments?.map((items) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: "500px",
+                  }}
+                >
+                  <Avatar aria-label="recipe"></Avatar>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      backgroundColor: "#f3f2f3",
+                      padding: "8px",
+                      marginLeft: "10px",
+                      marginBottom: "15px",
+                      borderRadius: "0px 10px 10px 10px",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "18px",
+                      }}
+                    >
+                      {items?.userId?.name
+                        ? items?.userId?.name
+                        : "LinkedIn User"}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: "300",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {items?.userId?.headline
+                        ? items?.userId?.headline
+                        : "nothing much"}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        marginTop: "10px",
+                      }}
+                    >
+                      {items?.body}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </Stack>
+        </CardContent>
       </Collapse>
     </Card>
   );

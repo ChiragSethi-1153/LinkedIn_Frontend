@@ -6,7 +6,14 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { ReactComponent as NetworkIcon } from '../../assets/network-icons.svg'
+import { ReactComponent as Connections } from '../../assets/connections.svg'
+import { ReactComponent as Hashtag } from '../../assets/hashtag.svg'
+import { ReactComponent as Newsletter } from '../../assets/newsletter.svg'
+import { ReactComponent as Pages } from '../../assets/pages.svg'
+import { ReactComponent as Events } from '../../assets/events.svg'
+import { ReactComponent as Groups } from '../../assets/groups.svg'
+import { ReactComponent as Following } from '../../assets/following.svg'
+import { ReactComponent as Contacts } from '../../assets/contact.svg'
 
 const NetworkPageList = () => {
   return (
@@ -23,51 +30,51 @@ const NetworkPageList = () => {
         alignItems: 'flex-start', 
         padding: '0 !important',
         }}>
-        <ListItemButton sx={{}}>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Connections />
           </ListItemIcon>
           <ListItemText primary="Connections" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Contacts />
           </ListItemIcon>
           <ListItemText primary="Contacts" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Following />
           </ListItemIcon>
           <ListItemText primary="Following & Followers" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Groups />
           </ListItemIcon>
           <ListItemText primary="Groups" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Events />
           </ListItemIcon>
           <ListItemText primary="Events" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Pages />
           </ListItemIcon>
           <ListItemText primary="Pages" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Newsletter />
           </ListItemIcon>
           <ListItemText primary="Newsletter" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton sx={{width: '100%'}}>
           <ListItemIcon>
-            <NetworkIcon />
+            <Hashtag />
           </ListItemIcon>
           <ListItemText primary="HashTag" />
         </ListItemButton>

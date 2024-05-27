@@ -7,7 +7,10 @@ import {
   Button,
   Divider,
   InputBase,
+  Menu,
+  MenuItem,
   Stack,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "./Navbar.module.css";
@@ -25,6 +28,7 @@ import { ReactComponent as NotificationIcon } from "../../assets/notification-ic
 import { ReactComponent as NotificationIcon2 } from "../../assets/notification-icon2.svg";
 import { ReactComponent as BusinessIcon } from "../../assets/business-icon.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
 
@@ -32,6 +36,19 @@ export default function Navbar() {
 
   // const links = ["/", "/mynetwork", "/jobs", "/messages", "/notifications"];
   const navigate = useNavigate();
+  const user = useSelector((state) => state?.auth?.user)
+  const [profileBtn, setProfileBtn] = React.useState(null);
+  const open = Boolean(profileBtn);
+  const handleClick = (event) => {
+    setProfileBtn(event.currentTarget);
+  };
+  const handleClose = () => {
+    setProfileBtn(null);
+  };
+  const handleLogout = async () => {
+    await localStorage.removeItem('token')
+    navigate('/login')
+  }
 
   const handleChange = async (event, newValue) => {
     setValue(newValue);
@@ -40,7 +57,7 @@ export default function Navbar() {
   };
   const location = useLocation()
   var v;
-  if (location.pathname === '/') {
+  if (location.pathname === '/home') {
     v = 0
   }
   else if (location.pathname === '/mynetwork') {
@@ -87,7 +104,7 @@ export default function Navbar() {
           >
             <Tab
               icon={value === 0 ? <HomeIcon /> : <HomeIcon2 />}
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/home')}
               label="Home"
               className={styles.tabs}
               iconPosition={"top"}
@@ -125,7 +142,7 @@ export default function Navbar() {
             />
           </Tabs>
 
-          <Stack height={'100%'} justifyContent={'flex-end'} onClick={() => { navigate('/profile'); setValue(null) }} >
+          <Stack height={'100%'} justifyContent={'flex-end'} onClick={(e) => { handleClick(e); setValue(null) }} >
             <Avatar sx={{ width: "23px", height: "23px" }} />
             <Box display={"flex"} alignItems={'flex-end'} justifyContent={'center'} sx={{ cursor: 'pointer' }}  >
               <span className={styles.profileText}>Me
@@ -133,6 +150,36 @@ export default function Navbar() {
               <ArrowDropDownOutlinedIcon sx={{ width: "20px", height: "15px" }} />
             </Box>
           </Stack>
+          <Menu
+          id="basic-menu"
+          anchorEl={profileBtn}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          className={styles.profileMenu}
+
+        >
+          <MenuItem onClick={handleClose} className={styles.menuProfile}>
+            <Box className={styles.profileWrap}>
+              <Avatar className={styles.menuAvatar}
+                src={
+                  user?.image
+                    ? `${process.env.REACT_APP_IMG_BASE_URL}/${user.image}`
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQbi0Cq6ANBTGJwu8uGYunx3XKWJJW38NECclo4Iidgg&s"
+                }                ></Avatar>
+              <Box className={styles.profileTextWrap}>
+                <Typography className={styles.ProfileName}>{user?.name ? `${user?.first_name || ""} ${user.name || ""}` : "Linkedin User"}</Typography>
+                <Typography className={styles.ProfileHead}>{user?.headline || ""}</Typography>
+              </Box>
+            </Box>
+            <Box className={styles.profileMenuBtnWrap}>
+              <Button className={styles.profileMenuBtn} onClick={() => { navigate('/profile') }} >View Profile</Button>
+            </Box>
+          </MenuItem>
+          <MenuItem onClick={handleLogout} sx={{ margin: "4px 0px", padding: "4px 12px", color: "#00000099", fontSize: "14px" }}>Logout</MenuItem>
+        </Menu>
 
           <Divider orientation="vertical" sx={{ height: '52px' }} />
 

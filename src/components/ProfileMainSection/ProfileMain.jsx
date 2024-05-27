@@ -50,7 +50,7 @@ const ProfileMain = () => {
                     <Divider sx={{width: '1px', marginLeft: '6px', marginRight: '6px'}} />
                     <Button className='contact-info-btn'>Contact info</Button>
                     </Box>
-                    <Button className='connections-btn'>{user?.totalConnections} connections</Button>
+                    <Button className='connections-btn'>{user?.totalConnections ? user?.totalConnections : 0 } connections</Button>
                     <Stack 
                       gap={1} 
                       flexDirection={'row'}
